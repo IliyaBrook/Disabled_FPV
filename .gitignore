@@ -1,0 +1,43 @@
+## Disabled FPV GLOBAL
+cheatsheet
+assets
+.env*
+.idea
+
+## Disabled FPV Server
+server/.env
+server/.air.toml
+
+
+## Disabled FPV Client
+# dependencies
+client/node_modules
+client/.yarn/*
+client/!.yarn/patches
+client/!.yarn/plugins
+client/!.yarn/releases
+client/!.yarn/versions
+
+# testing
+client/coverage
+
+# next.js
+client/.next/
+client/out/
+
+# production
+client/build
+# debug
+
+client/yarn-debug.log*
+client/yarn-error.log*
+
+# env files (can opt-in for commiting if needed)
+client/.env*
+
+# vercel
+client/.vercel
+
+# typescript
+client/*.tsbuildinfo
+client/next-env.d.ts

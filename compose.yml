@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  mongo:
+    image: mongo
+    restart: always
+    container_name: disabled-fpv-database
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_INITDB_DATABASE: ${DB_NAME}
+    networks:
+      - disabled-fpv-network
+    volumes:
+      - disabled-fpv-data:/data/db
+
+networks:
+  disabled-fpv-network:
+    name: disabled-fpv-network
+    driver: bridge
+
+volumes:
+  disabled-fpv-data:
+    driver: local
