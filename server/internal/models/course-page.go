@@ -13,3 +13,12 @@ type CoursePage struct {
 	Videos     []Video            `bson:"videos" json:"videos"`
 	CreatedAt  primitive.DateTime `bson:"created_at" json:"created_at"`
 }
+
+type Video struct {
+	VideoID      string             `bson:"video_id" json:"video_id"`
+	Title        string             `bson:"title" json:"title"`
+	Description  bson.Raw           `bson:"description" json:"description"`
+	PublishedAt  primitive.DateTime `bson:"published_at" json:"published_at"`
+	Duration     int                `bson:"duration" json:"duration"`
+	ThumbnailUrl string             `bson:"thumbnail_url" json:"thumbnail_url"`
+}
