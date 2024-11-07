@@ -25,7 +25,13 @@ func (h *OrderHandler) CreateOrder(c *gin.Context) {
 		return
 	}
 
-	order.UserID, _ = primitive.ObjectIDFromHex(c.GetString("user_id"))
+	userData := utils.GetUserContext(c)
+	if userData == nil {
+		return
+	}
+
+	order.UserID, _ = primitive.ObjectIDFromHex(userData.ID)
+
 	service := services.NewOrderService(h.mongoClient)
 	createdOrder, err := service.CreateOrder(c.Request.Context(), &order)
 	if err != nil {
@@ -38,7 +44,6 @@ func (h *OrderHandler) CreateOrder(c *gin.Context) {
 func (h *OrderHandler) GetUserOrders(c *gin.Context) {
 	orderID := c.Query("order_id")
 	userData := utils.GetUserContext(c)
-
 	if userData == nil {
 		return
 	}

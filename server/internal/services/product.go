@@ -2,6 +2,7 @@ package services
 
 import (
 	"context"
+	"disabled-fpv-server/internal/config"
 	"disabled-fpv-server/internal/models"
 	"disabled-fpv-server/internal/utils"
 	"errors"
@@ -18,7 +19,7 @@ type ProductService struct {
 
 func NewProductService(client *mongo.Client) *ProductService {
 	return &ProductService{
-		repo: client.Database("db_name").Collection("products"),
+		repo: client.Database(config.Env.DbName).Collection("products"),
 	}
 }
 

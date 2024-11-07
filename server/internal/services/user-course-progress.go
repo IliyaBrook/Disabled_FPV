@@ -2,6 +2,7 @@ package services
 
 import (
 	"context"
+	"disabled-fpv-server/internal/config"
 	"disabled-fpv-server/internal/models"
 	"disabled-fpv-server/internal/utils"
 	"errors"
@@ -17,7 +18,7 @@ type UserCourseProgressService struct {
 
 func NewUserCourseProgressService(client *mongo.Client) *UserCourseProgressService {
 	return &UserCourseProgressService{
-		repo: client.Database("db_name").Collection("user_course_progress"),
+		repo: client.Database(config.Env.DbName).Collection("user_course_progress"),
 	}
 }
 

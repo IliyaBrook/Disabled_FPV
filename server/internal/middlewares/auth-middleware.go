@@ -17,7 +17,6 @@ func AuthMiddleware(jwtServ utils.JWTService, client *mongo.Client, adminOnly bo
 			c.Abort()
 			return
 		}
-
 		validateRes := jwtServ.ValidateToken(c, token, repo)
 		if validateRes.Error != "" {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": validateRes.Error})
