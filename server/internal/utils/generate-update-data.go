@@ -16,5 +16,6 @@ func GenerateUpdateData(data interface{}) bson.M {
 			updateData[fieldName] = field.Interface()
 		}
 	}
+
 	return updateData
 }

@@ -96,7 +96,7 @@ func (h *UserHandler) Logout(c *gin.Context) {
 }
 
 func (h *UserHandler) GetUserByID(c *gin.Context) {
-	userID := c.Query("id")
+	userID := c.Query("user_id")
 
 	if userID == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "User ID is missing"})
@@ -123,7 +123,7 @@ func (h *UserHandler) GetUserByID(c *gin.Context) {
 }
 
 func (h *UserHandler) DeleteUser(c *gin.Context) {
-	userID := c.Query("userId")
+	userID := c.Query("user_id")
 	if userID == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "User ID is missing"})
 	}
@@ -140,7 +140,7 @@ func (h *UserHandler) DeleteUser(c *gin.Context) {
 }
 
 func (h *UserHandler) UpdateUser(c *gin.Context) {
-	userID := c.Query("userId")
+	userID := c.Query("user_id")
 	if userID == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "User ID is missing"})
 		return

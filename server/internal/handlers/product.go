@@ -35,7 +35,7 @@ func (h *ProductHandler) CreateProduct(c *gin.Context) {
 }
 
 func (h *ProductHandler) UpdateProduct(c *gin.Context) {
-	productID, _ := primitive.ObjectIDFromHex(c.Query("productId"))
+	productID, _ := primitive.ObjectIDFromHex(c.Query("product_id"))
 	var product models.Product
 	if err := c.ShouldBindJSON(&product); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid product data"})
@@ -52,7 +52,7 @@ func (h *ProductHandler) UpdateProduct(c *gin.Context) {
 }
 
 func (h *ProductHandler) DeleteProduct(c *gin.Context) {
-	productID, _ := primitive.ObjectIDFromHex(c.Query("productId"))
+	productID, _ := primitive.ObjectIDFromHex(c.Query("product_id"))
 
 	service := services.NewProductService(h.mongoClient)
 	err := service.DeleteProduct(c.Request.Context(), productID)

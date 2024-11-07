@@ -12,6 +12,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"golang.org/x/crypto/bcrypt"
+	"strings"
 	"time"
 )
 
@@ -29,7 +30,8 @@ func (s *UserService) Register(ctx context.Context, user *models.User) *dto.Auth
 	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
 	defer cancel()
 
-	filter := bson.M{"email": user.Email}
+	email := strings.ToLower(user.Email)
+	filter := bson.M{"email": strings.ToLower(email)}
 	count, err := s.repo.CountDocuments(ctx, filter)
 	if err != nil {
 		return dto.NewAuthResponse(dto.AuthResponse{
@@ -60,7 +62,7 @@ func (s *UserService) Register(ctx context.Context, user *models.User) *dto.Auth
 	}
 	jwtServ := utils.NewJWT()
 	userID := res.InsertedID.(primitive.ObjectID).Hex()
-	token, err := jwtServ.GenerateToken(userID, user.Email)
+	token, err := jwtServ.GenerateToken(userID, email)
 	if err != nil {
 		return dto.NewAuthResponse(dto.AuthResponse{
 			Error: err.Error(),
@@ -68,7 +70,7 @@ func (s *UserService) Register(ctx context.Context, user *models.User) *dto.Auth
 	}
 	authResp := dto.NewAuthResponse(dto.AuthResponse{
 		ID:    userID,
-		Email: user.Email,
+		Email: email,
 		Token: token,
 		Role:  "user",
 	})
@@ -80,7 +82,8 @@ func (s *UserService) LoginUser(ctx context.Context, creds *models.Credentials) 
 	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
 	defer cancel()
 
-	filter := bson.M{"email": creds.Email}
+	email := utils.LowercaseTrim(creds.Email)
+	filter := bson.M{"email": email}
 	var user models.User
 	err := s.repo.FindOne(ctx, filter).Decode(&user)
 	if errors.Is(err, mongo.ErrNoDocuments) {
@@ -100,11 +103,11 @@ func (s *UserService) LoginUser(ctx context.Context, creds *models.Credentials) 
 	}
 	jwt := utils.NewJWT()
 	stringId := user.ID.Hex()
-	token, err := jwt.GenerateToken(stringId, user.Email)
+	token, err := jwt.GenerateToken(stringId, email)
 	authResp := dto.NewAuthResponse(dto.AuthResponse{
 		ID:    stringId,
 		Role:  user.Role,
-		Email: user.Email,
+		Email: email,
 		Token: token,
 	})
 	return authResp
@@ -206,7 +209,9 @@ func (s *UserService) UpdateUser(ctx context.Context, userId string, updatedUser
 	}
 	filter := bson.M{"_id": objectId}
 	updateOptions := options.FindOneAndUpdate().SetReturnDocument(options.After)
+	updatedUser.Email = utils.LowercaseTrim(updatedUser.Email)
 	existFieldsData := utils.GenerateUpdateData(updatedUser)
+
 	result := s.repo.FindOneAndUpdate(ctx, filter, bson.M{"$set": existFieldsData}, updateOptions)
 
 	if err := result.Decode(&userResult); err != nil {

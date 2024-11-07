@@ -38,3 +38,12 @@ func (s *OrderService) GetUserOrders(ctx context.Context, userID primitive.Objec
 	}
 	return orders, nil
 }
+
+func (s *OrderService) GetUserOrdersById(ctx context.Context, userID primitive.ObjectID, orderID primitive.ObjectID) ([]models.Order, error) {
+	filter := bson.M{"user_id": userID, "_id": orderID}
+	var order models.Order
+	if err := s.repo.FindOne(ctx, filter).Decode(&order); err != nil {
+		return nil, err
+	}
+	return []models.Order{order}, nil
+}

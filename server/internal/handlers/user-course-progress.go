@@ -3,6 +3,7 @@ package handlers
 import (
 	"disabled-fpv-server/internal/models"
 	"disabled-fpv-server/internal/services"
+	"disabled-fpv-server/internal/utils"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -23,8 +24,8 @@ func (h *UserCourseProgressHandler) UpdateCourseProgress(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid progress data"})
 		return
 	}
-
-	progress.UserID, _ = primitive.ObjectIDFromHex(c.GetString("user_id"))
+	userData := utils.GetUserContext(c)
+	progress.UserID, _ = primitive.ObjectIDFromHex(userData.ID)
 
 	service := services.NewUserCourseProgressService(h.mongoClient)
 	updatedProgress, err := service.UpdateCourseProgress(c.Request.Context(), &progress)
@@ -37,8 +38,10 @@ func (h *UserCourseProgressHandler) UpdateCourseProgress(c *gin.Context) {
 }
 
 func (h *UserCourseProgressHandler) GetUserCourseProgress(c *gin.Context) {
-	userID, _ := primitive.ObjectIDFromHex(c.GetString("userId"))
-	courseID, _ := primitive.ObjectIDFromHex(c.Query("courseId"))
+	userData := utils.GetUserContext(c)
+
+	userID, _ := primitive.ObjectIDFromHex(userData.ID)
+	courseID, _ := primitive.ObjectIDFromHex(c.Query("course_id"))
 
 	service := services.NewUserCourseProgressService(h.mongoClient)
 	progress, err := service.GetCourseProgress(c.Request.Context(), userID, courseID)

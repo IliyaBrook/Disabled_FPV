@@ -3,6 +3,7 @@ package handlers
 import (
 	"disabled-fpv-server/internal/models"
 	"disabled-fpv-server/internal/services"
+	"disabled-fpv-server/internal/utils"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -35,10 +36,25 @@ func (h *OrderHandler) CreateOrder(c *gin.Context) {
 }
 
 func (h *OrderHandler) GetUserOrders(c *gin.Context) {
-	userID, _ := primitive.ObjectIDFromHex(c.GetString("user_id"))
+	orderID := c.Query("order_id")
+	userData := utils.GetUserContext(c)
 
+	if userData == nil {
+		return
+	}
+
+	userID, _ := primitive.ObjectIDFromHex(userData.ID)
 	service := services.NewOrderService(h.mongoClient)
-	orders, err := service.GetUserOrders(c.Request.Context(), userID)
+
+	var orders []models.Order
+	var err error
+	if orderID == "" {
+		orders, err = service.GetUserOrders(c.Request.Context(), userID)
+	} else {
+		orderObjID, _ := primitive.ObjectIDFromHex(orderID)
+		orders, err = service.GetUserOrdersById(c.Request.Context(), userID, orderObjID)
+	}
+
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
