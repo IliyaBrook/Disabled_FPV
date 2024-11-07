@@ -4,14 +4,10 @@ type AuthResponse struct {
 	ID    string `json:"id"`
 	Email string `json:"email"`
 	Token string `json:"token"`
+	Role  string `json:"role,omitempty"`
 	Error string `json:"error,omitempty"`
 }
 
-func NewAuthResponse(id, email, token, error string) *AuthResponse {
-	return &AuthResponse{
-		ID:    id,
-		Email: email,
-		Token: token,
-		Error: error,
-	}
+func NewAuthResponse(resp AuthResponse) *AuthResponse {
+	return &resp
 }

@@ -14,9 +14,8 @@ func MongodbConnect() (*mongo.Client, error) {
 	clientOptions := options.Client().
 		ApplyURI(Env.MongoURI).
 		SetAuth(options.Credential{
-			AuthMechanism: "SCRAM-SHA-256",
-			Username:      Env.MongoUsername,
-			Password:      Env.MongoPassword,
+			Username: Env.MongoUsername,
+			Password: Env.MongoPassword,
 		})
 	client, err := mongo.Connect(ctx, clientOptions)
 	if err != nil {
