@@ -9,27 +9,46 @@ import (
 )
 
 func NewRouter(mongoClient *mongo.Client) *gin.Engine {
-	handler := handlers.NewUserHandler(mongoClient)
+	// handlers
+	orderHandler := handlers.NewOrderHandler(mongoClient)
+	productHandler := handlers.NewProductHandler(mongoClient)
+	userHandler := handlers.NewUserHandler(mongoClient)
+	courseProgressHandler := handlers.NewUserCourseProgressHandler(mongoClient)
 
 	r := gin.Default()
+	// route groups
 	api := r.Group("/api")
+	orders := api.Group("/orders")
+	courseProgress := api.Group("/courseProgress")
+	admin := r.Group("/admin")
 
-	// Public routes
-	api.POST("/register", handler.Register)
-	api.POST("/login", handler.Login)
-	api.POST("/authUser", handler.AuthUser)
-	api.POST("/logout", handler.Logout)
+	// PUBLIC
+	api.POST("/register", userHandler.Register)
+	api.POST("/login", userHandler.Login)
+	api.POST("/authUser", userHandler.AuthUser)
+	api.POST("/logout", userHandler.Logout)
 
-	// Protected routes
+	// AUTHORIZED USERS ONLY
 	authMiddleware := middleware.AuthMiddleware(utils.NewJWT(), mongoClient, false)
 	api.Use(authMiddleware)
-	api.GET("/getUserById", handler.GetUserByID)
-	// Protected routes admin only
-	adminGroup := r.Group("/admin")
+	// orders
+	orders.POST("/", orderHandler.CreateOrder)
+	orders.GET("/", orderHandler.GetUserOrders)
+	// user course progress
+	courseProgress.GET("/", courseProgressHandler.GetUserCourseProgress)
+	courseProgress.PATCH("/", courseProgressHandler.UpdateCourseProgress)
+
+	// ADMIN ONLY
 	adminMiddleware := middleware.AuthMiddleware(utils.NewJWT(), mongoClient, true)
-	adminGroup.Use(adminMiddleware)
-	adminGroup.POST("/deleteUser", handler.DeleteUser)
-	adminGroup.POST("/updateUser", handler.UpdateUser)
+	admin.Use(adminMiddleware)
+	// users
+	api.GET("/getUserById", userHandler.GetUserByID)
+	admin.DELETE("/deleteUser", userHandler.DeleteUser)
+	admin.PATCH("/updateUser", userHandler.UpdateUser)
+	// products
+	admin.POST("/createProduct", productHandler.CreateProduct)
+	admin.PATCH("/updateProduct", productHandler.UpdateProduct)
+	admin.POST("/deleteProduct", productHandler.DeleteProduct)
 
 	return r
 }
