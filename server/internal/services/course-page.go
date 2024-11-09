@@ -32,9 +32,9 @@ func (s *CoursePageService) AddCoursePage(ctx context.Context, page *models.Cour
 	return page, err
 }
 
-func (s *CoursePageService) GetCoursePage(ctx context.Context, pageID primitive.ObjectID) (*models.CoursePage, error) {
+func (s *CoursePageService) GetCoursePage(ctx context.Context, courseId primitive.ObjectID, pageNumberID primitive.ObjectID) (*models.CoursePage, error) {
 	var page models.CoursePage
-	err := s.repo.FindOne(ctx, bson.M{"_id": pageID}).Decode(&page)
+	err := s.repo.FindOne(ctx, bson.M{"course_id": courseId, "page_number": pageNumberID}).Decode(&page)
 	if err != nil {
 		return nil, err
 	}
@@ -74,4 +74,9 @@ func (s *CoursePageService) GetPagesByCourseAndNumber(ctx context.Context, cours
 		return nil, err
 	}
 	return pages, nil
+}
+
+func (s *CoursePageService) GetCoursePagesCount(ctx context.Context, courseID primitive.ObjectID) (int64, error) {
+	count, err := s.repo.CountDocuments(ctx, bson.M{"course_id": courseID})
+	return count, err
 }

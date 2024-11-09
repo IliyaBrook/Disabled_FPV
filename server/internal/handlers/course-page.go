@@ -47,11 +47,13 @@ func (h *CoursePageHandler) GetCoursePages(c *gin.Context) {
 }
 
 func (h *CoursePageHandler) GetCoursePage(c *gin.Context) {
-	pageID := c.Param("id")
-	pageObjID, _ := primitive.ObjectIDFromHex(pageID)
+	courseId := c.Query("course_id")
+	pageNumber := c.Query("page_number")
+	courseObjID, _ := primitive.ObjectIDFromHex(courseId)
+	pageNumberObjID, _ := primitive.ObjectIDFromHex(pageNumber)
 
 	service := services.NewCoursePageService(h.mongoClient)
-	page, err := service.GetCoursePage(c.Request.Context(), pageObjID)
+	page, err := service.GetCoursePage(c.Request.Context(), courseObjID, pageNumberObjID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -89,4 +91,37 @@ func (h *CoursePageHandler) DeleteCoursePage(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Course page deleted successfully"})
+}
+
+func (h *CoursePageHandler) AddCoursePage(c *gin.Context) {
+	var newPage models.CoursePage
+	if err := c.ShouldBindJSON(&newPage); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid page data"})
+		return
+	}
+
+	service := services.NewCoursePageService(h.mongoClient)
+	page, err := service.AddCoursePage(c.Request.Context(), &newPage)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusCreated, page)
+}
+
+func (h *CoursePageHandler) GetCoursePagesCount(c *gin.Context) {
+	courseID := c.Query("course_id")
+	courseObjID, err := primitive.ObjectIDFromHex(courseID)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid course ID"})
+		return
+	}
+
+	service := services.NewCoursePageService(h.mongoClient)
+	count, err := service.GetCoursePagesCount(c.Request.Context(), courseObjID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"count": count})
 }
