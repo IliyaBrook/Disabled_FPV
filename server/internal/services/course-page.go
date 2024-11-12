@@ -23,6 +23,8 @@ func NewCoursePageService(client *mongo.Client) *CoursePageService {
 	}
 }
 
+// Add services
+
 func (s *CoursePageService) AddCoursePage(ctx context.Context, page *models.CoursePage) (*models.CoursePage, error) {
 	page.ID = primitive.NewObjectID()
 	page.CreatedAt = primitive.NewDateTimeFromTime(time.Now())
@@ -34,6 +36,8 @@ func (s *CoursePageService) AddCoursePage(ctx context.Context, page *models.Cour
 	return page, err
 }
 
+// Get services
+
 func (s *CoursePageService) GetCoursePage(ctx context.Context, courseId primitive.ObjectID, pageNumberID primitive.ObjectID) (*models.CoursePage, error) {
 	var page models.CoursePage
 	err := s.repo.FindOne(ctx, bson.M{"course_id": courseId, "page_number": pageNumberID}).Decode(&page)
@@ -42,6 +46,8 @@ func (s *CoursePageService) GetCoursePage(ctx context.Context, courseId primitiv
 	}
 	return &page, nil
 }
+
+// update services
 
 func (s *CoursePageService) UpdateAllFieldsExceptVideos(ctx context.Context, courseID primitive.ObjectID, pageNumber int, updatedPage *models.CoursePage) (*models.CoursePage, error) {
 	filter := bson.M{"course_id": courseID, "page_number": pageNumber}
@@ -124,6 +130,8 @@ func (s *CoursePageService) UpdateSingleVideoInCoursePage(ctx context.Context, c
 
 	return &currentCoursePage, nil
 }
+
+// Delete services
 
 func (s *CoursePageService) DeleteCoursePage(ctx context.Context, courseID primitive.ObjectID, pageNumber int) error {
 	_, err := s.repo.DeleteOne(ctx, bson.M{"course_id": courseID, "page_number": pageNumber})

@@ -20,6 +20,8 @@ func NewOrderService(client *mongo.Client) *OrderService {
 	}
 }
 
+// Create services
+
 func (s *OrderService) CreateOrder(ctx context.Context, order *models.Order) (*models.Order, error) {
 	order.ID = primitive.NewObjectID()
 	order.OrderDate = primitive.NewDateTimeFromTime(time.Now())
@@ -30,6 +32,8 @@ func (s *OrderService) CreateOrder(ctx context.Context, order *models.Order) (*m
 	}
 	return order, err
 }
+
+// Get services
 
 func (s *OrderService) GetUserOrders(ctx context.Context, userID primitive.ObjectID) ([]models.Order, error) {
 	filter := bson.M{"user_id": userID}

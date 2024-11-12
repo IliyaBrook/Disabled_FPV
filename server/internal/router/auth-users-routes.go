@@ -23,6 +23,7 @@ func authUsersRoutes(router *gin.Engine, mongoClient *mongo.Client) {
 	courseProgress := api.Group("/courseProgress")
 	courses := api.Group("/courses")
 	coursePages := api.Group("/coursePages")
+	cart := api.Group("/cart")
 	// apply middlewares
 	authMiddleware := middleware.AuthMiddleware(utils.NewJWT(), mongoClient, false)
 	api.Use(authMiddleware)
@@ -46,4 +47,9 @@ func authUsersRoutes(router *gin.Engine, mongoClient *mongo.Client) {
 	courses.GET("/byId", coursesHandler.GetCourseById)
 	// course pages
 	coursePages.GET("/", coursePagesHandler.GetCoursePage)
+	// cart
+	cart.POST("/add", cartHandler.AddToCart)
+	cart.GET("/", cartHandler.GetUserCart)
+	cart.DELETE("/remove", cartHandler.RemoveFromCart)
+	cart.POST("/checkout", cartHandler.Checkout)
 }
