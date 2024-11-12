@@ -35,7 +35,7 @@ func (h *CourseHandler) CreateCourse(c *gin.Context) {
 }
 
 func (h *CourseHandler) UpdateCourse(c *gin.Context) {
-	courseID := c.Param("id")
+	courseID := c.Param("course_id")
 	courseObjID, _ := primitive.ObjectIDFromHex(courseID)
 
 	var updatedCourse models.Course
@@ -54,7 +54,7 @@ func (h *CourseHandler) UpdateCourse(c *gin.Context) {
 }
 
 func (h *CourseHandler) DeleteCourse(c *gin.Context) {
-	courseID := c.Param("id")
+	courseID := c.Param("course_id")
 	courseObjID, _ := primitive.ObjectIDFromHex(courseID)
 
 	service := services.NewCourseService(h.mongoClient)
@@ -81,11 +81,12 @@ func (h *CourseHandler) GetAllCourses(c *gin.Context) {
 }
 
 func (h *CourseHandler) GetCourseById(c *gin.Context) {
-	courseID := c.Param("id")
+	courseID := c.Query("id")
+	pageNumber, _ := strconv.Atoi(c.Query("page_number"))
 	courseObjID, _ := primitive.ObjectIDFromHex(courseID)
 
 	service := services.NewCourseService(h.mongoClient)
-	course, err := service.GetCourseById(c.Request.Context(), courseObjID)
+	course, err := service.GetCourseById(c.Request.Context(), courseObjID, pageNumber)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

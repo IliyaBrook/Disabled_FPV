@@ -52,7 +52,7 @@ func (h *ProductHandler) UpdateProduct(c *gin.Context) {
 }
 
 func (h *ProductHandler) DeleteProduct(c *gin.Context) {
-	productID, _ := primitive.ObjectIDFromHex(c.Query("product_id"))
+	productID, _ := primitive.ObjectIDFromHex(c.Param("product_id"))
 
 	service := services.NewProductService(h.mongoClient)
 	err := service.DeleteProduct(c.Request.Context(), productID)

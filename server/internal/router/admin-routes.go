@@ -21,19 +21,19 @@ func adminRoutes(router *gin.Engine, mongoClient *mongo.Client) {
 	admin.Use(adminMiddleware)
 	// Routes
 	// users
-	admin.GET("/getUserById", userHandler.GetUserByID)
-	admin.DELETE("/deleteUser", userHandler.DeleteUser)
-	admin.PATCH("/updateUser", userHandler.UpdateUser)
+	admin.GET("/getUserById/:user_id", userHandler.GetUserByID)
+	admin.DELETE("/deleteUser/:user_id", userHandler.DeleteUser)
+	admin.PATCH("/updateUser/:user_id", userHandler.UpdateUser)
 	// products
 	admin.POST("/createProduct", productHandler.CreateProduct)
 	admin.PATCH("/updateProduct", productHandler.UpdateProduct)
-	admin.POST("/deleteProduct", productHandler.DeleteProduct)
+	admin.DELETE("/deleteProduct", productHandler.DeleteProduct)
 	// courses
 	admin.POST("/createCourse", course.CreateCourse)
-	admin.POST("/updateCourse", course.UpdateCourse)
-	admin.POST("/deleteCourse", course.DeleteCourse)
+	admin.PATCH("/updateCourse/:course_id", course.UpdateCourse)
+	admin.DELETE("/deleteCourse/:course_id", course.DeleteCourse)
 	// coursePages
 	admin.POST("/addCoursePage", coursePagesHandler.AddCoursePage)
-	admin.PATCH("/updateCoursePage/:id", coursePagesHandler.UpdateCoursePage)
-	admin.DELETE("/deleteCoursePage/:id", coursePagesHandler.DeleteCoursePage)
+	admin.PATCH("/updateCoursePage/:course_id/:page_number", coursePagesHandler.UpdateCoursePage)
+	admin.DELETE("/deleteCoursePage/:course_id/:page_number", coursePagesHandler.DeleteCoursePage)
 }

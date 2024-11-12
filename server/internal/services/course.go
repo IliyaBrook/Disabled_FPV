@@ -72,14 +72,49 @@ func (s *CourseService) GetAllCourses(ctx context.Context, name string, page, li
 	return courses, nil
 }
 
-func (s *CourseService) GetCourseById(ctx context.Context, courseID primitive.ObjectID) (*models.Course, error) {
-	filter := bson.M{"_id": courseID}
-	var course models.Course
-	if err := s.repo.FindOne(ctx, filter).Decode(&course); err != nil {
-		if errors.Is(err, mongo.ErrNoDocuments) {
-			return nil, nil
+func (s *CourseService) GetCourseById(ctx context.Context, courseID primitive.ObjectID, pageNumber int) (*models.Course, error) {
+
+	matchExpr := bson.M{
+		"$eq": []interface{}{"$course_id", "$$course_id"},
+	}
+
+	if pageNumber != -1 {
+		matchExpr = bson.M{
+			"$and": []interface{}{
+				bson.M{"$eq": []interface{}{"$course_id", "$$course_id"}},
+				bson.M{"$eq": []interface{}{"$page_number", pageNumber}},
+			},
 		}
+	}
+
+	pipeline := mongo.Pipeline{
+		{{"$match", bson.M{"_id": courseID}}},
+		{{"$lookup", bson.M{
+			"from": "course_pages",
+			"let":  bson.M{"course_id": "$_id"},
+			"pipeline": mongo.Pipeline{
+				{{"$match", bson.M{"$expr": matchExpr}}},
+				{{"$sort", bson.M{"page_number": 1}}},
+			},
+			"as": "pages",
+		}}},
+	}
+
+	var result models.Course
+	cursor, err := s.repo.Aggregate(ctx, pipeline)
+	if err != nil {
 		return nil, err
 	}
-	return &course, nil
+	if !cursor.Next(ctx) {
+		if errors.Is(cursor.Err(), mongo.ErrNoDocuments) {
+			return nil, nil
+		}
+		return nil, cursor.Err()
+	}
+	err = cursor.Decode(&result)
+	if err != nil {
+		return nil, err
+	}
+
+	return &result, nil
 }

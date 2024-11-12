@@ -40,6 +40,7 @@ func authUsersRoutes(router *gin.Engine, mongoClient *mongo.Client) {
 	// user-course-progress
 	courseProgress.GET("/", courseProgressHandler.GetUserCourseProgress)
 	courseProgress.PATCH("/", courseProgressHandler.UpdateCourseProgress)
+	courseProgress.POST("/", courseProgressHandler.CreateUserCourseProgress)
 	// courses
 	courses.GET("/", coursesHandler.GetAllCourses)
 	courses.GET("/byId", coursesHandler.GetCourseById)

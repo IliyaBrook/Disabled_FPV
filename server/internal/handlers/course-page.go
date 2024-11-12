@@ -31,10 +31,6 @@ func (h *CoursePageHandler) GetCoursePages(c *gin.Context) {
 	var pageNumber int
 	if pageNumberStr != "" {
 		pageNumber, err = strconv.Atoi(pageNumberStr)
-		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid page number"})
-			return
-		}
 	}
 
 	service := services.NewCoursePageService(h.mongoClient)
@@ -62,8 +58,20 @@ func (h *CoursePageHandler) GetCoursePage(c *gin.Context) {
 }
 
 func (h *CoursePageHandler) UpdateCoursePage(c *gin.Context) {
-	pageID := c.Param("id")
-	pageObjID, _ := primitive.ObjectIDFromHex(pageID)
+	courseID := c.Param("course_id")
+	pageNumber, err := strconv.Atoi(c.Param("page_number"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid page number"})
+		return
+	}
+
+	courseObjID, err := primitive.ObjectIDFromHex(courseID)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid course ID"})
+		return
+	}
+
+	videoID := c.Query("video_id")
 
 	var updatedPage models.CoursePage
 	if err := c.ShouldBindJSON(&updatedPage); err != nil {
@@ -72,7 +80,16 @@ func (h *CoursePageHandler) UpdateCoursePage(c *gin.Context) {
 	}
 
 	service := services.NewCoursePageService(h.mongoClient)
-	page, err := service.UpdateCoursePage(c.Request.Context(), pageObjID, &updatedPage)
+
+	var page *models.CoursePage
+	if videoID != "" && len(updatedPage.Videos) == 1 {
+		page, err = service.UpdateSingleVideoInCoursePage(c.Request.Context(), courseObjID, pageNumber, videoID, &updatedPage)
+	} else if len(updatedPage.Videos) > 0 {
+		page, err = service.UpdateAllVideosInCoursePage(c.Request.Context(), courseObjID, pageNumber, &updatedPage)
+	} else {
+		page, err = service.UpdateAllFieldsExceptVideos(c.Request.Context(), courseObjID, pageNumber, &updatedPage)
+	}
+
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -81,11 +98,22 @@ func (h *CoursePageHandler) UpdateCoursePage(c *gin.Context) {
 }
 
 func (h *CoursePageHandler) DeleteCoursePage(c *gin.Context) {
-	pageID := c.Param("id")
-	pageObjID, _ := primitive.ObjectIDFromHex(pageID)
+	courseID := c.Param("course_id")
+	courseObjID, err := primitive.ObjectIDFromHex(courseID)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid course ID"})
+		return
+	}
+
+	pageNumberStr := c.Param("page_number")
+	pageNumber, err := strconv.Atoi(pageNumberStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid page number"})
+		return
+	}
 
 	service := services.NewCoursePageService(h.mongoClient)
-	err := service.DeleteCoursePage(c.Request.Context(), pageObjID)
+	err = service.DeleteCoursePage(c.Request.Context(), courseObjID, pageNumber)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

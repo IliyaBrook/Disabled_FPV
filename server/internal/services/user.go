@@ -120,7 +120,6 @@ func (s *UserService) AuthUser(ctx context.Context, token string) *dto.AuthRespo
 func (s *UserService) GetUserById(ctx context.Context, userId string, populate []string) (interface{}, error) {
 	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
 	defer cancel()
-
 	objectId, err := primitive.ObjectIDFromHex(userId)
 	if err != nil {
 		return nil, err
@@ -140,25 +139,24 @@ func (s *UserService) GetUserById(ctx context.Context, userId string, populate [
 			{"$match", bson.M{"_id": objectId}},
 		},
 	}
-
 	for _, field := range populate {
 		switch field {
 		case "user_course_progress":
 			pipeline = append(pipeline, bson.D{
 				{"$lookup", bson.D{
 					{"from", "user_course_progress"},
-					{"localField", "user_course_progress"},
-					{"foreignField", "_id"},
-					{"as", "user_course_progress_details"},
+					{"localField", "_id"},
+					{"foreignField", "user_id"},
+					{"as", "courses"},
 				}},
 			})
 		case "orders":
 			pipeline = append(pipeline, bson.D{
 				{"$lookup", bson.D{
 					{"from", "orders"},
-					{"localField", "orders"},
-					{"foreignField", "_id"},
-					{"as", "order_details"},
+					{"localField", "_id"},
+					{"foreignField", "user_id"},
+					{"as", "orders"},
 				}},
 			})
 		}

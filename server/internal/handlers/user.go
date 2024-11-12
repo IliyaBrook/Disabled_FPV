@@ -96,15 +96,12 @@ func (h *UserHandler) Logout(c *gin.Context) {
 }
 
 func (h *UserHandler) GetUserByID(c *gin.Context) {
-	userID := c.Query("user_id")
+	var populateReq dto.PopulateRequest
+	_ = c.ShouldBindJSON(&populateReq)
 
+	userID := c.Param("user_id")
 	if userID == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "User ID is missing"})
-	}
-
-	var populateReq dto.PopulateRequest
-	if err := c.ShouldBindJSON(&populateReq); err != nil && err.Error() != "EOF" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
 		return
 	}
 
@@ -123,7 +120,7 @@ func (h *UserHandler) GetUserByID(c *gin.Context) {
 }
 
 func (h *UserHandler) DeleteUser(c *gin.Context) {
-	userID := c.Query("user_id")
+	userID := c.Param("user_id")
 	if userID == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "User ID is missing"})
 	}
@@ -140,7 +137,7 @@ func (h *UserHandler) DeleteUser(c *gin.Context) {
 }
 
 func (h *UserHandler) UpdateUser(c *gin.Context) {
-	userID := c.Query("user_id")
+	userID := c.Param("user_id")
 	if userID == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "User ID is missing"})
 		return

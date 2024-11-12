@@ -39,9 +39,17 @@ func (h *UserCourseProgressHandler) UpdateCourseProgress(c *gin.Context) {
 
 func (h *UserCourseProgressHandler) GetUserCourseProgress(c *gin.Context) {
 	userData := utils.GetUserContext(c)
-
 	userID, _ := primitive.ObjectIDFromHex(userData.ID)
-	courseID, _ := primitive.ObjectIDFromHex(c.Query("course_id"))
+
+	courseIDStr := c.Query("course_id")
+	var courseID primitive.ObjectID
+	var err error
+	if courseIDStr != "" {
+		courseID, err = primitive.ObjectIDFromHex(courseIDStr)
+		if err != nil {
+			courseID = primitive.NilObjectID
+		}
+	}
 
 	service := services.NewUserCourseProgressService(h.mongoClient)
 	progress, err := service.GetCourseProgress(c.Request.Context(), userID, courseID)
@@ -49,5 +57,20 @@ func (h *UserCourseProgressHandler) GetUserCourseProgress(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
+
 	c.JSON(http.StatusOK, progress)
+}
+
+func (h *UserCourseProgressHandler) CreateUserCourseProgress(c *gin.Context) {
+	var progress models.UserCourseProgress
+	if err := c.ShouldBindJSON(&progress); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid progress data"})
+	}
+	service := services.NewUserCourseProgressService(h.mongoClient)
+	createdProgress, err := service.CreateUserCourseProgress(c.Request.Context(), &progress)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, createdProgress)
 }
