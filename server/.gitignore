@@ -1,0 +1,30 @@
+# Binary files and executables
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+
+# Compiled files
+*.out
+
+# Directories created by `go build`
+/bin/
+/pkg/
+/build/
+
+# Module cache and dependencies
+go.sum
+vendor/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+
+# Logs and temporary files
+*.log
+*.tmp
+# tmp build folder
+tmp/
