@@ -1,13 +1,24 @@
 package handlers
 
 import (
+	"disabled-fpv-server/internal/models"
+	"disabled-fpv-server/internal/services"
 	"disabled-fpv-server/internal/utils"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 	"net/http"
 )
 
 // Add cart handlers
+
+type CartHandler struct {
+	mongoClient *mongo.Client
+}
+
+func NewCartHandler(mongoClient *mongo.Client) *CartHandler {
+	return &CartHandler{mongoClient}
+}
 
 func (h *CartHandler) AddToCart(c *gin.Context) {
 	userData := utils.GetUserContext(c)
@@ -17,7 +28,7 @@ func (h *CartHandler) AddToCart(c *gin.Context) {
 	}
 
 	userID, _ := primitive.ObjectIDFromHex(userData.ID)
-	var cartProduct CartProduct
+	var cartProduct models.CartProduct
 	if err := c.ShouldBindJSON(&cartProduct); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid product data"})
 		return
@@ -53,7 +64,7 @@ func (h *CartHandler) GetUserCart(c *gin.Context) {
 
 // remove cart handlers
 
-func (h *CartHandler) RemoveFromCart(c *gin.Context) {
+func (h *CartHandler) RemoveProductFromCart(c *gin.Context) {
 	userData := utils.GetUserContext(c)
 	if userData == nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
@@ -61,7 +72,7 @@ func (h *CartHandler) RemoveFromCart(c *gin.Context) {
 	}
 
 	userID, _ := primitive.ObjectIDFromHex(userData.ID)
-	productIDStr := c.Query("product_id")
+	productIDStr := c.Param("product_id")
 	productID, err := primitive.ObjectIDFromHex(productIDStr)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid product ID"})

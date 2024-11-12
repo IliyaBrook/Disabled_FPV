@@ -35,7 +35,7 @@ func (h *ProductHandler) CreateProduct(c *gin.Context) {
 }
 
 func (h *ProductHandler) UpdateProduct(c *gin.Context) {
-	productID, _ := primitive.ObjectIDFromHex(c.Query("product_id"))
+	productID, _ := primitive.ObjectIDFromHex(c.Param("product_id"))
 	var product models.Product
 	if err := c.ShouldBindJSON(&product); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid product data"})

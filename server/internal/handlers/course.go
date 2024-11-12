@@ -81,12 +81,15 @@ func (h *CourseHandler) GetAllCourses(c *gin.Context) {
 }
 
 func (h *CourseHandler) GetCourseById(c *gin.Context) {
-	courseID := c.Query("id")
+	courseID, err := primitive.ObjectIDFromHex(c.Param("course_id"))
+	if err != nil || courseID.IsZero() {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid course id"})
+		return
+	}
 	pageNumber, _ := strconv.Atoi(c.Query("page_number"))
-	courseObjID, _ := primitive.ObjectIDFromHex(courseID)
 
 	service := services.NewCourseService(h.mongoClient)
-	course, err := service.GetCourseById(c.Request.Context(), courseObjID, pageNumber)
+	course, err := service.GetCourseById(c.Request.Context(), courseID, pageNumber)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

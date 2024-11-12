@@ -26,8 +26,8 @@ func adminRoutes(router *gin.Engine, mongoClient *mongo.Client) {
 	admin.PATCH("/updateUser/:user_id", userHandler.UpdateUser)
 	// products
 	admin.POST("/createProduct", productHandler.CreateProduct)
-	admin.PATCH("/updateProduct", productHandler.UpdateProduct)
-	admin.DELETE("/deleteProduct", productHandler.DeleteProduct)
+	admin.PATCH("/updateProduct/:product_id", productHandler.UpdateProduct)
+	admin.DELETE("/deleteProduct:product_id", productHandler.DeleteProduct)
 	// courses
 	admin.POST("/createCourse", course.CreateCourse)
 	admin.PATCH("/updateCourse/:course_id", course.UpdateCourse)

@@ -15,7 +15,7 @@ type OrderHandler struct {
 }
 
 func NewOrderHandler(mongoClient *mongo.Client) *OrderHandler {
-	return &OrderHandler{mongoClient: mongoClient}
+	return &OrderHandler{mongoClient}
 }
 
 func (h *OrderHandler) CreateOrder(c *gin.Context) {

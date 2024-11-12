@@ -42,9 +42,9 @@ func (h *CoursePageHandler) GetCoursePages(c *gin.Context) {
 	c.JSON(http.StatusOK, pages)
 }
 
-func (h *CoursePageHandler) GetCoursePage(c *gin.Context) {
-	courseId := c.Query("course_id")
-	pageNumber := c.Query("page_number")
+func (h *CoursePageHandler) GetCoursePageByIdAndPageNum(c *gin.Context) {
+	courseId := c.Param("course_id")
+	pageNumber := c.Param("page_number")
 	courseObjID, _ := primitive.ObjectIDFromHex(courseId)
 	pageNumberObjID, _ := primitive.ObjectIDFromHex(pageNumber)
 

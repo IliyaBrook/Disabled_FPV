@@ -15,6 +15,7 @@ func authUsersRoutes(router *gin.Engine, mongoClient *mongo.Client) {
 	courseProgressHandler := handlers.NewUserCourseProgressHandler(mongoClient)
 	coursesHandler := handlers.NewCourseHandler(mongoClient)
 	coursePagesHandler := handlers.NewCoursePageHandler(mongoClient)
+	cartHandler := handlers.NewCartHandler(mongoClient)
 
 	// Groups
 	api := router.Group("/api")
@@ -44,12 +45,13 @@ func authUsersRoutes(router *gin.Engine, mongoClient *mongo.Client) {
 	courseProgress.POST("/", courseProgressHandler.CreateUserCourseProgress)
 	// courses
 	courses.GET("/", coursesHandler.GetAllCourses)
-	courses.GET("/byId", coursesHandler.GetCourseById)
+	courses.GET("/:course_id", coursesHandler.GetCourseById)
 	// course pages
-	coursePages.GET("/", coursePagesHandler.GetCoursePage)
+	coursePages.GET("/:course_id/:page_number", coursePagesHandler.GetCoursePageByIdAndPageNum)
+	coursePages.GET("/", coursePagesHandler.GetCoursePages)
 	// cart
 	cart.POST("/add", cartHandler.AddToCart)
 	cart.GET("/", cartHandler.GetUserCart)
-	cart.DELETE("/remove", cartHandler.RemoveFromCart)
+	cart.DELETE("/:product_id", cartHandler.RemoveProductFromCart)
 	cart.POST("/checkout", cartHandler.Checkout)
 }
