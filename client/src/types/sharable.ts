@@ -1,1 +1,1 @@
-export type lang = 'he' | 'en'
+export type TLang = 'he' | 'en'

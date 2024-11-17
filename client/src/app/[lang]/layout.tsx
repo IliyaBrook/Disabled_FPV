@@ -11,7 +11,7 @@ export default function LangLayout({
 	children: React.ReactNode;
 	params: { lang: string };
 }) {
-	console.log("lang:", lang)
+	console.log("TLang:", lang)
 	
 	return (
 		<html lang={lang}>

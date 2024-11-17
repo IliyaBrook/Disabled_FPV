@@ -1,8 +1,9 @@
-// app/[lang]/page.tsx
+// app/[TLang]/page.tsx
+import type { TLang } from '@/types/sharable'
 import { getDictionary } from './dictionaries';
 import styles from './page.module.css';
 
-export default async function Home({ params: { lang } }: { params: { lang: string } }) {
+export default async function Home({ params: { lang } }: { params: { lang: TLang } }) {
   const dict = await getDictionary(lang);
   
   return (
