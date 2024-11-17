@@ -54,4 +54,5 @@ func authUsersRoutes(router *gin.Engine, mongoClient *mongo.Client) {
 	cart.GET("/", cartHandler.GetUserCart)
 	cart.DELETE("/:product_id", cartHandler.RemoveProductFromCart)
 	cart.POST("/checkout", cartHandler.Checkout)
+	//
 }
