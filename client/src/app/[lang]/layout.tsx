@@ -1,3 +1,4 @@
+import type { TLangOptions } from '@/app/types/internationalization'
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import React from 'react';
@@ -46,10 +47,12 @@ export const metadata: Metadata = {
 export async function generateStaticParams() {
 	return [{ lang: 'en-US' }, { lang: 'he-IL' }];
 }
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children, params }: { children: React.ReactNode, params: Promise<{ lang: TLangOptions }>}) {
+	const p = await params;
+	const dir = p.lang === 'he-IL' ? 'rtl' : 'ltr';
+	
 	return (
-		<html >
+		<html lang={p.lang} dir={dir}>
 		<body className={`${geistSans.variable} ${geistMono.variable}`}>
 		{children}
 		</body>
