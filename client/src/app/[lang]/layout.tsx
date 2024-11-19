@@ -1,18 +1,15 @@
-import type { TLangOptions } from '@/app/types/internationalization'
-import type { Metadata } from 'next';
-import localFont from 'next/font/local';
-import React from 'react';
-
-const geistSans = localFont({
-	src: './fonts/GeistVF.woff',
-	variable: '--font-geist-sans',
-	weight: '100 900',
-});
-const geistMono = localFont({
-	src: './fonts/GeistMonoVF.woff',
-	variable: '--font-geist-mono',
-	weight: '100 900',
-});
+import NavBar from '@/app/components/nav-bar/nav-bar'
+import type { TLangOptions } from '@/app/types/local.types'
+import type { Metadata } from 'next'
+import React from 'react'
+import './globals.scss'
+// import localFont from 'next/font/local';
+// const geistMono = localFont({
+// 	src: './fonts/GeistMonoVF.woff',
+// 	variable: '--font-geist-mono',
+// 	weight: '100 900',
+// });
+// ${geistMono.variable}
 
 export const metadata: Metadata = {
 	title: 'Disabled FPV - Learn to Build and Fly Drones',
@@ -23,7 +20,7 @@ export const metadata: Metadata = {
 		'build drones',
 		'drone assembly',
 		'learn to fly drones',
-		'Disabled FPV',
+		'Disabled FPV'
 	],
 	openGraph: {
 		title: 'Disabled FPV - Learn to Build and Fly Drones',
@@ -35,27 +32,35 @@ export const metadata: Metadata = {
 				url: 'https://www.disabledfpv.com/static/images/og-image.jpg',
 				width: 1200,
 				height: 630,
-				alt: 'Disabled FPV - Learn to Build and Fly Drones',
-			},
+				alt: 'Disabled FPV - Learn to Build and Fly Drones'
+			}
 		],
 		locale: 'en_US',
 		type: 'website',
-		alternateLocale: ['he_IL'],
-	},
-};
+		alternateLocale: ['he_IL']
+	}
+}
 
 export async function generateStaticParams() {
-	return [{ lang: 'en-US' }, { lang: 'he-IL' }];
+	return [{ lang: 'en' }, { lang: 'he' }]
 }
-export default async function RootLayout({ children, params }: { children: React.ReactNode, params: Promise<{ lang: TLangOptions }>}) {
-	const p = await params;
-	const dir = p.lang === 'he-IL' ? 'rtl' : 'ltr';
+
+export default async function RootLayout({ children, params }: {
+	children: React.ReactNode,
+	params: Promise<{ lang: TLangOptions }>
+}) {
+	const p = await params
+	const dir = p.lang === 'he' ? 'rtl' : 'ltr'
 	
 	return (
-		<html lang={p.lang} dir={dir}>
-		<body className={`${geistSans.variable} ${geistMono.variable}`}>
+		<html
+			lang={p.lang}
+			dir={dir}
+		>
+		<body>
+		<NavBar lang={p.lang}/>
 		{children}
 		</body>
 		</html>
-	);
+	)
 }

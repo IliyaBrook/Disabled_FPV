@@ -23,6 +23,7 @@
     "dotenv": "^16.4.5",
     "eslint": "^8",
     "eslint-config-next": "15.0.2",
+    "sass": "^1.81.0",
     "typescript": "^5"
   }
 }

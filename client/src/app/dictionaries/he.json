@@ -1,5 +1,10 @@
 {
-	"products": {
-		"cart": "הוסף לסל"
-	}
+	"Add to Cart": "הוסף לסל",
+	"Home": "בית",
+	"About us": "עלינו",
+	"Courses": "קורסים",
+	"Shop": "חנות",
+	"Contact": "יצירת קשר",
+	"English" : "אנגלית",
+	"Hebrew": "עברית"
 }

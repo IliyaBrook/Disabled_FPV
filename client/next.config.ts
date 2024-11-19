@@ -16,6 +16,9 @@ const nextConfig: NextConfig = {
 				acc[key] = process.env[key] ?? "";
 				return acc;
 			}, {} as Record<string, string>),
+	},
+	sassOptions: {
+		silenceDeprecations: ['legacy-js-api'],
 	}
 };
 

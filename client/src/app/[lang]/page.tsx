@@ -1,5 +1,5 @@
 import { getDictionary } from '@/app/dictionaries'
-import type { TLangOptions } from '@/app/types/internationalization'
+import type { TLangOptions } from '@/app/types/local.types'
 
 export default async function Page(props: { params: Promise<{ lang: TLangOptions }>}) {
     const params = await props.params;
@@ -7,7 +7,9 @@ export default async function Page(props: { params: Promise<{ lang: TLangOptions
     const {
         lang
     } = params;
+    
 
     const dict = await getDictionary(lang) // en
-    return <button>{dict.products.cart}</button>
+    
+    return <button>{dict["Add to Cart"]}</button>
 }

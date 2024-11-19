@@ -1,9 +1,9 @@
 import 'server-only';
-import type { TLangOptions } from '@/app/types/internationalization';
+import type { TLangOptions } from '@/app/types/local.types';
 
 const dictionaries = {
-	'en-US': () => import('./dictionaries/en.json').then((module) => module.default),
-	'he-IL': () => import('./dictionaries/he.json').then((module) => module.default),
+	'en': () => import('./dictionaries/en.json').then((module) => module.default),
+	'he': () => import('./dictionaries/he.json').then((module) => module.default),
 };
 
 export const getDictionary = async (locale: TLangOptions) => {
