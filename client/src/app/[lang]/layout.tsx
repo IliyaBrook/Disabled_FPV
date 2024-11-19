@@ -49,7 +49,7 @@ export async function generateStaticParams() {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html>
+		<html >
 		<body className={`${geistSans.variable} ${geistMono.variable}`}>
 		{children}
 		</body>

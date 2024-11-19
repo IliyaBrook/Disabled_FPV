@@ -14,15 +14,15 @@ function getLocale(request: NextRequest): string {
 export function middleware(request: NextRequest) {
 	const { pathname } = request.nextUrl;
 	const locales = ['en-US', 'he-IL'];
-	
-	// Проверяем, есть ли локаль в URL
 	const pathnameHasLocale = locales.some(
 		(locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
 	);
 	
-	if (pathnameHasLocale) return;
-	
-	// Определяем локаль и делаем редирект
+	if (pathnameHasLocale) return NextResponse.next();
+	if (pathname === '/') {
+		const locale = getLocale(request);
+		return NextResponse.redirect(new URL(`/${locale}`, request.url));
+	}
 	const locale = getLocale(request);
 	const redirectUrl = `/${locale}${pathname}`;
 	return NextResponse.redirect(new URL(redirectUrl, request.url));
@@ -30,6 +30,7 @@ export function middleware(request: NextRequest) {
 
 export const config = {
 	matcher: [
+		'/',
 		'/((?!_next).*)',
 	],
 };
