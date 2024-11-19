@@ -16,11 +16,7 @@ const nextConfig: NextConfig = {
 				acc[key] = process.env[key] ?? "";
 				return acc;
 			}, {} as Record<string, string>),
-	},
-	i18n: {
-		locales: ["en", "he"],
-		defaultLocale: "en",
-	},
+	}
 };
 
 export default nextConfig;
