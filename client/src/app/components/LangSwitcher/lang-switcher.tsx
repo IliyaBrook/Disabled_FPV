@@ -1,20 +1,20 @@
-'use client';
+'use client'
 
-import React from 'react';
-import { useRouter } from 'next/navigation';
-import { usePathname } from 'next/navigation';
-import styles from './lang-switcher.module.scss';
+import React from 'react'
+import { useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
+import styles from './lang-switcher.module.scss'
 
 const LangSwitcher: React.FC = () => {
-  const router = useRouter();
-  const pathname = usePathname();
+  const router = useRouter()
+  const pathname = usePathname()
 
   const changeLanguage = async (lang: string): Promise<void> => {
-    const segments = pathname.split('/');
-    segments[1] = lang;
-    const newPath = segments.join('/');
-    router.push(newPath);
-  };
+    const segments = pathname.split('/')
+    segments[1] = lang
+    const newPath = segments.join('/')
+    router.push(newPath)
+  }
 
   return (
     <div className={styles.langSwitcher}>
@@ -28,7 +28,7 @@ const LangSwitcher: React.FC = () => {
         </a>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LangSwitcher;
+export default LangSwitcher

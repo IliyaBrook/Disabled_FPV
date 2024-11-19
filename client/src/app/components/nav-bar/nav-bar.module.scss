@@ -1,14 +1,16 @@
 .navBar{
 	.navBarContent {
+		width: 100%;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		
 		.logo {
-			width: auto;
+			width: 10%
 		}
 		
 		ul {
+			width: 80%;
 			display: flex;
 			justify-content: space-between;
 			list-style: none;
@@ -18,14 +20,12 @@
 			}
 		}
 		
-		.burgerMenu {
-			display: none;
-			
+		.langSwitcher {
+			width: 10%;
 			@media (max-width: 768px) {
 				display: block;
 				cursor: pointer;
 			}
 		}
 	}
-
 }

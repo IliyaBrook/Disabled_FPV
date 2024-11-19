@@ -1,15 +1,13 @@
-'use client';
-import LangSwitcher from '@/app/components/LangSwitcher/lang-switcher';
-import { getDictionary } from '@/app/dictionaries';
-import type { navBarProps } from '@/app/types/components/nav-bar.types';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import React from 'react';
-import styles from './nav-bar.module.scss';
+'use client'
+import LangSwitcher from '@/app/components/LangSwitcher/lang-switcher'
+import type { navBarProps } from '@/app/types/components/nav-bar.types'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import React from 'react'
+import styles from './nav-bar.module.scss'
 
-export default function NavBar(props: navBarProps): React.ReactNode {
-  const pathname = usePathname();
-  const dict = await getDictionary(props.lang);
+export default function NavBar({ dict }: navBarProps): React.ReactNode {
+  const pathname = usePathname()
 
   return (
     <nav className={styles.navBar} aria-label="Main Navigation">
@@ -21,27 +19,27 @@ export default function NavBar(props: navBarProps): React.ReactNode {
               href="/"
               className={`${styles.navLink} ${pathname === '/' ? 'active' : ''}`}
             >
-              {dict['Home']}
+              {dict?.['Home']}
             </Link>
           </li>
           <li>
             <Link href="/about" className={styles.navLink}>
-              {dict['About us']}
+              {dict?.['About us']}
             </Link>
           </li>
           <li>
             <Link href="/courses" className={styles.navLink}>
-              {dict['Courses']}
+              {dict?.['Courses']}
             </Link>
           </li>
           <li>
             <Link href="/shop" className={styles.navLink}>
-              {dict['Shop']}
+              {dict?.['Shop']}
             </Link>
           </li>
           <li>
             <Link href="/contact" className={styles.navLink}>
-              {dict['Contact']}
+              {dict?.['Contact']}
             </Link>
           </li>
         </ul>
@@ -50,5 +48,5 @@ export default function NavBar(props: navBarProps): React.ReactNode {
         </div>
       </div>
     </nav>
-  );
+  )
 }
