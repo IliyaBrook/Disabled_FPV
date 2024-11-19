@@ -7,6 +7,7 @@ if (process.env.NODE_ENV !== 'production') {
 	dotenv.config({ path: envPath });
 }
 
+/** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
 	env: {
 		...Object.keys(process.env)
@@ -18,8 +19,8 @@ const nextConfig: NextConfig = {
 	},
 	i18n: {
 		locales: ["en", "he"],
-		defaultLocale: "en"
-	}
+		defaultLocale: "en",
+	},
 };
 
 export default nextConfig;
