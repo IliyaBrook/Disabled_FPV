@@ -1,6 +1,6 @@
 import type { TDict, TLangOptions } from '@/app/types/local.types'
 
-export interface navBarProps {
+export interface langProps {
   lang: TLangOptions
   dict: TDict
 }

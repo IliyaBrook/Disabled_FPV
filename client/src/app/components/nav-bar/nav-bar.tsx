@@ -1,13 +1,13 @@
 'use client'
 import LangSwitcher from '@/app/components/LangSwitcher/lang-switcher'
-import type { navBarProps } from '@/app/types/components/nav-bar.types'
+import type { langProps } from '@/app/types/components/nav-bar.types'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
 import Image from 'next/image'
 import styles from './nav-bar.module.scss'
 
-export default function NavBar({ dict, lang }: navBarProps): React.ReactNode {
+export default function NavBar({ dict, lang }: langProps): React.ReactNode {
   const pathname = usePathname()
 
   const getLinkClass = (href: string): string => {
@@ -57,7 +57,7 @@ export default function NavBar({ dict, lang }: navBarProps): React.ReactNode {
           </li>
         </ul>
         <div className={styles.langSwitcher}>
-          <LangSwitcher dict={dict} />
+          <LangSwitcher dict={dict} lang={lang} />
         </div>
       </div>
     </nav>

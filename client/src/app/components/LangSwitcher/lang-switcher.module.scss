@@ -1,6 +1,7 @@
 .langSwitcher {
 	position: relative;
-	
+	display: flex;
+	justify-content: center;
 	.dropdownButton {
 		text-decoration: none;
 		background-color: inherit;
