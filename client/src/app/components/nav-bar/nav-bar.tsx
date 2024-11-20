@@ -4,47 +4,60 @@ import type { navBarProps } from '@/app/types/components/nav-bar.types'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
+import Image from 'next/image'
 import styles from './nav-bar.module.scss'
 
-export default function NavBar({ dict }: navBarProps): React.ReactNode {
+export default function NavBar({ dict, lang }: navBarProps): React.ReactNode {
   const pathname = usePathname()
+
+  const getLinkClass = (href: string): string => {
+    const cleanPath = pathname.split('/').slice(2).join('/') || '/'
+    return cleanPath === href
+      ? `${styles.navLink} ${styles.active}`
+      : styles.navLink
+  }
 
   return (
     <nav className={styles.navBar} aria-label="Main Navigation">
       <div className={styles.navBarContent}>
-        <div className={styles.logo}></div>
+        <div className={styles.logo}>
+          <Image
+            src="/img/nav_bar_icon.png"
+            alt="Disabled FPV Logo"
+            width={40}
+            height={40}
+          />
+          <span className={styles.logoText}>Disabled FPV</span>
+        </div>
         <ul>
           <li>
-            <Link
-              href="/"
-              className={`${styles.navLink} ${pathname === '/' ? 'active' : ''}`}
-            >
+            <Link href={`/${lang}/`} className={getLinkClass('/')}>
               {dict?.['Home']}
             </Link>
           </li>
           <li>
-            <Link href="/about" className={styles.navLink}>
+            <Link href={`/${lang}/about`} className={getLinkClass('about')}>
               {dict?.['About us']}
             </Link>
           </li>
           <li>
-            <Link href="/courses" className={styles.navLink}>
+            <Link href={`/${lang}/courses`} className={getLinkClass('courses')}>
               {dict?.['Courses']}
             </Link>
           </li>
           <li>
-            <Link href="/shop" className={styles.navLink}>
+            <Link href={`/${lang}/shop`} className={getLinkClass('shop')}>
               {dict?.['Shop']}
             </Link>
           </li>
           <li>
-            <Link href="/contact" className={styles.navLink}>
+            <Link href={`/${lang}/contact`} className={getLinkClass('contact')}>
               {dict?.['Contact']}
             </Link>
           </li>
         </ul>
         <div className={styles.langSwitcher}>
-          <LangSwitcher />
+          <LangSwitcher dict={dict} />
         </div>
       </div>
     </nav>

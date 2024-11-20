@@ -3,6 +3,7 @@ import { getDictionary } from '@/app/dictionaries'
 import type { TLangOptions } from '@/app/types/local.types'
 import type { Metadata } from 'next'
 import React from 'react'
+import { Sora, Josefin_Sans } from 'next/font/google'
 import './globals.scss'
 // import localFont from 'next/font/local';
 // const geistMono = localFont({
@@ -11,6 +12,20 @@ import './globals.scss'
 // 	weight: '100 900',
 // });
 // ${geistMono.variable}
+
+const sora = Sora({
+  subsets: ['latin'],
+  weight: '400',
+  display: 'swap',
+  variable: '--font-sora-sans',
+})
+
+const josefinSans = Josefin_Sans({
+  subsets: ['latin'],
+  weight: '400',
+  display: 'swap',
+  variable: '--font-josefin-sans',
+})
 
 export const metadata: Metadata = {
   title: 'Disabled FPV - Learn to Build and Fly Drones',
@@ -61,7 +76,11 @@ export default async function RootLayout({
   const dir = p.lang === 'he' ? 'rtl' : 'ltr'
   const dict = await getDictionary(p.lang)
   return (
-    <html lang={p.lang} dir={dir}>
+    <html
+      lang={p.lang}
+      dir={dir}
+      className={`${sora.variable} ${josefinSans.variable}`}
+    >
       <body>
         <NavBar lang={p.lang} dict={dict} />
         {children}
