@@ -1,5 +1,6 @@
 'use client'
 
+import { useDictionary } from '@/app/hooks/useDictionary'
 import type { langProps } from '@/app/types/components/navBar.types'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -8,6 +9,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import styles from './langSwitcher.module.scss'
 
 const LangSwitcher: React.FC<langProps> = ({ dict, lang }) => {
+  const dictionary = useDictionary()
+  console.log('dictionary', dictionary)
+
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)

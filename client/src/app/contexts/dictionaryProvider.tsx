@@ -1,19 +1,28 @@
 'use client'
 
-import React, { createContext, useContext } from 'react'
-import type { TDict } from '@/app/types/local.types'
+import type { TDict, TDir, TLangOptions } from '@/app/types/local.types'
+import React, { createContext } from 'react'
 
-export const DictionaryContext = createContext<TDict | null>(null)
+interface IDictContext {
+  dictionary: TDict
+  lang: TLangOptions
+  dir: TDir
+  children: React.ReactNode
+}
+
+export const DictionaryContext = createContext<Omit<
+  IDictContext,
+  'children'
+> | null>(null)
 
 export const DictionaryProvider = ({
   children,
   dictionary,
-}: {
-  children: React.ReactNode
-  dictionary: TDict
-}): React.ReactNode => {
+  dir,
+  lang,
+}: IDictContext): React.ReactNode => {
   return (
-    <DictionaryContext.Provider value={dictionary}>
+    <DictionaryContext.Provider value={{ dictionary, lang, dir }}>
       {children}
     </DictionaryContext.Provider>
   )
@@ -22,11 +31,12 @@ export const DictionaryProvider = ({
 export default function DictionaryClientProvider({
   children,
   dictionary,
-}: {
-  children: React.ReactNode
-  dictionary: TDict
-}): React.ReactNode {
+  dir,
+  lang,
+}: IDictContext): React.ReactNode {
   return (
-    <DictionaryProvider dictionary={dictionary}>{children}</DictionaryProvider>
+    <DictionaryProvider dictionary={dictionary} dir={dir} lang={lang}>
+      {children}
+    </DictionaryProvider>
   )
 }

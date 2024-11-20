@@ -1,7 +1,7 @@
 import { DictionaryProvider } from '@/app/contexts/dictionaryProvider'
 import NavBar from '@/app/components/navBar/navBar'
 import { getDictionary } from '@/app/dictionaries'
-import type { TLangOptions } from '@/app/types/local.types'
+import type { TDir, TLangOptions } from '@/app/types/local.types'
 import type { Metadata } from 'next'
 import React from 'react'
 import { Sora, Josefin_Sans } from 'next/font/google'
@@ -75,7 +75,7 @@ export default async function RootLayout({
 }): Promise<React.ReactNode> {
   const p = await params
 
-  const dir = p.lang === 'he' ? 'rtl' : 'ltr'
+  const dir: TDir = p.lang === 'he' ? 'rtl' : 'ltr'
   const dict = await getDictionary(p.lang)
   return (
     <html
@@ -84,8 +84,10 @@ export default async function RootLayout({
       className={`${sora.variable} ${josefinSans.variable}`}
     >
       <body>
-        <NavBar lang={p.lang} dict={dict} />
-        <DictionaryProvider dictionary={dict}>{children}</DictionaryProvider>
+        <DictionaryProvider dictionary={dict} dir={dir} lang={p.lang}>
+          <NavBar lang={p.lang} dict={dict} />
+          {children}
+        </DictionaryProvider>
       </body>
     </html>
   )

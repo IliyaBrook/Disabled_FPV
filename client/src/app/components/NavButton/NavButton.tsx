@@ -1,5 +1,7 @@
 import React from 'react'
 
-export const NavButton = (): React.ReactNode => {
+const NavButton = (): React.ReactNode => {
   return <div>NavButton</div>
 }
+
+export default NavButton
