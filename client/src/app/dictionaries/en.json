@@ -7,5 +7,10 @@
 	"Contact": "Contact",
 	"English" : "English",
 	"Hebrew": "Hebrew",
-	"Language": "Language"
+	"Language": "Language",
+	"Something went wrong!": "Something went wrong!",
+	"Try again": "Try again",
+	"Go to Home Page": "Go to Home Page",
+	"Sign Up": "Sign Up",
+	"Sign In": "Sign In"
 }

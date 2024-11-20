@@ -1,4 +1,5 @@
-import NavBar from '@/app/components/nav-bar/nav-bar'
+import { DictionaryProvider } from '@/app/contexts/dictionaryProvider'
+import NavBar from '@/app/components/navBar/navBar'
 import { getDictionary } from '@/app/dictionaries'
 import type { TLangOptions } from '@/app/types/local.types'
 import type { Metadata } from 'next'
@@ -73,6 +74,7 @@ export default async function RootLayout({
   params: Promise<{ lang: TLangOptions }>
 }): Promise<React.ReactNode> {
   const p = await params
+
   const dir = p.lang === 'he' ? 'rtl' : 'ltr'
   const dict = await getDictionary(p.lang)
   return (
@@ -83,7 +85,7 @@ export default async function RootLayout({
     >
       <body>
         <NavBar lang={p.lang} dict={dict} />
-        {children}
+        <DictionaryProvider dictionary={dict}>{children}</DictionaryProvider>
       </body>
     </html>
   )

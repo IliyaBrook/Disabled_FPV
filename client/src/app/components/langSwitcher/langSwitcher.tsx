@@ -1,12 +1,11 @@
 'use client'
 
-import type { langProps } from '@/app/types/components/nav-bar.types'
-import type { TDict } from '@/app/types/local.types'
+import type { langProps } from '@/app/types/components/navBar.types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
-import styles from './lang-switcher.module.scss'
+import styles from './langSwitcher.module.scss'
 
 const LangSwitcher: React.FC<langProps> = ({ dict, lang }) => {
   const pathname = usePathname()
