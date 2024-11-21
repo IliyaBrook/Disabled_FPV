@@ -1,6 +1,6 @@
 import React from 'react'
 
-const NavButton = (): React.ReactNode => {
+const NavButton = (): React.ReactElement => {
   return <div>NavButton</div>
 }
 

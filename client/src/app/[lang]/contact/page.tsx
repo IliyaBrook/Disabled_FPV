@@ -4,7 +4,7 @@ import React from 'react'
 
 export default async function ContactPage(props: {
   params: Promise<{ lang: TLangOptions }>
-}): Promise<React.ReactNode> {
+}): Promise<React.ReactElement> {
   const params = await props.params
 
   const { lang } = params

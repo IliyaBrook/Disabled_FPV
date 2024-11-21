@@ -10,8 +10,10 @@
 	"Language": "Language",
 	"Something went wrong!": "Something went wrong!",
 	"Try again": "Try again",
-	"Go to Home Page": "Go to Home Page",
 	"Sign Up": "Sign Up",
 	"Sign In": "Sign In",
-	"Error": "Error"
+	"Error": "Error",
+	"Page Not Found": "Page Not Found",
+	"The page you are looking for does not exist.": "The page you are looking for does not exist.",
+	"Go to Home Page": "Go to Home Page"
 }
