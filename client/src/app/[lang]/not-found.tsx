@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useAppSelector } from '@/app/store/hooks'
 import styles from './notFound.module.scss'
 
-const NotFound: React.FC = () => {
+function NotFound(): React.ReactElement {
   const router = useRouter()
   const { lang, dict } = useAppSelector((state) => state.localization)
 

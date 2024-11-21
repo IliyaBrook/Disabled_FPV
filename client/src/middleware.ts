@@ -17,20 +17,32 @@ function getLocale(request: NextRequest): string {
 
 export function middleware(request: NextRequest): NextResponse {
   const { pathname } = request.nextUrl
+  if (
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/api') ||
+    pathname.startsWith('/favicon.ico') ||
+    pathname.startsWith('/img')
+  ) {
+    return NextResponse.next()
+  }
+  console.log('pathname: ', pathname)
+  const locale = getLocale(request)
+  console.log('locale: ', locale)
   const pathnameHasLocale = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   )
 
-  if (pathnameHasLocale) return NextResponse.next()
+  if (pathnameHasLocale) {
+    return NextResponse.next()
+  }
+
   if (pathname === '/') {
-    const locale = getLocale(request)
     return NextResponse.redirect(new URL(`/${locale}`, request.url))
   }
-  const locale = getLocale(request)
-  const redirectUrl = `/${locale}${pathname}`
-  return NextResponse.redirect(new URL(redirectUrl, request.url))
+
+  return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url))
 }
 
 export const config = {
-  matcher: ['/'],
+  matcher: ['/:path*'],
 }
