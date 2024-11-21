@@ -1,0 +1,25 @@
+.navButton {
+	display: flex;
+	background: #704FE6;
+	border-radius: 200px;
+	padding: 10px 20px;
+	border: none;
+	cursor: pointer;
+	&:hover{
+		background: #5639C4;
+	}
+	span{
+		color: #FFF;
+		font-size: 15px;
+		font-style: normal;
+		font-weight: 400;
+		letter-spacing: -0.15px;
+		white-space: nowrap;
+		margin-left: 20px;
+		align-self: center;
+	}
+	.arrowWrapper{
+		margin-left: 20px;
+		display: flex;
+	}
+}

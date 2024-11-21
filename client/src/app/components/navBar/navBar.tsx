@@ -1,14 +1,15 @@
 'use client'
 import LangSwitcher from '@/app/components/langSwitcher/langSwitcher'
+import NavButton from '@/app/components/NavButton/NavButton'
 import { useAppSelector } from '@/app/store/hooks'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React, { useEffect } from 'react'
+import React from 'react'
 import styles from './navBar.module.scss'
 
 export default function NavBar(): React.ReactElement {
-  const { lang, dict } = useAppSelector((state) => state.localization)
+  const { lang, dict, dir } = useAppSelector((state) => state.localization)
   const pathname = usePathname()
 
   const getLinkClass = (href: string): string => {
@@ -17,11 +18,6 @@ export default function NavBar(): React.ReactElement {
       ? `${styles.navLink} ${styles.active}`
       : styles.navLink
   }
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     throw new Error('Test error')
-  //   }, 5)
-  // }, [])
 
   return (
     <nav className={styles.navBar} aria-label="Main Navigation">
@@ -63,8 +59,16 @@ export default function NavBar(): React.ReactElement {
           </li>
         </ul>
         <div className={styles.signInUpBtns}>
-          <button className={styles.signUpBtn}>{dict?.['Sign Up']}</button>
-          <button className={styles.signInBtn}>{dict?.['Sign In']}</button>
+          <NavButton
+            destination={`/${lang}/sign-up`}
+            title={dict?.['Sign Up']}
+            dir={dir}
+          />
+          <NavButton
+            destination={`/${lang}/sign-in`}
+            title={dict?.['Sign In']}
+            dir={dir}
+          />
         </div>
         <div className={styles.langSwitcher}>
           <LangSwitcher dict={dict} lang={lang} />

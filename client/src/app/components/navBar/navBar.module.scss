@@ -35,6 +35,7 @@
 			justify-content: space-between;
 			list-style: none;
 			font-size: 15px;
+			padding: 0 20px;
 			@media (max-width: 768px) {
 				display: none;
 			}
@@ -60,12 +61,7 @@
 		}
 		.signInUpBtns{
 			display: flex;
-			.signUpBtn{
-			
-			}
-			.signInBtn{
-			
-			}
+			gap: 10px;
 		}
 		.langSwitcher {
 			width: 10%;
