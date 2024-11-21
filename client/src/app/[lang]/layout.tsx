@@ -1,6 +1,8 @@
 import NavBar from '@/app/components/navBar/navBar'
 import type { TDir, TLangOptions } from '@/app/types/local.types'
 import { getDictionary } from '@/app/utils/dictionaries'
+import ErrorBoundary from '@/app/wrappers/errorBoundary'
+
 import StoreInitializer from '@/app/wrappers/storeInitializer'
 import StoreProvider from '@/app/wrappers/storeProvider'
 import type { Metadata } from 'next'
@@ -87,8 +89,10 @@ export default async function RootLayout({
       <body>
         <StoreProvider>
           <StoreInitializer lang={p.lang} dir={dir} dictionary={dict} />
-          <NavBar />
-          {children}
+          <ErrorBoundary>
+            <NavBar />
+            {children}
+          </ErrorBoundary>
         </StoreProvider>
       </body>
     </html>

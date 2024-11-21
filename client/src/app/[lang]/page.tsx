@@ -1,17 +1,8 @@
-import { getDictionary } from '@/app/utils/dictionaries'
-import type { TLangOptions } from '@/app/types/local.types'
 import React from 'react'
 
-export default async function HomePage(props: {
-  params: Promise<{ lang: TLangOptions }>
-}): Promise<React.ReactNode> {
-  const params = await props.params
-
-  const { lang } = params
-
+export default async function HomePage(): Promise<React.ReactNode> {
   // noinspection JSUnusedLocalSymbols
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const dict = await getDictionary(lang) // en
 
   return (
     <div>

@@ -4,11 +4,11 @@ import { useAppSelector } from '@/app/store/hooks'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './navBar.module.scss'
 
 export default function NavBar(): React.ReactNode {
-  const { lang, dir, dict } = useAppSelector((state) => state.localization)
+  const { lang, dict } = useAppSelector((state) => state.localization)
   const pathname = usePathname()
 
   const getLinkClass = (href: string): string => {
@@ -17,6 +17,11 @@ export default function NavBar(): React.ReactNode {
       ? `${styles.navLink} ${styles.active}`
       : styles.navLink
   }
+  useEffect(() => {
+    setTimeout(() => {
+      throw new Error('Test error')
+    }, 5)
+  }, [])
 
   return (
     <nav className={styles.navBar} aria-label="Main Navigation">
