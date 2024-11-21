@@ -1,3 +1,4 @@
+'use client'
 import type { TDir } from '@/app/types/local.types'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'

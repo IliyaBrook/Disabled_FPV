@@ -1,25 +1,18 @@
-.navBar{
+.navBar {
 	padding: 0 10px;
 	position: relative;
 	z-index: 10;
+	
 	.navBarContent {
 		position: relative;
-		width: 100%;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		
 		.logo {
-			width: 20%;
 			display: flex;
 			align-items: center;
 			gap: 10px;
-			justify-content: center;
-			img {
-				width: 40px;
-				height: 40px;
-				object-fit: cover;
-			}
 			
 			.logoText {
 				font-size: 15px;
@@ -27,50 +20,127 @@
 				color: #1c3a57;
 				white-space: nowrap;
 			}
+			
+			
+			@media (min-width: 768px) {
+				width: 20%;
+				justify-content: center;
+				
+				img {
+					width: 40px;
+					height: 40px;
+					object-fit: cover;
+				}
+			}
 		}
 		
-		ul {
-			width: 70%;
+		.burgerMenu {
+			display: none;
+			cursor: pointer;
+			background: none;
+			border: none;
+			position: relative;
+			z-index: 20;
+			
+			span {
+				display: block;
+				width: 25px;
+				height: 3px;
+				background-color: #1c3a57;
+				margin: 5px 0;
+				border-radius: 2px;
+				transition: background-color 0.3s ease;
+			}
+			
+			&:hover span {
+				background-color: #6a67d8;
+			}
+			
+			@media (max-width: 768px) {
+				display: block;
+			}
+		}
+		
+		.navLinks {
 			display: flex;
-			justify-content: space-between;
 			list-style: none;
-			font-size: 15px;
-			padding: 0 20px;
+			gap: 20px;
+			@media (max-width: 768px) {
+				display: none;
+				flex-direction: column;
+				position: absolute;
+				top: 60px;
+				right: 0;
+				background: white;
+				width: 100%;
+				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+				padding: 20px;
+				
+				&.open {
+					display: flex;
+				}
+				.navLink.active {
+					background-color: #f2f2f2;
+					color: #6a67d8;
+				}
+				li{
+					padding: 5px 3px;
+					width: 100%;
+				}
+			}
+			@media (min-width: 768px) {
+				li{
+					color: #1c3a57;
+					text-decoration: none;
+					padding: 6px 15px;
+					border-radius: 20px;
+					box-sizing: border-box;
+					transition: all 0.3s ease;
+					
+					&:hover {
+						color: #6a67d8;
+						background-color: #f2f2f2;
+					}
+				}
+				.signInMobile{
+					display: none;
+				}
+				.signUpMobile{
+					display: none;
+				}
+				.navLink.active {
+					box-shadow: 0 0 0 2px #6a67d8;
+					color: #6a67d8;
+				}
+			}
+		}
+		
+		.signInUpBtns {
+			display: flex;
+			gap: 10px;
+			
 			@media (max-width: 768px) {
 				display: none;
 			}
 		}
-		.navLink {
-			color: #1c3a57;
-			text-decoration: none;
-			padding: 6px 15px;
-			border-radius: 20px;
-			box-sizing: border-box;
-			transition: all 0.3s ease;
-			
-			&:hover {
-				color: #6a67d8;
-				background-color: #f2f2f2;
-			}
-		}
 		
-		.navLink.active {
-			color: #6a67d8;
-			outline: 2px solid #6a67d8;
-			background-color: transparent;
-		}
-		.signInUpBtns{
-			display: flex;
-			gap: 10px;
-		}
 		.langSwitcher {
 			width: 10%;
 			position: relative;
 			z-index: 20;
-			
 			@media (max-width: 768px) {
-				display: block;
-				cursor: pointer;
+				display: none;
+			}
+		}
+	}
+	@media (max-width: 768px) {
+		li{
+			display: flex;
+			a, button{
+				width: 100%;
+				span{
+					float: right;
+				}
 			}
 		}
 	}

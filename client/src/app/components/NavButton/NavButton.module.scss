@@ -22,4 +22,13 @@
 		margin-left: 20px;
 		display: flex;
 	}
+	@media (max-width: 768px) {
+		&,span, button{
+			color: #0a0a0a;
+			background-color: #ffff;
+			margin: 0;
+			padding: 0;
+			display: block;
+		}
+	}
 }
