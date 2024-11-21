@@ -1,13 +1,8 @@
 .navButton {
-	display: flex;
-	background: #704FE6;
-	border-radius: 200px;
-	padding: 10px 20px;
+
 	border: none;
 	cursor: pointer;
-	&:hover{
-		background: #5639C4;
-	}
+
 	span{
 		color: #FFF;
 		font-size: 15px;
@@ -22,13 +17,24 @@
 		margin-left: 20px;
 		display: flex;
 	}
+	@media (min-width: 768px) {
+		padding: 10px 20px;
+		display: flex;
+		background: #704FE6;
+		border-radius: 200px;
+		&:hover{
+			background: #5639C4;
+		}
+	}
 	@media (max-width: 768px) {
-		&,span, button{
-			color: #0a0a0a;
-			background-color: #ffff;
-			margin: 0;
-			padding: 0;
-			display: block;
+		width: 100%;
+		background-color: #ffff;
+		.arrowWrapper{
+			display: none;
+		}
+		span{
+			color: black;
+			float: right;
 		}
 	}
 }

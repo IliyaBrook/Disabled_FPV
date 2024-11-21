@@ -35,6 +35,10 @@ export default function NavBar(): React.ReactElement {
   }
 
   useEffect(() => {
+    setIsMenuOpen(false)
+  }, [pathname])
+
+  useEffect(() => {
     setIsClient(true)
     document.addEventListener('mousedown', handleOutsideClick)
     return () => {
@@ -62,6 +66,7 @@ export default function NavBar(): React.ReactElement {
             alt="Disabled FPV Logo"
             width={40}
             height={40}
+            className={styles.logoImg}
           />
           <span className={styles.logoText}>Disabled FPV</span>
         </div>
@@ -90,7 +95,7 @@ export default function NavBar(): React.ReactElement {
           <li className={getLinkClass('contact')}>
             <Link href={`/${lang}/contact`}>{dict?.['Contact']}</Link>
           </li>
-          <li className={styles.signUpMobile} ref={signUpMobileRef}></li>
+          <li className={`${styles.signUpMobile}`} ref={signUpMobileRef}></li>
           <li className={styles.signInMobile} ref={signInMobileRef}></li>
         </ul>
         <div className={styles.signInUpBtns} ref={signInUpBtnsDesktopRef}>
