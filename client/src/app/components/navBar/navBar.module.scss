@@ -65,7 +65,11 @@
 			display: flex;
 			list-style: none;
 			gap: 20px;
+			a{
+				text-align: right;
+			}
 			@media (max-width: 768px) {
+				gap: 10px;
 				display: none;
 				flex-direction: column;
 				position: absolute;

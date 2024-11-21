@@ -17,15 +17,12 @@ const NavButton = ({
   dir,
 }: IButtonProps): React.ReactElement => {
   const router = useRouter()
-  const rtlStyles: CSSProperties | undefined =
-    dir === 'rtl' ? { flexDirection: 'row-reverse' } : {}
   return (
     <button
-      className={styles.navButton}
+      className={`${styles.navButton} ${dir === 'rtl' ? styles.rtlStyle : {}}`}
       onClick={() => router.push(destination)}
-      style={rtlStyles}
     >
-      <span>{title}</span>
+      <span className={styles.title}>{title}</span>
       <span className={styles.arrowWrapper}>
         <Image
           src="/img/arrow_right.svg"

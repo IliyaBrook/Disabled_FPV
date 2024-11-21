@@ -38,3 +38,17 @@
 		}
 	}
 }
+.rtlStyle{
+	span, .arrowWrapper{
+		margin:0
+	}
+	.arrowWrapper{
+		margin-right: 20px;
+		img{
+			transform: rotate(180deg);
+		}
+	}
+	.title{
+		margin-right: 20px;
+	}
+}
