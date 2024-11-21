@@ -1,5 +1,4 @@
 import 'server-only'
-import enLocal from '@/app/dictionaries/en.json'
 import type { TDict, TLangOptions } from '@/app/types/local.types'
 
 const dictionaries = {
