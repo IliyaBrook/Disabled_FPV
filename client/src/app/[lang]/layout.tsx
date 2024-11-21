@@ -1,11 +1,12 @@
-import { DictionaryProvider } from '@/app/contexts/dictionaryProvider'
 import NavBar from '@/app/components/navBar/navBar'
-import { getDictionary } from '@/app/dictionaries'
 import type { TDir, TLangOptions } from '@/app/types/local.types'
+import { getDictionary } from '@/app/utils/dictionaries'
+import StoreInitializer from '@/app/wrappers/storeInitializer'
+import StoreProvider from '@/app/wrappers/storeProvider'
 import type { Metadata } from 'next'
-import React from 'react'
-import { Sora, Josefin_Sans } from 'next/font/google'
+import { Josefin_Sans, Sora } from 'next/font/google'
 import './globals.scss'
+import React from 'react'
 // import localFont from 'next/font/local';
 // const geistMono = localFont({
 // 	src: './fonts/GeistMonoVF.woff',
@@ -84,10 +85,11 @@ export default async function RootLayout({
       className={`${sora.variable} ${josefinSans.variable}`}
     >
       <body>
-        <DictionaryProvider dictionary={dict} dir={dir} lang={p.lang}>
-          <NavBar lang={p.lang} dict={dict} />
+        <StoreProvider>
+          <StoreInitializer lang={p.lang} dir={dir} dictionary={dict} />
+          <NavBar />
           {children}
-        </DictionaryProvider>
+        </StoreProvider>
       </body>
     </html>
   )

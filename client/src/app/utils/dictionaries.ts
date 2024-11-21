@@ -1,9 +1,10 @@
 import 'server-only'
+import enLocal from '@/app/dictionaries/en.json'
 import type { TDict, TLangOptions } from '@/app/types/local.types'
 
 const dictionaries = {
-  en: () => import('./dictionaries/en.json').then((module) => module.default),
-  he: () => import('./dictionaries/he.json').then((module) => module.default),
+  en: () => import('../dictionaries/en.json').then((module) => module.default),
+  he: () => import('../dictionaries/he.json').then((module) => module.default),
 }
 
 export const getDictionary = async (locale: TLangOptions): Promise<TDict> => {

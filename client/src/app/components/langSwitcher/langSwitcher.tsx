@@ -1,28 +1,17 @@
 'use client'
 
-import { useDictionary } from '@/app/hooks/useDictionary'
 import type { langProps } from '@/app/types/components/navBar.types'
+import { changeUrlSegmentPath } from '@/app/utils/changeUrlSegmentPath'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './langSwitcher.module.scss'
 
 const LangSwitcher: React.FC<langProps> = ({ dict, lang }) => {
-  const dictionary = useDictionary()
-  console.log('dictionary', dictionary)
-
-  const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const isHe = lang === 'he'
-
-  const buildNewPath = (lang: string): string => {
-    const segments = pathname.split('/').filter(Boolean)
-    segments[0] = lang
-    return `/${segments.join('/')}`
-  }
 
   const toggleDropdown = (): void => {
     setIsOpen((prev) => !prev)
@@ -62,10 +51,16 @@ const LangSwitcher: React.FC<langProps> = ({ dict, lang }) => {
       </button>
       {isOpen && (
         <div className={styles.dropdownContent}>
-          <Link href={buildNewPath('en')} onClick={() => setIsOpen(false)}>
+          <Link
+            href={changeUrlSegmentPath('en')}
+            onClick={() => setIsOpen(false)}
+          >
             {dict.English}
           </Link>
-          <Link href={buildNewPath('he')} onClick={() => setIsOpen(false)}>
+          <Link
+            href={changeUrlSegmentPath('he')}
+            onClick={() => setIsOpen(false)}
+          >
             {dict.Hebrew}
           </Link>
         </div>

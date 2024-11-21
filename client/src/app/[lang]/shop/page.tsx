@@ -1,4 +1,4 @@
-import { getDictionary } from '@/app/dictionaries'
+import { getDictionary } from '@/app/utils/dictionaries'
 import type { TLangOptions } from '@/app/types/local.types'
 import React from 'react'
 

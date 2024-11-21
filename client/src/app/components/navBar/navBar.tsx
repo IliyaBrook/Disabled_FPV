@@ -1,13 +1,14 @@
 'use client'
 import LangSwitcher from '@/app/components/langSwitcher/langSwitcher'
-import type { langProps } from '@/app/types/components/navBar.types'
+import { useAppSelector } from '@/app/store/hooks'
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
-import Image from 'next/image'
 import styles from './navBar.module.scss'
 
-export default function NavBar({ dict, lang }: langProps): React.ReactNode {
+export default function NavBar(): React.ReactNode {
+  const { lang, dir, dict } = useAppSelector((state) => state.localization)
   const pathname = usePathname()
 
   const getLinkClass = (href: string): string => {
