@@ -5,6 +5,7 @@ import styles from './footer.module.scss'
 const Footer = (): React.ReactElement => {
   return (
     <div className={styles.footer}>
+      <div className={styles.sectionContainer}></div>
       <div className={styles.contactSection}>
         <a href="tel:+972526822900" className={styles.phone}>
           <Image
@@ -18,6 +19,7 @@ const Footer = (): React.ReactElement => {
           />
           <p className={styles.phoneNumber}>+972-52-682-2900</p>
         </a>
+        <div className={styles.separator}></div>
         <a href="mailto:vitalyr84@gmail.com" className={styles.email}>
           <Image
             src="/img/envelope_icon.svg"
