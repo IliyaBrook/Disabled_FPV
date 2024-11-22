@@ -17,13 +17,8 @@ export default async function HomePage({
     <div className={styles.homePage}>
       <div>
         <h1>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet
-          culpa dignissimos molestias obcaecati placeat veritatis? At
-          consequatur deleniti in libero magni, molestiae odit quam quidem
-          recusandae sed veritatis voluptatem.100
+          TOP TOP TOP TOP TOP TOP TOP TOP TOP TOP TOP TOP TOP TOP TOP TOP TOP
         </h1>
-      </div>
-      <div>
         <h1>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet
           culpa dignissimos molestias obcaecati placeat veritatis? At
@@ -141,6 +136,17 @@ export default async function HomePage({
           culpa dignissimos molestias obcaecati placeat veritatis? At
           consequatur deleniti in libero magni, molestiae odit quam quidem
           recusandae sed veritatis voluptatem.100
+        </h1>
+      </div>
+      <div>
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet
+          culpa dignissimos molestias obcaecati placeat veritatis? At
+          consequatur deleniti in libero magni, molestiae odit quam quidem
+          recusandae sed veritatis voluptatem.100
+        </h1>
+        <h1>
+          BOTTOM BOTTOM BOTTOM BOTTOM BOTTOM BOTTOM BOTTOM BOTTOM BOTTOM BOTTOM
         </h1>
       </div>
     </div>

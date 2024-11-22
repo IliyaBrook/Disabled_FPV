@@ -1,9 +1,11 @@
 @import "../../[lang]/globalStyles/shareable";
 .navBar {
+	position: fixed;
+	top: 0;
+	width: 100%;
 	padding: 0 10px;
-	position: relative;
 	z-index: 10;
-	
+	background-color: #FFFFFF;
 	.navBarContent {
 		position: relative;
 		display: flex;
@@ -74,7 +76,7 @@
 				display: none;
 				flex-direction: column;
 				position: absolute;
-				top: 40px;
+				top: 45px;
 				right: 0;
 				background: white;
 				width: 100%;

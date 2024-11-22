@@ -3,20 +3,13 @@ import NavBar from '@/app/components/navBar/navBar'
 import type { TDir, TLangOptions } from '@/app/types/local.types'
 import { getDictionary } from '@/app/utils/dictionaries'
 import ErrorBoundary from '@/app/wrappers/errorBoundary'
-
 import StoreInitializer from '@/app/wrappers/storeInitializer'
 import StoreProvider from '@/app/wrappers/storeProvider'
 import type { Metadata } from 'next'
 import { Josefin_Sans, Sora } from 'next/font/google'
 import './globalStyles/globals.scss'
+import styles from './layout.module.scss'
 import React from 'react'
-// import localFont from 'next/font/local';
-// const geistMono = localFont({
-// 	src: './fonts/GeistMonoVF.woff',
-// 	variable: '--font-geist-mono',
-// 	weight: '100 900',
-// });
-// ${geistMono.variable}
 
 const sora = Sora({
   subsets: ['latin'],
@@ -92,7 +85,7 @@ export default async function RootLayout({
           <StoreInitializer lang={p.lang} dir={dir} dictionary={dict} />
           <ErrorBoundary>
             <NavBar />
-            {children}
+            <div className={styles.mainLayoutWrapper}>{children}</div>
             <Footer />
           </ErrorBoundary>
         </StoreProvider>
