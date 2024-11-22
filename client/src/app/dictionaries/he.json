@@ -10,10 +10,16 @@
 	"Language": "שפה",
 	"Something went wrong!": "משהו השתבש!",
 	"Try again": "נסה שוב",
-	"Go to Home Page": "חזור לדף הבית",
 	"Sign Up": "הרשמה",
 	"Sign In": "כניסה",
 	"Error": "שגיאה",
 	"Page Not Found": "הדף לא נמצא",
-	"The page you are looking for does not exist.": "הדף שחיפשת לא קיים."
+	"The page you are looking for does not exist.": "הדף שחיפשת לא קיים.",
+	"Go to Home Page": "חזור לדף הבית",
+	"welcome": "ברוך הבא",
+	"Disabled FPV": "Disabled FPV",
+	"online courses": "קורסים מקוונים",
+	"main_page_header_text": "גלה את עתיד הרחפנים",
+	"main_page_text": "למד את כישורי ההרכבה והשליטה ברחפני FPV בעזרת המומחים שלנו — לגמרי בחינם!",
+	"Find courses": "התחל ללמוד עכשיו"
 }
