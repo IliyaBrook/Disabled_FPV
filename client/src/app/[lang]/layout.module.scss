@@ -1,6 +1,4 @@
 .mainLayoutWrapper{
-	padding: 8vh 0 6vh 0;
-	@media (max-width: 768px) {
-		padding: 5vh 0 1vh 0;
-	}
+	padding-top: var(--navbar-height, 8vh);
+	padding-bottom: var(--footer-height, 4vh);
 }

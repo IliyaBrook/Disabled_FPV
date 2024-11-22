@@ -1,4 +1,4 @@
-@import "../../[lang]/globalStyles/shareable";
+@use "../../[lang]/globalStyles/shareable";
 .navBar {
 	position: fixed;
 	top: 0;
@@ -20,7 +20,7 @@
 			.logoText {
 				font-size: 15px;
 				font-weight: bold;
-				color: $blueDark;
+				color: shareable.$blueDark;
 				white-space: nowrap;
 			}
 			
@@ -49,14 +49,14 @@
 				display: block;
 				width: 25px;
 				height: 3px;
-				background-color: $blueDark;
+				background-color: shareable.$blueDark;
 				margin: 5px 0;
 				border-radius: 2px;
 				transition: background-color 0.3s ease;
 			}
 			
 			&:hover span {
-				background-color: $violet;
+				background-color: shareable.$violet;
 			}
 			
 			@media (max-width: 768px) {
@@ -93,7 +93,7 @@
 			}
 			@media (min-width: 768px) {
 				li{
-					color: $blueDark;
+					color: shareable.$blueDark;
 					text-decoration: none;
 					padding: 6px 15px;
 					border-radius: 20px;
@@ -101,7 +101,7 @@
 					transition: all 0.3s ease;
 					
 					&:hover {
-						color: $violet;
+						color: shareable.$violet;
 						background-color: #f2f2f2;
 					}
 				}
@@ -112,8 +112,8 @@
 					display: none;
 				}
 				.navLink.active {
-					box-shadow: 0 0 0 2px $violet;
-					color: $violet;
+					box-shadow: 0 0 0 2px shareable.$violet;
+					color: shareable.$violet;
 				}
 			}
 		}
@@ -158,10 +158,10 @@
 	@media (min-width: 768px) {
 		padding: 10px 20px;
 		display: flex;
-		background: $violet;
+		background: shareable.$violet;
 		border-radius: 200px;
 		&:hover{
-			background: $violet;
+			background: shareable.$violet;
 		}
 	}
 	@media (max-width: 768px) {

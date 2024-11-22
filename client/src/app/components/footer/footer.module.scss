@@ -1,7 +1,7 @@
-@import "../../[lang]/globalStyles/shareable";
+@use "../../[lang]/globalStyles/shareable";
 
 .footer{
-	background-color: $blueDark;
+	background-color: shareable.$blueDark;
 	width: 100%;
 	position: fixed;
 	bottom: 0;
@@ -38,7 +38,7 @@
 				}
 				
 				&:hover {
-					color: $yellow;
+					color: shareable.$yellow;
 				}
 			}
 			.separator{
@@ -54,7 +54,7 @@
 		.socialSection{
 			display: flex;
 			align-items: center;
-			background-color: $yellow;
+			background-color: shareable.$yellow;
 			height: 100%;
 			padding: 5px 10px;
 			gap: 20px;

@@ -41,6 +41,7 @@ export default function NavBar(): React.ReactElement {
   useEffect(() => {
     setIsClient(true)
     document.addEventListener('mousedown', handleOutsideClick)
+
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick)
     }
@@ -58,7 +59,7 @@ export default function NavBar(): React.ReactElement {
     : null
 
   return (
-    <nav className={styles.navBar} aria-label="Main Navigation">
+    <nav className={styles.navBar} aria-label="Main Navigation" id="navBar">
       <div className={styles.navBarContent} ref={menuRef}>
         <div className={styles.logo}>
           <Image

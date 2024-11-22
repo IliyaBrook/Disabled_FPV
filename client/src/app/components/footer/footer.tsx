@@ -4,7 +4,7 @@ import styles from './footer.module.scss'
 
 const Footer = (): React.ReactElement => {
   return (
-    <div className={styles.footer}>
+    <div className={styles.footer} id="footer">
       <div className={styles.sectionContainer}>
         <div className={styles.contactSection}>
           <LinkIcon
