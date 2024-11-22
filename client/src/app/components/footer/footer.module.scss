@@ -6,6 +6,16 @@
 	position: fixed;
 	bottom: 0;
 	z-index: 100;
+	@media (max-width: 768px) {
+		flex-direction: column;
+		gap: 20px;
+		bottom: 0;
+		position: relative;
+		margin-top: auto;
+		.sectionContainer{
+			flex-direction: column;
+		}
+	}
 	.sectionContainer{
 		display: flex;
 		justify-content: space-around;
@@ -37,6 +47,9 @@
 				flex-shrink: 0;
 				background: rgba(255, 255, 255, 0.21);
 			}
+			@media (max-width: 768px) {
+				display: none;
+			}
 		}
 		.socialSection{
 			display: flex;
@@ -52,6 +65,23 @@
 				border-radius: 50%;
 				&:hover{
 					box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+				}
+			}
+			.phoneMobile, .emailMobile{
+				display: none;
+			}
+			@media (max-width: 768px) {
+				display: flex;
+				justify-content: space-evenly;
+				.separator, .contactSection{
+					display: none;
+				}
+				.phoneMobile, .emailMobile{
+					display: block;
+				}
+				width: 100%;
+				&, a{
+					padding: 8px 0;
 				}
 			}
 		}

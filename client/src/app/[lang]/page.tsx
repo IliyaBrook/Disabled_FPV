@@ -15,7 +15,134 @@ export default async function HomePage({
   // const { dict, dir, lang } = useAppSelector((state) => state.localization)
   return (
     <div className={styles.homePage}>
-      <h1>Home page</h1>
+      <div>
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet
+          culpa dignissimos molestias obcaecati placeat veritatis? At
+          consequatur deleniti in libero magni, molestiae odit quam quidem
+          recusandae sed veritatis voluptatem.100
+        </h1>
+      </div>
+      <div>
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet
+          culpa dignissimos molestias obcaecati placeat veritatis? At
+          consequatur deleniti in libero magni, molestiae odit quam quidem
+          recusandae sed veritatis voluptatem.100
+        </h1>
+      </div>
+      <div>
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet
+          culpa dignissimos molestias obcaecati placeat veritatis? At
+          consequatur deleniti in libero magni, molestiae odit quam quidem
+          recusandae sed veritatis voluptatem.100
+        </h1>
+      </div>
+      <div>
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet
+          culpa dignissimos molestias obcaecati placeat veritatis? At
+          consequatur deleniti in libero magni, molestiae odit quam quidem
+          recusandae sed veritatis voluptatem.100
+        </h1>
+      </div>
+      <div>
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet
+          culpa dignissimos molestias obcaecati placeat veritatis? At
+          consequatur deleniti in libero magni, molestiae odit quam quidem
+          recusandae sed veritatis voluptatem.100
+        </h1>
+      </div>
+      <div>
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet
+          culpa dignissimos molestias obcaecati placeat veritatis? At
+          consequatur deleniti in libero magni, molestiae odit quam quidem
+          recusandae sed veritatis voluptatem.100
+        </h1>
+      </div>
+      <div>
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet
+          culpa dignissimos molestias obcaecati placeat veritatis? At
+          consequatur deleniti in libero magni, molestiae odit quam quidem
+          recusandae sed veritatis voluptatem.100
+        </h1>
+      </div>
+      <div>
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet
+          culpa dignissimos molestias obcaecati placeat veritatis? At
+          consequatur deleniti in libero magni, molestiae odit quam quidem
+          recusandae sed veritatis voluptatem.100
+        </h1>
+      </div>
+      <div>
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet
+          culpa dignissimos molestias obcaecati placeat veritatis? At
+          consequatur deleniti in libero magni, molestiae odit quam quidem
+          recusandae sed veritatis voluptatem.100
+        </h1>
+      </div>
+      <div>
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet
+          culpa dignissimos molestias obcaecati placeat veritatis? At
+          consequatur deleniti in libero magni, molestiae odit quam quidem
+          recusandae sed veritatis voluptatem.100
+        </h1>
+      </div>
+      <div>
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet
+          culpa dignissimos molestias obcaecati placeat veritatis? At
+          consequatur deleniti in libero magni, molestiae odit quam quidem
+          recusandae sed veritatis voluptatem.100
+        </h1>
+      </div>
+      <div>
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet
+          culpa dignissimos molestias obcaecati placeat veritatis? At
+          consequatur deleniti in libero magni, molestiae odit quam quidem
+          recusandae sed veritatis voluptatem.100
+        </h1>
+      </div>
+      <div>
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet
+          culpa dignissimos molestias obcaecati placeat veritatis? At
+          consequatur deleniti in libero magni, molestiae odit quam quidem
+          recusandae sed veritatis voluptatem.100
+        </h1>
+      </div>
+      <div>
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet
+          culpa dignissimos molestias obcaecati placeat veritatis? At
+          consequatur deleniti in libero magni, molestiae odit quam quidem
+          recusandae sed veritatis voluptatem.100
+        </h1>
+      </div>
+      <div>
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet
+          culpa dignissimos molestias obcaecati placeat veritatis? At
+          consequatur deleniti in libero magni, molestiae odit quam quidem
+          recusandae sed veritatis voluptatem.100
+        </h1>
+      </div>
+      <div>
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet
+          culpa dignissimos molestias obcaecati placeat veritatis? At
+          consequatur deleniti in libero magni, molestiae odit quam quidem
+          recusandae sed veritatis voluptatem.100
+        </h1>
+      </div>
     </div>
   )
 }
