@@ -1,3 +1,4 @@
+import Footer from '@/app/components/footer/footer'
 import NavBar from '@/app/components/navBar/navBar'
 import type { TDir, TLangOptions } from '@/app/types/local.types'
 import { getDictionary } from '@/app/utils/dictionaries'
@@ -7,7 +8,7 @@ import StoreInitializer from '@/app/wrappers/storeInitializer'
 import StoreProvider from '@/app/wrappers/storeProvider'
 import type { Metadata } from 'next'
 import { Josefin_Sans, Sora } from 'next/font/google'
-import './globals.scss'
+import './globalStyles/globals.scss'
 import React from 'react'
 // import localFont from 'next/font/local';
 // const geistMono = localFont({
@@ -92,6 +93,7 @@ export default async function RootLayout({
           <ErrorBoundary>
             <NavBar />
             {children}
+            <Footer />
           </ErrorBoundary>
         </StoreProvider>
       </body>

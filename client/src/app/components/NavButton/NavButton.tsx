@@ -2,8 +2,8 @@
 import type { TDir } from '@/app/types/local.types'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import React from 'react'
 import styles from './NavButton.module.scss'
-import React, { type CSSProperties } from 'react'
 
 interface IButtonProps {
   destination: string
