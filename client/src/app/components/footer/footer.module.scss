@@ -1,0 +1,44 @@
+@import "../../[lang]/globalStyles/shareable";
+
+.footer{
+	background-color: $blueDark;
+	width: 100%;
+	position: sticky;
+	bottom: 0;
+	.contactSection{
+		.phone{
+			.phoneIcon{
+			
+			}
+			.phoneNumber{
+			
+			}
+		}
+		.email{
+			.emailIcon{
+			
+			}
+			.emailText{
+			
+			}
+		}
+	}
+	.socialSection{
+		background-color: $yellow;
+		.facebookButton{
+			.facebookIcon{
+			
+			}
+		}
+		.instagramButton{
+			.instagramIcon{
+			
+			}
+		}
+		.youtubeButton{
+			.youtubeIcon{
+			
+			}
+		}
+	}
+}
