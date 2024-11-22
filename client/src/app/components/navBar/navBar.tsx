@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import LangSwitcher from '@/app/components/langSwitcher/langSwitcher'
-import NavButton from '@/app/components/NavButton/NavButton'
+import ButtonWithArrow from '@/app/components/ButtonWithArrow/ButtonWithArrow'
 import { useAppSelector } from '@/app/store/hooks'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -101,19 +101,21 @@ export default function NavBar(): React.ReactElement {
         <div className={styles.signInUpBtns} ref={signInUpBtnsDesktopRef}>
           {signUpTarget &&
             createPortal(
-              <NavButton
+              <ButtonWithArrow
                 destination={`/${lang}/sign-up`}
                 title={dict?.['Sign Up']}
                 dir={dir}
+                className={styles.buttonWithArrow}
               />,
               signUpTarget
             )}
           {signInTarget &&
             createPortal(
-              <NavButton
+              <ButtonWithArrow
                 destination={`/${lang}/sign-in`}
                 title={dict?.['Sign In']}
                 dir={dir}
+                className={styles.buttonWithArrow}
               />,
               signInTarget
             )}

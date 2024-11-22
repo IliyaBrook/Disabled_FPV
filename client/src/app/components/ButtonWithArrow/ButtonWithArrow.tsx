@@ -3,23 +3,26 @@ import type { TDir } from '@/app/types/local.types'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React from 'react'
-import styles from './NavButton.module.scss'
+import styles from './ButtonWithArrow.module.scss'
 
 interface IButtonProps {
   destination: string
   title: string
   dir: TDir
+  className?: string
 }
 
-const NavButton = ({
+const ButtonWithArrow = ({
   destination,
   title,
   dir,
+  className,
 }: IButtonProps): React.ReactElement => {
   const router = useRouter()
   return (
     <button
-      className={`${styles.navButton} ${dir === 'rtl' ? styles.rtlStyle : {}}`}
+      className={`${styles.buttonWithArrow}
+      ${className} ${dir === 'rtl' ? styles.rtlStyle : {}}`}
       onClick={() => router.push(destination)}
     >
       <span className={styles.title}>{title}</span>
@@ -35,4 +38,4 @@ const NavButton = ({
   )
 }
 
-export default NavButton
+export default ButtonWithArrow

@@ -1,5 +1,5 @@
 @import "../../[lang]/globalStyles/shareable";
-.navButton {
+.buttonWithArrow {
 
 	border: none;
 	cursor: pointer;
@@ -18,26 +18,7 @@
 		margin-left: 20px;
 		display: flex;
 	}
-	@media (min-width: 768px) {
-		padding: 10px 20px;
-		display: flex;
-		background: $violet;
-		border-radius: 200px;
-		&:hover{
-			background: $violet;
-		}
-	}
-	@media (max-width: 768px) {
-		width: 100%;
-		background-color: #ffff;
-		.arrowWrapper{
-			display: none;
-		}
-		span{
-			color: black;
-			float: right;
-		}
-	}
+
 }
 .rtlStyle{
 	span, .arrowWrapper{
@@ -50,3 +31,4 @@
 		}
 	}
 }
+

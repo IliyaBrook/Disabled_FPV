@@ -14,14 +14,20 @@ export default async function HomePage({
 
   return (
     <div className={styles.homePage}>
-      <div className={styles.bgImage}>
-        <Image
-          src="/img/man_with_drone_main.jpg"
-          alt="man controls drone picture"
-          fill
-          priority
-        />
-      </div>
+      <Image
+        src="/img/mainBg.png"
+        alt="man controls drone picture"
+        fill
+        priority
+        className={styles.bgImage}
+      />
+      <Image
+        src="/img/man_with_drone_main.jpg"
+        alt="man controls drone picture"
+        width="500"
+        priority
+        className={styles.withDroneImage}
+      />
     </div>
   )
 }
