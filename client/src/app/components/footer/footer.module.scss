@@ -6,60 +6,48 @@
 	position: fixed;
 	bottom: 0;
 	z-index: 100;
-	
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	.contactSection{
-		padding: 10px 20px;
+	.sectionContainer{
 		display: flex;
+		justify-content: space-around;
 		align-items: center;
-		gap: 20px;
-		
-		.phone,
-		.email {
+		.contactSection{
 			display: flex;
 			align-items: center;
-			text-decoration: none;
-			color: white;
+			gap: 20px;
 			
-			.phoneIcon,
-			.emailIcon {
-				margin-right: 10px;
+			.phone,
+			.email {
+				display: flex;
+				align-items: center;
+				text-decoration: none;
+				color: white;
+				
+				.phoneIcon,
+				.emailIcon {
+					margin-right: 10px;
+				}
+				
+				&:hover {
+					color: $yellow;
+				}
 			}
-			
-			&:hover {
-				color: $yellow;
-			}
-		}
-		.separator{
-			width: 1px;
-			height: 24px;
-			flex-shrink: 0;
-			background: rgba(255, 255, 255, 0.21);
-		}
-	}
-	
-	.socialSection{
-		display: flex;
-		align-items: center;
-		background-color: $yellow;
-		height: 100%;
-		padding: 10px 20px;
-		gap: 20px;
-		.facebookButton{
-			.facebookIcon{
-			
+			.separator{
+				width: 1px;
+				height: 24px;
+				flex-shrink: 0;
+				background: rgba(255, 255, 255, 0.21);
 			}
 		}
-		.instagramButton{
-			.instagramIcon{
-			
-			}
-		}
-		.youtubeButton{
-			.youtubeIcon{
-			
+		.socialSection{
+			display: flex;
+			align-items: center;
+			background-color: $yellow;
+			height: 100%;
+			padding: 10px 20px;
+			gap: 20px;
+			a{
+				display: flex;
+				align-items: center;
 			}
 		}
 	}
