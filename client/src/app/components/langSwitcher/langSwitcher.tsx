@@ -55,13 +55,14 @@ const LangSwitcher: React.FC<langProps> = ({ dict, lang }) => {
             href={changeUrlSegmentPath('en')}
             onClick={() => setIsOpen(false)}
           >
-            {dict.English}
+            <p>English</p>
           </Link>
+          <hr className={styles.separator} />
           <Link
             href={changeUrlSegmentPath('he')}
             onClick={() => setIsOpen(false)}
           >
-            {dict.Hebrew}
+            <p className={styles.hebLang}>עברית</p>
           </Link>
         </div>
       )}
