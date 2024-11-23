@@ -24,19 +24,41 @@ export default async function HomePage({
       />
       <div className={styles.content}>
         <div className={styles.textSection}>
-          <div className={styles.welcomeText}>
-            <span className={styles.violetText}>{dict['welcome']}</span>
-            <span className={styles.blueText}>{dict['Disabled FPV']}</span>
-            <span className={styles.violetText}>{dict['online courses']}</span>
+          <div className={styles.textSectionContainer}>
+            <div className={styles.welcomeText}>
+              <span className={styles.violetText}>{dict['welcome']}</span>
+              <span className={styles.blueText}>{dict['Disabled FPV']}</span>
+              <span className={styles.violetText}>
+                {dict['online courses']}
+              </span>
+            </div>
+            <div className={styles.header}>
+              <div className={styles.headerText}>
+                {dict['Discover Your Future in']}
+              </div>
+              <div className={styles.headerText}>
+                {dict['FPV Drone Technology']}
+              </div>
+            </div>
+            <div className={styles.paragraph}>
+              <div className={styles.paragraphText}>
+                {
+                  dict[
+                    'Master FPV Drone Assembly and Control Skills with Expert'
+                  ]
+                }
+              </div>
+              <div className={styles.paragraphText}>
+                {dict['Guidance — 100% Free!']}
+              </div>
+            </div>
+            <ButtonWithArrow
+              className={styles.buttonWithArrow}
+              title={dict['Find courses']}
+              destination={`/${p.lang}/courses`}
+              dir={dir}
+            />
           </div>
-          <h1>{dict.main_page_header_text}</h1>
-          <p>{dict.main_page_text}</p>
-          <ButtonWithArrow
-            className={styles.buttonWithArrow}
-            title={dict['Find courses']}
-            destination={`/${p.lang}/courses`}
-            dir={dir}
-          />
         </div>
         <div className={styles.withDroneContainer}>
           <Image

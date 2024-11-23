@@ -31,10 +31,12 @@
 				align-items: center;
 				text-decoration: none;
 				color: white;
+				direction: ltr;
 				
 				.phoneIcon,
 				.emailIcon {
 					margin-right: 10px;
+					margin-left: 10px;
 				}
 				
 				&:hover {

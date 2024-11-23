@@ -86,7 +86,7 @@ export default async function RootLayout({
           <ErrorBoundary>
             <NavBar />
             <div className={styles.mainLayoutWrapper}>{children}</div>
-            <Footer />
+            <Footer dir={dir} />
           </ErrorBoundary>
         </StoreProvider>
       </body>

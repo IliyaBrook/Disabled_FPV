@@ -1,8 +1,9 @@
 import LinkIcon from '@/app/components/LinkIcon/LinkIcon'
+import type { TDir } from '@/app/types/local.types'
 import React from 'react'
 import styles from './footer.module.scss'
 
-const Footer = (): React.ReactElement => {
+const Footer = ({ dir }: { dir: TDir }): React.ReactElement => {
   return (
     <div className={styles.footer} id="footer">
       <div className={styles.sectionContainer}>
