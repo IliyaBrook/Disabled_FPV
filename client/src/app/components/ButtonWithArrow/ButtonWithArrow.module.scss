@@ -1,8 +1,14 @@
+@use '../../[lang]/globalStyles/shareable';
 .buttonWithArrow {
-
 	border: none;
+	display: flex;
 	cursor: pointer;
-
+	padding: 10px 20px;
+	background: var(--background-color);
+	border-radius: 200px;
+	&:hover{
+		background: var(--background-hover-color);
+	}
 	span{
 		color: #FFF;
 		font-size: 15px;

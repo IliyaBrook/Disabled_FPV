@@ -1,4 +1,6 @@
 @use "../../[lang]/globalStyles/shareable";
+@use "sass:color";
+
 .navBar {
 	position: fixed;
 	top: 0;
@@ -6,6 +8,7 @@
 	padding: 0 10px;
 	z-index: 10;
 	background-color: #FFFFFF;
+	
 	.navBarContent {
 		position: relative;
 		display: flex;
@@ -68,9 +71,11 @@
 			display: flex;
 			list-style: none;
 			gap: 20px;
-			a{
+			
+			a {
 				text-align: right;
 			}
+			
 			@media (max-width: 768px) {
 				gap: 10px;
 				display: none;
@@ -86,13 +91,13 @@
 				&.open {
 					display: flex;
 				}
-				li{
+				li {
 					padding: 5px 3px;
 					width: 100%;
 				}
 			}
 			@media (min-width: 768px) {
-				li{
+				li {
 					color: shareable.$blueDark;
 					text-decoration: none;
 					padding: 6px 15px;
@@ -105,10 +110,10 @@
 						background-color: #f2f2f2;
 					}
 				}
-				.signInMobile{
+				.signInMobile {
 					display: none;
 				}
-				.signUpMobile{
+				.signUpMobile {
 					display: none;
 				}
 				.navLink.active {
@@ -136,17 +141,20 @@
 			}
 		}
 	}
+	
 	@media (max-width: 768px) {
 		padding-top: 5px;
-		.logoImg{
+		.logoImg {
 			height: 30px;
 			width: 40px;
 		}
-		li{
+		li {
 			display: flex;
-			a{
+			
+			a {
 				width: 100%;
-				span{
+				
+				span {
 					float: right;
 				}
 			}
@@ -156,21 +164,21 @@
 
 .buttonWithArrow {
 	@media (min-width: 768px) {
-		padding: 10px 20px;
-		display: flex;
 		background: shareable.$violet;
 		border-radius: 200px;
-		&:hover{
-			background: shareable.$violet;
+		&:hover {
+			background: color.scale(shareable.$violet, $lightness: -10%);
 		}
 	}
 	@media (max-width: 768px) {
+		padding: 0;
+		display: block;
 		width: 100%;
 		background-color: #ffff;
-		.arrowWrapper{
+		.arrowWrapper {
 			display: none;
 		}
-		span{
+		span {
 			color: black;
 			float: right;
 		}
