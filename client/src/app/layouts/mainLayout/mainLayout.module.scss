@@ -1,5 +1,5 @@
-@use "globalStyles/index" as global;
-.mainLayoutWrapper{
+@use "../../globalStyles/index" as global;
+.mainLayout{
 	@include global.calculatedHeight();
 	padding-top: var(--navbar-height, 8vh);
 	padding-bottom: var(--footer-height, 4vh);

@@ -1,4 +1,5 @@
 'use client'
+import isClient from '@/app/utils/isClient'
 import React, { useEffect, useRef, useState } from 'react'
 import LangSwitcher from '@/app/components/langSwitcher/langSwitcher'
 import ButtonWithArrow from '@/app/components/ButtonWithArrow/ButtonWithArrow'
@@ -12,7 +13,6 @@ import styles from './navBar.module.scss'
 export default function NavBar(): React.ReactElement {
   const { lang, dict, dir } = useAppSelector((state) => state.localization)
   const pathname = usePathname()
-  const [isClient, setIsClient] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const signInUpBtnsDesktopRef = useRef<HTMLDivElement>(null)
@@ -39,7 +39,6 @@ export default function NavBar(): React.ReactElement {
   }, [pathname])
 
   useEffect(() => {
-    setIsClient(true)
     document.addEventListener('mousedown', handleOutsideClick)
 
     return () => {
@@ -47,12 +46,12 @@ export default function NavBar(): React.ReactElement {
     }
   }, [])
 
-  const signUpTarget = isClient
+  const signUpTarget = isClient()
     ? window.innerWidth > 768
       ? signInUpBtnsDesktopRef.current
       : signUpMobileRef.current
     : null
-  const signInTarget = isClient
+  const signInTarget = isClient()
     ? window.innerWidth > 768
       ? signInUpBtnsDesktopRef.current
       : signInMobileRef.current

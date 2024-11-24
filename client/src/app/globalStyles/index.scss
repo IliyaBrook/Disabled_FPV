@@ -1,5 +1,5 @@
-@use "./mixins";
-@use "./shareable";
+@use "mixins";
+@use "shareable";
 
 @forward "sass:color";
 @forward "shareable";

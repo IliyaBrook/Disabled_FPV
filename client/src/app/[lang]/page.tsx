@@ -1,5 +1,6 @@
 import ButtonWithArrow from '@/app/components/ButtonWithArrow/ButtonWithArrow'
-import type { TDir, TLangOptions } from '@/app/types/local.types'
+import type { TDir } from '@/app/types/local.types'
+import type { IServerPageParams } from '@/app/types/pages.types'
 import { getDictionary } from '@/app/utils/dictionaries'
 import Image from 'next/image'
 import React from 'react'
@@ -8,7 +9,7 @@ import styles from './homePage.module.scss'
 export default async function HomePage({
   params,
 }: {
-  params: Promise<{ lang: TLangOptions }>
+  params: IServerPageParams
 }): Promise<React.ReactElement> {
   const p = await params
   const dict = await getDictionary(p.lang)

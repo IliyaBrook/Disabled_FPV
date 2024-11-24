@@ -1,14 +1,15 @@
 import Footer from '@/app/components/footer/footer'
 import NavBar from '@/app/components/navBar/navBar'
+import MainLayout from '@/app/layouts/mainLayout/mainLayout'
 import type { TDir, TLangOptions } from '@/app/types/local.types'
+import type { IServerPageParams } from '@/app/types/pages.types'
 import { getDictionary } from '@/app/utils/dictionaries'
 import ErrorBoundary from '@/app/wrappers/errorBoundary'
 import Initializer from '@/app/wrappers/Initializer'
 import StoreProvider from '@/app/wrappers/storeProvider'
 import type { Metadata } from 'next'
 import { Josefin_Sans, Sora } from 'next/font/google'
-import './globalStyles/globals.scss'
-import styles from './layout.module.scss'
+import '../globalStyles/globals.scss'
 import React from 'react'
 
 const sora = Sora({
@@ -68,7 +69,7 @@ export default async function RootLayout({
   params,
 }: {
   children: React.ReactNode
-  params: Promise<{ lang: TLangOptions }>
+  params: IServerPageParams
 }): Promise<React.ReactNode> {
   const p = await params
 
@@ -85,7 +86,7 @@ export default async function RootLayout({
           <Initializer lang={p.lang} dir={dir} dictionary={dict} />
           <ErrorBoundary>
             <NavBar />
-            <div className={styles.mainLayoutWrapper}>{children}</div>
+            <MainLayout>{children}</MainLayout>
             <Footer dir={dir} />
           </ErrorBoundary>
         </StoreProvider>

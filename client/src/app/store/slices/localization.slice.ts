@@ -1,4 +1,4 @@
-import type { ILocalizationState } from '@/app/types/store'
+import type { ILocalizationState } from '@/app/types/store.types'
 import { getDefaultDict } from '@/app/utils/getDefaultDict'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
