@@ -36,6 +36,10 @@ const Initializer: React.FC<StoreInitializerProps> = ({
         '--footer-height',
         `${footerHeight}px`
       )
+      document.documentElement.style.setProperty(
+        '--text-align',
+        dir === 'rtl' ? 'right' : 'left'
+      )
     }
   }, [])
   return null

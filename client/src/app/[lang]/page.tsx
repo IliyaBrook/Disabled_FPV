@@ -34,22 +34,12 @@ export default async function HomePage({
             </div>
             <div className={styles.header}>
               <div className={styles.headerText}>
-                {dict['Discover Your Future in']}
-              </div>
-              <div className={styles.headerText}>
-                {dict['FPV Drone Technology']}
+                {dict['main_page_header_text']}
               </div>
             </div>
             <div className={styles.paragraph}>
               <div className={styles.paragraphText}>
-                {
-                  dict[
-                    'Master FPV Drone Assembly and Control Skills with Expert'
-                  ]
-                }
-              </div>
-              <div className={styles.paragraphText}>
-                {dict['Guidance — 100% Free!']}
+                {dict['main_page_text']}
               </div>
             </div>
             <ButtonWithArrow

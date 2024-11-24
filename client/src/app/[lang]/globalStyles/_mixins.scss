@@ -1,3 +1,3 @@
 @mixin calculatedHeight() {
-	height: calc(100vh - calc(var(--footer-height)));
+	height: calc(100vh - calc(var(--footer-height, 40px)));
 }

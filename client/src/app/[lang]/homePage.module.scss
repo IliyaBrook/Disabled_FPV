@@ -1,6 +1,9 @@
 @use "globalStyles/index" as global;
 @use "sass:color";
+
 .homePage {
+	height: 100%;
+	
 	.content {
 		position: relative;
 		display: flex;
@@ -21,26 +24,34 @@
 			align-items: center;
 			text-align: center;
 			margin: 0 auto;
-			.textSectionContainer{
+			
+			.textSectionContainer {
+				width: 80%;
 				
-				.welcomeText{
+				
+				.welcomeText {
 					display: flex;
 					gap: 5px;
-					span{
+					
+					span {
 						text-transform: uppercase;
 						line-height: 32px;
 						font-size: 17px;
 						
 					}
-					.violetText{
+					
+					.violetText {
 						color: global.$violet;
 					}
-					.blueText{
+					
+					.blueText {
 						color: global.$blueDark;
 					}
 				}
-				.header{
+				
+				.header {
 					margin: 5px 0;
+					
 					.headerText {
 						width: fit-content;
 						font-size: 2.5rem;
@@ -48,9 +59,11 @@
 						height: 100%;
 					}
 				}
-				.paragraph{
+				
+				.paragraph {
 					margin: 10px 0 15px 0;
-					.paragraphText{
+					
+					.paragraphText {
 						width: fit-content;
 						font-size: 15px;
 						font-weight: 400;
@@ -65,17 +78,35 @@
 				}
 			}
 		}
-		.imageContainer{
+		
+		.imageContainer {
 			position: relative;
 			flex: 40%;
 			@include global.calculatedHeight();
 			overflow: hidden;
-			@media (max-width: 768px) {
+			
+		}
+	}
+	
+	@media (max-width: 768px) {
+		.content {
+			.textSection .textSectionContainer {
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
+				.welcomeText {
+					flex-direction: column;
+					gap: 0;
+				}
+			}
+			
+			.imageContainer {
 				display: none;
 			}
 		}
 	}
 }
+
 .buttonWithArrow {
 	background-color: global.$blueDark;
 	
