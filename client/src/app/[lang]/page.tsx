@@ -60,7 +60,7 @@ export default async function HomePage({
             />
           </div>
         </div>
-        <div className={styles.withDroneContainer}>
+        <div className={styles.imageContainer}>
           <Image
             src="/img/man_with_drone_main.jpg"
             alt="man controls drone picture"

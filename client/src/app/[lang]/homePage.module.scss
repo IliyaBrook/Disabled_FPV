@@ -1,4 +1,4 @@
-@use "./globalStyles/shareable";
+@use "globalStyles/index" as global;
 @use "sass:color";
 .homePage {
 	.content {
@@ -33,10 +33,10 @@
 						
 					}
 					.violetText{
-						color: shareable.$violet;
+						color: global.$violet;
 					}
 					.blueText{
-						color: shareable.$blueDark;
+						color: global.$blueDark;
 					}
 				}
 				.header{
@@ -45,7 +45,7 @@
 						width: fit-content;
 						font-size: 2.5rem;
 						font-weight: 700;
-						color: shareable.$blueDark;
+						height: 100%;
 					}
 				}
 				.paragraph{
@@ -65,18 +65,21 @@
 				}
 			}
 		}
-		.withDroneContainer{
+		.imageContainer{
 			position: relative;
 			flex: 40%;
-			height: calc(100vh - calc(var(--navbar-height) + var(--footer-height)));
+			@include global.calculatedHeight();
 			overflow: hidden;
+			@media (max-width: 768px) {
+				display: none;
+			}
 		}
 	}
 }
 .buttonWithArrow {
-	background-color: shareable.$blueDark;
+	background-color: global.$blueDark;
 	
 	&:hover {
-		background-color: color.scale(shareable.$blueDark, $lightness: -10%);
+		background-color: color.scale(global.$blueDark, $lightness: -10%);
 	}
 }

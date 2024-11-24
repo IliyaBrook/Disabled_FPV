@@ -10,7 +10,7 @@
 		flex-direction: column;
 		gap: 20px;
 		bottom: 0;
-		position: relative;
+		position: fixed;
 		margin-top: auto;
 		.sectionContainer{
 			flex-direction: column;
@@ -63,7 +63,7 @@
 				display: flex;
 				align-items: center;
 				padding: 5px;
-				margin: 0 5px;
+				margin: 0 10px;
 				border-radius: 50%;
 				&:hover{
 					box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
