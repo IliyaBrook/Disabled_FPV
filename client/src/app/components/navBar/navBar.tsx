@@ -63,10 +63,10 @@ export default function NavBar(): React.ReactElement {
       <div className={styles.navBarContent} ref={menuRef}>
         <div className={styles.logo}>
           <Image
-            src="/img/nav_bar_icon.png"
+            src="/img/nav_bar_logo.svg"
             alt="Disabled FPV Logo"
-            width={40}
-            height={40}
+            width={35}
+            height={35}
             className={styles.logoImg}
           />
           <span className={styles.logoText}>Disabled FPV</span>
