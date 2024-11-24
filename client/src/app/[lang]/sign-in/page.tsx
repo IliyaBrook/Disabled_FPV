@@ -11,12 +11,13 @@ export default async function SignIn({
   params: IServerPageParams
 }): Promise<React.ReactElement> {
   const p = await params
+  console.log('SignIn', p)
   const dir: TDir = p.lang === 'he' ? 'rtl' : 'ltr'
   const dict = await getDictionary(p.lang)
 
   return (
-    <SignInUpLayout lang={p.lang} dir={dir} dictionary={dict}>
-      <h1>Sign In page</h1>
+    <SignInUpLayout lang={p.lang} dir={dir} dict={dict} pageName="sign-in">
+      <h1></h1>
     </SignInUpLayout>
   )
 }

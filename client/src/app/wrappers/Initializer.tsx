@@ -5,14 +5,13 @@ import type { ILangPageProps } from '@/app/types/pages.types'
 import type React from 'react'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import type { TDict, TLangOptions, TDir } from '@/app/types/local.types'
 
-const Initializer: React.FC<ILangPageProps> = ({ lang, dir, dictionary }) => {
+const Initializer: React.FC<ILangPageProps> = ({ lang, dir, dict }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(setLocalization({ lang, dir, dictionary }))
-  }, [lang, dir, dictionary, dispatch])
+    dispatch(setLocalization({ lang, dir, dict }))
+  }, [lang, dir, dict, dispatch])
   useEffect(() => {
     const footerSelector = document.getElementById('footer')
     const navBarSelector = document.getElementById('navBar')

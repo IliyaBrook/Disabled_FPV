@@ -2,7 +2,6 @@
 .mainLayout{
 	@include global.calculatedHeight();
 	padding-top: var(--navbar-height, 8vh);
-	padding-bottom: var(--footer-height, 4vh);
 	*{
 		text-align: var(--text-align, 'right');
 	}

@@ -1,36 +1,76 @@
 'use client'
+import { Spinner } from '@/app/components/Spinner/Spinner'
+import useIsClient from '@/app/hooks/useIsClient'
 import type { ILangPageProps } from '@/app/types/pages.types'
-import isClient from '@/app/utils/isClient'
 import Link from 'next/link'
 import React from 'react'
+import { createPortal } from 'react-dom'
 import styles from './signInUpLayout.module.scss'
 
 interface ISignInUpLayoutProps extends ILangPageProps {
   children: React.ReactNode
+  pageName: 'sign-in' | 'sign-up'
 }
 
 const SignInUpLayout: React.FC<ISignInUpLayoutProps> = ({
   children,
-  dictionary,
+  dict,
+  lang,
+  pageName,
 }): React.ReactElement => {
-  const client = isClient()
-  const isDesktop = client ? window.innerWidth > 768 : false
+  const isClient: boolean = useIsClient()
+  const isDesktop = isClient ? window.innerWidth > 768 : false
   const signInUpLayoutRef = React.useRef<HTMLDivElement>(null)
   const formContainerRef = React.useRef<HTMLDivElement>(null)
+  const portalTarget = isDesktop
+    ? formContainerRef.current
+    : signInUpLayoutRef.current
 
-  console.log('SignIn', dictionary)
+  console.log(
+    'Classes applied:',
+    styles.haveAnAccountText,
+    styles.haveAnAccountBtn
+  )
   return (
     <div className={styles.signInUpLayout} ref={signInUpLayoutRef}>
       <div className={styles.modalDesktop}>
         <div className={styles.container} ref={formContainerRef}>
-          <div className={styles.formHeader}>
-            <h1>Sign Up</h1>
-          </div>
-          <div className={styles.form}>{children}</div>
-          <div className={styles.alreadyHaveBtn}>
-            <span>Already have an account?</span>
-            <span>{/* <Link href={} /> */}</span>
-          </div>
+          {isClient && portalTarget ? (
+            createPortal(
+              <>
+                <div className={styles.formHeader}>
+                  {pageName === 'sign-in' ? (
+                    <h1>{dict['Sign In']} </h1>
+                  ) : (
+                    <h1>{dict['Sign Up']} </h1>
+                  )}
+                </div>
+                <div className={styles.form}>{children}</div>
+                {pageName === 'sign-in' ? (
+                  <div className={styles.haveAnAccountLink}>
+                    <span className={styles.haveAnAccountText}>
+                      {dict['Dont have an account?']}
+                    </span>
+                    <span className={styles.haveAnAccountBtn}>
+                      <Link href={`/${lang}/sign-up`}>{dict['Register']}</Link>
+                    </span>
+                  </div>
+                ) : (
+                  <div className={styles.haveAnAccountLink}>
+                    <span className={styles.haveAnAccountText}>
+                      {dict['Already have an account?']}
+                    </span>
+                    <span className={styles.haveAnAccountBtn}>
+                      <Link href={`/${lang}/sign-in`}>{dict['Login']}</Link>
+                    </span>
+                  </div>
+                )}
+              </>,
+              portalTarget
+            )
+          ) : (
+            <Spinner />
+          )}
         </div>
       </div>
     </div>

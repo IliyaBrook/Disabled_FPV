@@ -83,7 +83,7 @@ export default async function RootLayout({
     >
       <body>
         <StoreProvider>
-          <Initializer lang={p.lang} dir={dir} dictionary={dict} />
+          <Initializer lang={p.lang} dir={dir} dict={dict} />
           <ErrorBoundary>
             <NavBar />
             <MainLayout>{children}</MainLayout>

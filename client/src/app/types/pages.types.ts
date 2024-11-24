@@ -5,5 +5,5 @@ export type IServerPageParams = Promise<{ lang: TLangOptions }>
 export interface ILangPageProps {
   lang: TLangOptions
   dir: TDir
-  dictionary: TDict
+  dict: TDict
 }

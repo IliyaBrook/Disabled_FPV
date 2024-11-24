@@ -19,12 +19,12 @@ const localizationSlice = createSlice({
       action: PayloadAction<{
         lang: TLangOptions
         dir: TDir
-        dictionary: TDict
+        dict: TDict
       }>
     ) {
       state.lang = action.payload.lang
       state.dir = action.payload.dir
-      state.dict = action.payload.dictionary
+      state.dict = action.payload.dict
     },
   },
 })
