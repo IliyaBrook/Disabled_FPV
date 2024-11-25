@@ -5,6 +5,7 @@ import type { WritableDraft } from 'immer'
 export const errorsInitState: errorsState = {
   errorMessage: '',
   location: '',
+  pending: false,
 }
 
 export const errorsSlice = createSlice({
@@ -16,12 +17,14 @@ export const errorsSlice = createSlice({
       action: PayloadAction<errorsState>
     ) {
       const payload = action.payload
+      state.pending = payload.pending
       state.errorMessage = payload.errorMessage
       state.location = payload.location
     },
     resetErrors(state: WritableDraft<errorsState>) {
       state.errorMessage = ''
       state.location = ''
+      state.pending = false
     },
   },
 })

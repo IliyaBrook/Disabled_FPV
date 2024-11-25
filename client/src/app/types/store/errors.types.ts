@@ -1,4 +1,5 @@
 export interface errorsState {
-  errorMessage: string
-  location: string
+  errorMessage?: string
+  location?: string
+  pending?: boolean
 }

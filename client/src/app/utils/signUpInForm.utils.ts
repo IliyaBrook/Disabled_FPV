@@ -60,7 +60,15 @@ export const getSignUpInFormActions = ({
 }: GetSignUpInFormActions): ((formData: FormData) => void) => {
   const resetFormInMs = 5000
   return async (formData: FormData): Promise<void> => {
+    const setPending = (value: boolean): void => {
+      dispatch(
+        setErrors({
+          pending: value,
+        })
+      )
+    }
     try {
+      setPending(true)
       const firstName = formData.get('first_name')
       const lastName = formData.get('last_name')
       const email = formData.get('email')
@@ -81,6 +89,7 @@ export const getSignUpInFormActions = ({
           setErrors({
             errorMessage: result,
             location: 'signUp',
+            pending: false,
           })
         )
         return
@@ -90,12 +99,13 @@ export const getSignUpInFormActions = ({
           const data: Promise<any> = await response.json()
           if (data && successDispatch) {
             successDispatch(data)
+            setPending(false)
           }
         }
       }
     } catch (error) {
       const errorMessage = (error as Error).message
-      dispatch(setErrors({ errorMessage, location: 'signUp' }))
+      dispatch(setErrors({ errorMessage, location: 'signUp', pending: false }))
     } finally {
       if (timerRef.current) clearTimeout(timerRef.current)
       timerRef.current = setTimeout(() => {

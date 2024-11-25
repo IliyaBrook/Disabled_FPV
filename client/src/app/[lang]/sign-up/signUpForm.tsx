@@ -1,19 +1,19 @@
 'use client'
 import SignUpInInput from '@/app/components/SignUpInInput/SignUpInInput'
-import { useAppDispatch } from '@/app/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/app/store/hooks'
+import type { RootState } from '@/app/store/store'
 
 import type { ILangProps } from '@/app/types/sharable.types'
 import { getSignUpInFormActions } from '@/app/utils/signUpInForm.utils'
 import Form from 'next/form'
 import React, { useRef } from 'react'
-import { useFormStatus } from 'react-dom'
 import styles from './signUp.module.scss'
 
 const SignUpForm: React.FC<ILangProps> = ({ dict }) => {
-  const { pending } = useFormStatus()
   const dispatch = useAppDispatch()
-
   const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const state = useAppSelector((state: RootState) => state.errors)
+  const pending = state.pending
 
   const fetchData = (): Promise<Response> => {
     return Promise.resolve({
@@ -39,6 +39,8 @@ const SignUpForm: React.FC<ILangProps> = ({ dict }) => {
     pageName: 'signUp',
     successDispatch: handleSuccessDispatch,
   })
+  console.log('pending', pending)
+
   return (
     <div className={styles.signUp}>
       <Form className={styles.inputsContainer} action={formActions}>
@@ -64,7 +66,7 @@ const SignUpForm: React.FC<ILangProps> = ({ dict }) => {
         <div className={styles.submitButton}>
           <button
             type="submit"
-            // disabled={pending}
+            disabled={pending}
             className={styles.submitButton}
           >
             {pending ? 'Submitting...' : 'Submit'}
