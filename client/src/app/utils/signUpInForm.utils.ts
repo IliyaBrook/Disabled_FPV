@@ -1,5 +1,5 @@
 import type { useAppDispatch } from '@/app/store/hooks'
-import { resetErrors, setErrors } from '@/app/store/slices'
+import { resetStatus, setStatus } from '@/app/store/slices'
 import type { TDict } from '@/app/types/sharable.types'
 import { isEmail } from '@/app/utils/isEmail'
 import type React from 'react'
@@ -62,7 +62,7 @@ export const getSignUpInFormActions = ({
   return async (formData: FormData): Promise<void> => {
     const setPending = (value: boolean): void => {
       dispatch(
-        setErrors({
+        setStatus({
           pending: value,
         })
       )
@@ -86,8 +86,8 @@ export const getSignUpInFormActions = ({
       })
       if (result !== 'success') {
         dispatch(
-          setErrors({
-            errorMessage: result,
+          setStatus({
+            statusMessage: result,
             location: 'signUp',
             pending: false,
           })
@@ -104,12 +104,18 @@ export const getSignUpInFormActions = ({
         }
       }
     } catch (error) {
-      const errorMessage = (error as Error).message
-      dispatch(setErrors({ errorMessage, location: 'signUp', pending: false }))
+      const statusMessage = (error as Error).message
+      dispatch(
+        setStatus({
+          statusMessage,
+          location: 'signUp',
+          pending: false,
+        })
+      )
     } finally {
       if (timerRef.current) clearTimeout(timerRef.current)
       timerRef.current = setTimeout(() => {
-        dispatch(resetErrors())
+        dispatch(resetStatus())
       }, resetFormInMs)
     }
   }

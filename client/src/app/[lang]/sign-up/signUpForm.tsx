@@ -12,7 +12,7 @@ import styles from './signUp.module.scss'
 const SignUpForm: React.FC<ILangProps> = ({ dict }) => {
   const dispatch = useAppDispatch()
   const timerRef = useRef<NodeJS.Timeout | null>(null)
-  const state = useAppSelector((state: RootState) => state.errors)
+  const state = useAppSelector((state: RootState) => state.status)
   const pending = state.pending
 
   const fetchData = (): Promise<Response> => {
@@ -72,8 +72,8 @@ const SignUpForm: React.FC<ILangProps> = ({ dict }) => {
             {pending ? 'Submitting...' : 'Submit'}
           </button>
         </div>
-        {/* {formStatus.errorMessage && ( */}
-        {/*   <p className={styles.errorMessage}>{formStatus.errorMessage}</p> */}
+        {/* {formStatus.statusMessage && ( */}
+        {/*   <p className={styles.statusMessage}>{formStatus.statusMessage}</p> */}
         {/* )} */}
       </Form>
     </div>
