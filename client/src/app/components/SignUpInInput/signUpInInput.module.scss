@@ -1,0 +1,57 @@
+.inputWrapper {
+	position: relative;
+	margin-bottom: 16px;
+	
+	&.desktop {
+		display: flex;
+		align-items: center;
+		width: 100%;
+		input {
+			width: 100%;
+			padding: 10px 15px;
+			font-size: 16px;
+			border: 1px solid #ccc;
+			border-radius: 8px;
+		}
+		
+		.eyeButton {
+			position: absolute;
+			right: 10px;
+			background: none;
+			border: none;
+			cursor: pointer;
+			
+			.eyeIcon {
+
+			}
+		}
+	}
+	
+	&.mobile {
+		display: flex;
+		flex-direction: column;
+		input {
+			width: 100%;
+			padding: 8px 12px;
+			font-size: 14px;
+			border: none;
+			border-bottom: 1px solid #aaa;
+			background: transparent;
+			outline: none;
+		}
+		
+		.eyeButton {
+			position: absolute;
+			right: 8px;
+			bottom: 8px;
+			background: none;
+			border: none;
+			cursor: pointer;
+			
+			.eyeIcon {
+				font-size: 14px;
+				color: #ff8c00;
+			}
+		}
+	}
+}

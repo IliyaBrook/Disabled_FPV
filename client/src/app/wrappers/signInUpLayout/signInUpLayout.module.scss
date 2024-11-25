@@ -1,0 +1,61 @@
+@use "../../globalStyles/index" as global;
+.signInUpLayout{
+	background-image: url("../../../../public/img/background.svg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	height: 100%;
+	.modalDesktop , .container, &{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+	}
+	.modalDesktop{
+		height: 90%;
+		width: 45%;
+		flex-shrink: 0;
+		border-radius: 20px;
+		background: #FFF;
+		box-shadow: 0 4px 12px 1px rgba(0, 0, 0, 0.25);
+	}
+	@media (max-width: 768px) {
+		.modalDesktop{
+			display: none;
+		}
+	}
+	.container{
+		width: 100%;
+		height: 100%;
+		padding: 30px 20px;
+		gap: 10px;
+		
+		.formHeader{
+			display: flex;
+		}
+	}
+	.haveAnAccountLink{
+		.haveAnAccountText{
+			color: #000;
+			font-size: 16px;
+			font-style: normal;
+			font-weight: 400;
+			line-height: normal;
+		}
+		.haveAnAccountBtn{
+			margin:  0 5px;
+			color: global.$orange;
+			font-size: 16px;
+			font-style: normal;
+			font-weight: 700;
+			line-height: normal;
+			text-decoration-line: underline;
+			text-decoration-style: solid;
+			text-decoration-skip-ink: none;
+			text-decoration-thickness: auto;
+			text-underline-offset: auto;
+			text-underline-position: from-font;
+		}
+	}
+}

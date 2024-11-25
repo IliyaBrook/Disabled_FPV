@@ -1,8 +1,10 @@
+import { errorsSlice, localizationSlice, signUpInFormSlice } from './slices'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import localizationReducer from './slices/localization.slice'
 
 const rootReducer = combineReducers({
-  localization: localizationReducer,
+  [localizationSlice.name]: localizationSlice.reducer,
+  [signUpInFormSlice.name]: signUpInFormSlice.reducer,
+  [errorsSlice.name]: errorsSlice.reducer,
 })
 
 export const store = configureStore({
@@ -12,3 +14,4 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
+export type AppStore = typeof store

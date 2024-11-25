@@ -1,16 +1,19 @@
-import type { ILocalizationState } from '@/app/types/store.types'
+import type {
+  ILangProps,
+  TDict,
+  TDir,
+  TLangOptions,
+} from '@/app/types/sharable.types'
 import { getDefaultDict } from '@/app/utils/getDefaultDict'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
-import type { TDict, TLangOptions, TDir } from '@/app/types/local.types'
 
-const initialState: ILocalizationState = {
+export const initialState: ILangProps = {
   lang: 'he',
   dir: 'rtl',
   dict: getDefaultDict,
 }
-
-const localizationSlice = createSlice({
+export const localizationSlice = createSlice({
   name: 'localization',
   initialState,
   reducers: {
@@ -28,6 +31,3 @@ const localizationSlice = createSlice({
     },
   },
 })
-
-export const { setLocalization } = localizationSlice.actions
-export default localizationSlice.reducer

@@ -1,13 +1,12 @@
-import SignInUpLayout from '@/app/layouts/signInUpLayout/signInUpLayout'
-import type { TDir } from '@/app/types/local.types'
-import type { IServerPageParams } from '@/app/types/pages.types'
+import SignInUpLayout from '@/app/wrappers/signInUpLayout/signInUpLayout'
+
+import type { IServerPageParams, TDir } from '@/app/types/sharable.types'
 import { getDictionary } from '@/app/utils/dictionaries'
 import React from 'react'
 
 export default async function SignIn({
   params,
 }: {
-  children: React.ReactNode
   params: IServerPageParams
 }): Promise<React.ReactElement> {
   const p = await params

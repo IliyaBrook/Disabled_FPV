@@ -1,5 +1,6 @@
 import enLocal from '@/app/dictionaries/en.json'
-import type { TDict } from '@/app/types/local.types'
+
+import type { TDict } from '@/app/types/sharable.types'
 
 export const getDefaultDict = Object.entries(enLocal).reduce<TDict>(
   (acc, [key]) => {

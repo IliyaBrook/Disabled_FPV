@@ -1,4 +1,5 @@
 'use client'
+import useWindowSize from '@/app/hooks/useWindowSize'
 import isClient from '@/app/utils/isClient'
 import React, { useEffect, useRef, useState } from 'react'
 import LangSwitcher from '@/app/components/langSwitcher/langSwitcher'
@@ -45,14 +46,14 @@ export default function NavBar(): React.ReactElement {
       document.removeEventListener('mousedown', handleOutsideClick)
     }
   }, [])
-
+  const { screenWidth } = useWindowSize()
   const signUpTarget = isClient()
-    ? window.innerWidth > 768
+    ? screenWidth > 768
       ? signInUpBtnsDesktopRef.current
       : signUpMobileRef.current
     : null
   const signInTarget = isClient()
-    ? window.innerWidth > 768
+    ? screenWidth > 768
       ? signInUpBtnsDesktopRef.current
       : signInMobileRef.current
     : null

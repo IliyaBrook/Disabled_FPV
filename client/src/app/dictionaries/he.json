@@ -40,7 +40,7 @@
 	"Confirm password is required": "נדרש להזין אישור סיסמה",
 	"Passwords do not match": "הסיסמאות אינן תואמות",
 	"Invalid email address": "כתובת אימייל לא תקינה",
-	"Password must be at least 8 characters": "הסיסמה חייבת להיות לפחות באורך 8 תווים",
+	"Password must be at least 6 characters": "הסיסמה חייבת להיות לפחות באורך 6 תווים",
 	"Forgot your password?": "שכחת את הסיסמה?",
 	"Submit": "שלח"
 }

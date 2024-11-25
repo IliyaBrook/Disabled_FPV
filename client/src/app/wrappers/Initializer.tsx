@@ -1,13 +1,14 @@
 'use client'
 
-import { setLocalization } from '@/app/store/slices/localization.slice'
-import type { ILangPageProps } from '@/app/types/pages.types'
+import { useAppDispatch } from '@/app/store/hooks'
+import { setLocalization } from '@/app/store/slices'
+
+import type { ILangProps } from '@/app/types/sharable.types'
 import type React from 'react'
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 
-const Initializer: React.FC<ILangPageProps> = ({ lang, dir, dict }) => {
-  const dispatch = useDispatch()
+const Initializer: React.FC<ILangProps> = ({ lang, dir, dict }) => {
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(setLocalization({ lang, dir, dict }))

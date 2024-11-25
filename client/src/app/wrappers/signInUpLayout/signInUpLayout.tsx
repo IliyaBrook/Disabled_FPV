@@ -1,13 +1,15 @@
 'use client'
 import { Spinner } from '@/app/components/Spinner/Spinner'
 import useIsClient from '@/app/hooks/useIsClient'
-import type { ILangPageProps } from '@/app/types/pages.types'
+import useWindowSize from '@/app/hooks/useWindowSize'
+
+import type { ILangProps } from '@/app/types/sharable.types'
 import Link from 'next/link'
 import React from 'react'
 import { createPortal } from 'react-dom'
 import styles from './signInUpLayout.module.scss'
 
-interface ISignInUpLayoutProps extends ILangPageProps {
+interface ISignInUpLayoutProps extends ILangProps {
   children: React.ReactNode
   pageName: 'sign-in' | 'sign-up'
 }
@@ -19,18 +21,14 @@ const SignInUpLayout: React.FC<ISignInUpLayoutProps> = ({
   pageName,
 }): React.ReactElement => {
   const isClient: boolean = useIsClient()
-  const isDesktop = isClient ? window.innerWidth > 768 : false
+  const { screenWidth } = useWindowSize()
+  const isDesktop = isClient ? screenWidth > 768 : false
   const signInUpLayoutRef = React.useRef<HTMLDivElement>(null)
   const formContainerRef = React.useRef<HTMLDivElement>(null)
   const portalTarget = isDesktop
     ? formContainerRef.current
     : signInUpLayoutRef.current
 
-  console.log(
-    'Classes applied:',
-    styles.haveAnAccountText,
-    styles.haveAnAccountBtn
-  )
   return (
     <div className={styles.signInUpLayout} ref={signInUpLayoutRef}>
       <div className={styles.modalDesktop}>

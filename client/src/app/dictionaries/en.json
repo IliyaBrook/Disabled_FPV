@@ -40,7 +40,7 @@
 	"Confirm password is required": "Confirm password is required",
 	"Passwords do not match": "Passwords do not match",
 	"Invalid email address": "Invalid email address",
-	"Password must be at least 8 characters": "Password must be at least 8 characters",
+	"Password must be at least 6 characters": "Password must be at least 6 characters",
 	"Forgot your password?": "Forgot your password?",
 	"Submit": "Submit"
 }

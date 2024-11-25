@@ -1,13 +1,13 @@
 'use client'
 
-import type { langProps } from '@/app/types/components/navBar.types'
+import type { ILangProps } from '@/app/types/sharable.types'
 import { changeUrlSegmentPath } from '@/app/utils/changeUrlSegmentPath'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './langSwitcher.module.scss'
 
-const LangSwitcher: React.FC<langProps> = ({ dict, lang }) => {
+const LangSwitcher: React.FC<Omit<ILangProps, 'dir'>> = ({ dict, lang }) => {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 

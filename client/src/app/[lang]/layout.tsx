@@ -1,8 +1,12 @@
 import Footer from '@/app/components/footer/footer'
 import NavBar from '@/app/components/navBar/navBar'
-import MainLayout from '@/app/layouts/mainLayout/mainLayout'
-import type { TDir, TLangOptions } from '@/app/types/local.types'
-import type { IServerPageParams } from '@/app/types/pages.types'
+import PagesLayout from '@/app/wrappers/pagesLayout/pagesLayout'
+
+import type {
+  IServerPageParams,
+  TDir,
+  TLangOptions,
+} from '@/app/types/sharable.types'
 import { getDictionary } from '@/app/utils/dictionaries'
 import ErrorBoundary from '@/app/wrappers/errorBoundary'
 import Initializer from '@/app/wrappers/Initializer'
@@ -86,7 +90,7 @@ export default async function RootLayout({
           <Initializer lang={p.lang} dir={dir} dict={dict} />
           <ErrorBoundary>
             <NavBar />
-            <MainLayout>{children}</MainLayout>
+            <PagesLayout>{children}</PagesLayout>
             <Footer dir={dir} />
           </ErrorBoundary>
         </StoreProvider>
