@@ -6,7 +6,7 @@ import type { RootState } from '@/app/store/store'
 import type { ILangProps } from '@/app/types/sharable.types'
 import { getSignUpInFormActions } from '@/app/utils/signUpInForm.utils'
 import Form from 'next/form'
-import React, { useRef } from 'react'
+import React, { useActionState, useRef } from 'react'
 import styles from './signUp.module.scss'
 
 const SignUpForm: React.FC<ILangProps> = ({ dict }) => {
@@ -39,10 +39,10 @@ const SignUpForm: React.FC<ILangProps> = ({ dict }) => {
     pageName: 'signUp',
     successDispatch: handleSuccessDispatch,
   })
-  console.log('pending', pending)
 
   return (
     <div className={styles.signUp}>
+      <pre style={{ color: 'red' }}>{state.statusMessage}</pre>
       <Form className={styles.inputsContainer} action={formActions}>
         <div className={styles.inputGroup}>
           <SignUpInInput
