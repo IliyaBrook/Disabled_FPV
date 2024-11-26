@@ -1,7 +1,8 @@
-import SignInUpLayout from '@/app/wrappers/signInUpLayout/signInUpLayout'
+import SignInForm from '@/app/[lang]/sign-in/signInForm'
 
 import type { IServerPageParams, TDir } from '@/app/types/sharable.types'
 import { getDictionary } from '@/app/utils/dictionaries'
+import SignInUpLayout from '@/app/wrappers/signInUpLayout/signInUpLayout'
 import React from 'react'
 
 export default async function SignIn({
@@ -16,7 +17,7 @@ export default async function SignIn({
 
   return (
     <SignInUpLayout lang={p.lang} dir={dir} dict={dict} pageName="sign-in">
-      <h1></h1>
+      <SignInForm dict={dict} dir={dir} lang={p.lang} />
     </SignInUpLayout>
   )
 }

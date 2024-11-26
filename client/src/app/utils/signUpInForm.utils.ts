@@ -65,7 +65,7 @@ interface GetSignUpInFormActions {
   pageName: 'signUp' | 'signIn'
 }
 
-export const getSignUpInFormActions = ({
+export const getSignUpInFormActions = <T extends Record<string, any>>({
   dispatch,
   timerRef,
   dict,
@@ -73,25 +73,38 @@ export const getSignUpInFormActions = ({
   successDispatch,
   pageName,
 }: GetSignUpInFormActions): ((
-  prevState: ISignUpForm,
+  prevState: T,
   formData: FormData
-) => Promise<ISignUpForm>) => {
+) => Promise<T>) => {
   const resetFormInMs = 5000
-  return async (
-    prevState: ISignUpForm,
-    formData: FormData
-  ): Promise<ISignUpForm> => {
-    const firstName = formData.get('first_name')
-    const lastName = formData.get('last_name')
-    const email = formData.get('email')
-    const password = formData.get('password')
-    const confirmPassword = formData.get('confirm_password')
-    prevState = {
-      first_name: firstName ? String(firstName) : '',
-      last_name: lastName ? String(lastName) : '',
-      email: email ? String(email) : '',
-      password: password ? String(password) : '',
-      confirm_password: confirmPassword ? String(confirmPassword) : '',
+  return async (prevState: T, formData: FormData): Promise<T> => {
+    // const firstName = formData.get('first_name')
+    // const lastName = formData.get('last_name')
+    // const email = formData.get('email')
+    // const password = formData.get('password')
+    // const confirmPassword = formData.get('confirm_password')
+    // prevState = {
+    //   first_name: firstName ? String(firstName) : '',
+    //   last_name: lastName ? String(lastName) : '',
+    //   email: email ? String(email) : '',
+    //   password: password ? String(password) : '',
+    //   confirm_password: confirmPassword ? String(confirmPassword) : '',
+    // }
+    const updatedState: T = {
+      ...prevState,
+      first_name: formData.get('first_name')
+        ? String(formData.get('first_name'))
+        : '',
+      last_name: formData.get('last_name')
+        ? String(formData.get('last_name'))
+        : '',
+      email: formData.get('email') ? String(formData.get('email')) : '',
+      password: formData.get('password')
+        ? String(formData.get('password'))
+        : '',
+      confirm_password: formData.get('confirm_password')
+        ? String(formData.get('confirm_password'))
+        : '',
     }
 
     const setPending = (value: boolean): void => {
@@ -104,10 +117,11 @@ export const getSignUpInFormActions = ({
     try {
       setPending(true)
       const result = handleSignUpInFormErrors({
-        ...prevState,
+        ...updatedState,
         dict,
         pageName,
-      })
+      } as unknown as handleSignUpInForm)
+
       if (result !== 'success') {
         dispatch(
           setStatus({
@@ -124,7 +138,11 @@ export const getSignUpInFormActions = ({
           if (data && successDispatch) {
             successDispatch(data)
             setPending(false)
-            prevState = signUpDefaultState
+            if (pageName === 'signUp') {
+              prevState = signUpDefaultState as unknown as T
+            } else {
+              prevState = signInDefaultState as unknown as T
+            }
           }
         }
       }
