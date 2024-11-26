@@ -6,12 +6,7 @@ import type { TDict } from '@/app/types/sharable.types'
 import { isEmail } from '@/app/utils/isEmail'
 import type React from 'react'
 
-export interface handleSignUpInForm {
-  first_name?: string
-  last_name?: string
-  email: string
-  password: string
-  confirm_password?: string
+export type handleSignUpInForm<T> = T & {
   dict: TDict
   pageName: 'signUp' | 'signIn'
 }
@@ -29,7 +24,7 @@ export const signInDefaultState: ISignInForm = {
   password: '',
 }
 
-const handleSignUpInFormErrors = ({
+const handleSignUpInFormErrors = <T extends Record<string, any>>({
   first_name = '',
   last_name = '',
   email = '',
@@ -37,7 +32,7 @@ const handleSignUpInFormErrors = ({
   confirm_password = '',
   dict,
   pageName,
-}: handleSignUpInForm): 'success' | string => {
+}: handleSignUpInForm<T>): 'success' | string => {
   const passwordT = password.trim()
   const emailT = email.trim()
   if (!emailT) return dict['Email is required']
@@ -78,18 +73,6 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
 ) => Promise<T>) => {
   const resetFormInMs = 5000
   return async (prevState: T, formData: FormData): Promise<T> => {
-    // const firstName = formData.get('first_name')
-    // const lastName = formData.get('last_name')
-    // const email = formData.get('email')
-    // const password = formData.get('password')
-    // const confirmPassword = formData.get('confirm_password')
-    // prevState = {
-    //   first_name: firstName ? String(firstName) : '',
-    //   last_name: lastName ? String(lastName) : '',
-    //   email: email ? String(email) : '',
-    //   password: password ? String(password) : '',
-    //   confirm_password: confirmPassword ? String(confirmPassword) : '',
-    // }
     const updatedState: T = {
       ...prevState,
       first_name: formData.get('first_name')
@@ -116,11 +99,11 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
     }
     try {
       setPending(true)
-      const result = handleSignUpInFormErrors({
+      const result = handleSignUpInFormErrors<T>({
         ...updatedState,
         dict,
         pageName,
-      } as unknown as handleSignUpInForm)
+      })
 
       if (result !== 'success') {
         dispatch(

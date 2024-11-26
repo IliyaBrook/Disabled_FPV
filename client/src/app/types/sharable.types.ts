@@ -7,7 +7,7 @@ export type TDir = 'ltr' | 'rtl'
 export type IServerPageParams = Promise<{ lang: TLangOptions }>
 
 export interface ILangProps {
-  lang: TLangOptions
+  lang?: TLangOptions
   dir: TDir
   dict: TDict
 }
