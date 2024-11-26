@@ -5,7 +5,10 @@ import type { RootState } from '@/app/store/store'
 import type { ISignUpForm } from '@/app/types/pages/signUp.types'
 
 import type { ILangProps } from '@/app/types/sharable.types'
-import { getSignUpInFormActions } from '@/app/utils/signUpInForm.utils'
+import {
+  getSignUpInFormActions,
+  signUpDefaultState,
+} from '@/app/utils/signUpInForm.utils'
 import Form from 'next/form'
 import React, { useActionState, useCallback, useRef } from 'react'
 import styles from './signUp.module.scss'
@@ -40,19 +43,11 @@ const SignUpForm: React.FC<ILangProps> = ({ dict }) => {
     pageName: 'signUp',
     successDispatch: handleSuccessDispatch,
   })
-  const setFormState = (formData: ISignUpForm): ISignUpForm => {
-    console.log('formData:', formData)
 
-    return formData
-  }
-
-  const [formState, formAction] = useActionState(formActions, {
-    first_name: '',
-    last_name: '',
-    email: '',
-    password: '',
-    confirm_password: '',
-  })
+  const [formState, formAction] = useActionState(
+    formActions,
+    signUpDefaultState
+  )
 
   return (
     <div className={styles.signUp}>
