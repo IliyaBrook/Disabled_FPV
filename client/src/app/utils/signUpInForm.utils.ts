@@ -1,5 +1,6 @@
 import type { useAppDispatch } from '@/app/store/hooks'
 import { resetStatus, setStatus } from '@/app/store/slices'
+import type { ISignUpForm } from '@/app/types/pages/signUp.types'
 import type { TDict } from '@/app/types/sharable.types'
 import { isEmail } from '@/app/utils/isEmail'
 import type React from 'react'
@@ -74,7 +75,6 @@ export const getSignUpInFormActions = ({
       const email = formData.get('email')
       const password = formData.get('password')
       const confirmPassword = formData.get('confirm_password')
-
       const result = handleSignUpInFormErrors({
         first_name: firstName as string,
         last_name: lastName as string,

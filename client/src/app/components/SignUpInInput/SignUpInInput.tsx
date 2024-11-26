@@ -9,12 +9,14 @@ interface ISignUpInInputProps {
   type: 'email' | 'password' | 'text'
   placeholder: string
   name: string
+  defaultValue?: string
 }
 
 const SignUpInInput: React.FC<ISignUpInInputProps> = ({
   type,
   placeholder,
   name,
+  defaultValue,
 }) => {
   const { screenWidth } = useWindowSize()
   const isDesktop = isClient() ? screenWidth > 768 : false
@@ -36,6 +38,7 @@ const SignUpInInput: React.FC<ISignUpInInputProps> = ({
         placeholder={placeholder}
         className={styles.input}
         name={name}
+        defaultValue={defaultValue}
       />
       {type === 'password' && (
         <button
