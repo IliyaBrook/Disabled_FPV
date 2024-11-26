@@ -40,8 +40,8 @@ const handleSignUpInFormErrors = ({
 }: handleSignUpInForm): 'success' | string => {
   const passwordT = password.trim()
   const emailT = email.trim()
-  if (!passwordT) return dict['Password is required']
   if (!emailT) return dict['Email is required']
+  if (!passwordT) return dict['Password is required']
   if (!isEmail(emailT)) return dict['Invalid email address']
   if (pageName === 'signUp') {
     const fistNameT = first_name?.trim()
