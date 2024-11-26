@@ -1,4 +1,5 @@
 'use client'
+import type { TDir } from '@/app/types/sharable.types'
 import React, { useState } from 'react'
 import Image from 'next/image'
 import useWindowSize from '@/app/hooks/useWindowSize'
@@ -10,6 +11,7 @@ interface ISignUpInInputProps {
   placeholder: string
   name: string
   defaultValue?: string
+  dir?: TDir
 }
 
 const SignUpInInput: React.FC<ISignUpInInputProps> = ({
@@ -17,7 +19,9 @@ const SignUpInInput: React.FC<ISignUpInInputProps> = ({
   placeholder,
   name,
   defaultValue,
+  dir,
 }) => {
+  const isRtl = dir === 'rtl'
   const { screenWidth } = useWindowSize()
   const isDesktop = isClient() ? screenWidth > 768 : false
 
@@ -44,6 +48,10 @@ const SignUpInInput: React.FC<ISignUpInInputProps> = ({
         <button
           type="button"
           className={styles.eyeButton}
+          style={{
+            left: isRtl ? '10px' : 'unset',
+            right: isRtl ? 'unset' : '10px',
+          }}
           onClick={handleTogglePasswordVisibility}
         >
           <div className={styles.eyeIcon}>

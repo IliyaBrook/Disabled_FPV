@@ -12,11 +12,15 @@
 			font-size: 16px;
 			border: 1px solid #ccc;
 			border-radius: 8px;
+			&::placeholder{
+				color: rgb(117,117,117);
+			}
 		}
+		
 		
 		.eyeButton {
 			position: absolute;
-			right: 10px;
+
 			background: none;
 			border: none;
 			cursor: pointer;

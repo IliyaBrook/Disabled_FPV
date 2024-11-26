@@ -1,0 +1,32 @@
+@use "../../globalStyles/index" as global;
+.submitButton {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	font-size: 1.3rem;
+	border: none;
+	border-radius: 20px;
+	background-color: #222;
+	color: white;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	&:hover {
+		box-shadow: 0 4px 12px 3px rgba(0, 0, 0, 0.25);
+		transition: box-shadow 0.3s ease;
+	}
+	
+	&:disabled {
+		background-color: #d6d6d6;
+		cursor: not-allowed;
+	}
+	
+	&.loading {
+		background-color: #6c757d;
+		pointer-events: none;
+	}
+	@include global.loader($width: 1rem, $marginLeft: 1rem);
+}
+

@@ -1,3 +1,31 @@
 @mixin calculatedHeight() {
 	height: calc(100vh - calc(var(--footer-height, 40px)));
 }
+
+@mixin loader(
+	$marginLeft: 0,
+	$marginRight: 0,
+	$marginTop: 0,
+	$marginBottom: 0,
+	$width: 1rem,
+	$color: white
+) {
+	.loaderWrapper {
+		margin: $marginTop $marginRight $marginBottom $marginLeft;
+		display: inline-flex;
+		min-width: $width;
+		.loader {
+			width: $width;
+			height: $width;
+			border: 2px solid $color;
+			border-top-color: transparent;
+			border-radius: 50%;
+			animation: spin 1s linear infinite;
+			@keyframes spin {
+				to {
+					transform: rotate(360deg);
+				}
+			}
+		}
+	}
+}
