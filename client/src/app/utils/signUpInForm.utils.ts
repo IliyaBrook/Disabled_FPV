@@ -78,6 +78,8 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
         message,
         type: 'error',
         location: pageName,
+        isOpen: true,
+        position: 'bottom',
       })
     )
   }

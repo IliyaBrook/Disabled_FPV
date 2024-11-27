@@ -4,6 +4,6 @@ export { localizationSlice } from './localization.slice'
 export const { setLocalization } = localizationSlice.actions
 
 // modal
-import { modalSlice } from './modalSlice'
-export { modalSlice } from './modalSlice'
+import { modalSlice } from './modal.slice'
+export { modalSlice } from './modal.slice'
 export const { setModal, closeModal } = modalSlice.actions

@@ -72,3 +72,12 @@
 	$crossThickness: $crossThickness,
 	);
 }
+
+@mixin backgroundImage($size: 100%, $url: "") {
+	width: $size;
+	height: $size;
+	background-image: url($url);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}

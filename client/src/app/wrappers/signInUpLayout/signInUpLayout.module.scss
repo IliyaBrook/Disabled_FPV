@@ -1,10 +1,6 @@
 @use "../../globalStyles/index" as global;
 .signInUpLayout{
-	background-image: url("../../../../public/img/background.svg");
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center;
-	height: 100%;
+	@include global.backgroundImage($url: "/img/background.svg");
 	.modalDesktop , .container, &{
 		display: flex;
 		flex-direction: column;

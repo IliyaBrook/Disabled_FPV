@@ -1,10 +1,4 @@
-export type modalTypesOp =
-  | 'error'
-  | 'info'
-  | 'warning'
-  | 'success'
-  | 'welcome'
-  | 'goodbye'
+export type modalTypesOp = 'error' | 'info' | 'warning' | 'success'
 
 export type modalPositionOp =
   | 'top'
@@ -20,7 +14,7 @@ export type modalPositionOp =
 export interface modalState {
   message?: string
   location?: string
-  type?: modalTypesOp
+  type: modalTypesOp
   isOpen?: boolean
   position?: modalPositionOp
 }

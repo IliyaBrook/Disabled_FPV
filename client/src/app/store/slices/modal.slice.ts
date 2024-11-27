@@ -7,7 +7,7 @@ export const modalInitState: modalState = {
   location: '',
   type: 'error',
   isOpen: false,
-  position: 'center-end',
+  position: 'bottom',
 }
 
 export const modalSlice = createSlice({

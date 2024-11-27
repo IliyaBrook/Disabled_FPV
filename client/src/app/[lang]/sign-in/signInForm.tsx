@@ -18,21 +18,6 @@ const SignInForm: React.FC<Omit<ILangProps, 'lang'>> = ({ dict, dir }) => {
   const dispatch = useAppDispatch()
   const timerRef = useRef<NodeJS.Timeout | null>(null)
 
-  // open modal test
-  useEffect(() => {
-    setTimeout(() => {
-      dispatch(
-        setModal({
-          isOpen: true,
-          type: 'error',
-          position: 'bottom',
-          message: 'password is required',
-          location: 'sign-in',
-        })
-      )
-    }, 1)
-  }, [])
-
   const fetchData = (): Promise<Response> => {
     return Promise.resolve({
       ok: true,

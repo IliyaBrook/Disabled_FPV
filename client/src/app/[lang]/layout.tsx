@@ -1,3 +1,4 @@
+import AlertModal from '@/app/components/alertModal'
 import Footer from '@/app/components/footer/footer'
 import NavBar from '@/app/components/navBar'
 import PagesLayout from '@/app/wrappers/pagesLayout'
@@ -92,6 +93,7 @@ export default async function RootLayout({
             <NavBar />
             <PagesLayout>{children}</PagesLayout>
             <Footer />
+            <AlertModal dir={dir} />
           </ErrorBoundaryWrapper>
         </StoreProviderWrapper>
       </body>
