@@ -109,7 +109,7 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
         dispatch(
           setStatus({
             statusMessage: result,
-            location: 'signUp',
+            location: pageName,
             pending: false,
           })
         )
@@ -134,7 +134,7 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
       dispatch(
         setStatus({
           statusMessage,
-          location: 'signUp',
+          location: pageName,
           pending: false,
         })
       )
