@@ -1,5 +1,5 @@
 'use client'
-import type { TDir } from '@/app/types/sharable.types'
+import type { TDir } from '@/app/types/shareable.types'
 import React, { useState } from 'react'
 import Image from 'next/image'
 import useWindowSize from '@/app/hooks/useWindowSize'

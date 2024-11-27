@@ -1,7 +1,8 @@
 import SignUpForm from '@/app/[lang]/sign-up/signUpForm'
-import SignInUpLayout from '@/app/wrappers/signInUpLayout/signInUpLayout'
+import AlertModal from '../../components/alertModal'
+import SignInUpLayout from '@/app/wrappers/signInUpLayout'
 
-import type { IServerPageParams, TDir } from '@/app/types/sharable.types'
+import type { IServerPageParams, TDir } from '@/app/types/shareable.types'
 import { getDictionary } from '@/app/utils/dictionaries'
 import React from 'react'
 
@@ -15,8 +16,11 @@ export default async function SignUp({
   const dict = await getDictionary(p.lang)
 
   return (
-    <SignInUpLayout lang={p.lang} dir={dir} dict={dict} pageName="sign-up">
-      <SignUpForm dict={dict} dir={dir} lang={p.lang} />
-    </SignInUpLayout>
+    <>
+      <AlertModal dir={dir} />
+      <SignInUpLayout lang={p.lang} dir={dir} dict={dict} pageName="sign-up">
+        <SignUpForm dict={dict} dir={dir} lang={p.lang} />
+      </SignInUpLayout>
+    </>
   )
 }

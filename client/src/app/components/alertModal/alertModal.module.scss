@@ -1,0 +1,135 @@
+@use '../../globalStyles/index' as global;
+.modal {
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	background: white;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	padding-bottom: 40px;
+
+	max-width: 400px;
+	width: 90%;
+	z-index: 1000;
+	
+	&.top {
+		top: 10px;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	
+	&.top-start {
+		top: 10px;
+		left: 10px;
+	}
+	
+	&.top-end {
+		top: 10px;
+		right: 10px;
+	}
+	
+	&.center {
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+	
+	&.center-start {
+		top: 50%;
+		left: 10px;
+		transform: translateY(-50%);
+	}
+	
+	&.center-end {
+		top: 50%;
+		right: 10px;
+		transform: translateY(-50%);
+	}
+	
+	&.bottom {
+		bottom: 10px;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	
+	&.bottom-start {
+		bottom: 10px;
+		left: 10px;
+	}
+	
+	&.bottom-end {
+		bottom: 10px;
+		right: 10px;
+	}
+
+	.header {
+		position: relative;
+		display: flex;
+		align-items: center;
+		min-height: 40px;
+		
+		.close {
+			background: none;
+			border: none;
+			cursor: pointer;
+			padding: 0.3rem;
+			display: flex;
+			position: relative;
+			min-width: 40px;
+			min-height: 40px;
+			&:hover .cross{
+				&::before,
+				&::after {
+					background-color: global.$red-light;
+				}
+				
+			}
+			
+			.cross{
+				@include global.cross($crossSize: 20px, $crossThickness: 3px, $color: #71747B);
+			}
+		}
+	}
+	.modalElements{
+		display: flex;
+		.content {
+			padding: 1.5rem 0;
+			.location {
+				margin-top: 0.5rem;
+				font-size: 0.875rem;
+				color: #888;
+			}
+		}
+		.iconByType{
+			display: flex;
+			align-items: center;
+			margin: 0 1rem;
+			& .error{
+				.circle {
+					@include global.crossInsideCircle($size: 50px, $crossThickness: 70%, $crossSize: 3px);
+				}
+			}
+			
+			& .info {
+				border-left: 5px solid #1890ff;
+			}
+			
+			& .warning {
+				border-left: 5px solid #faad14;
+			}
+			
+			& .success {
+				border-left: 5px solid #52c41a;
+			}
+			
+			& .welcome {
+				border-left: 5px solid #87e8de;
+			}
+			
+			& .goodbye {
+				border-left: 5px solid #b37feb;
+			}
+		}
+	}
+}
+

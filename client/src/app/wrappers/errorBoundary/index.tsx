@@ -9,7 +9,7 @@ interface ErrorBoundaryProps {
   children: React.ReactNode
 }
 
-const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => {
+const ErrorBoundaryWrapper: React.FC<ErrorBoundaryProps> = ({ children }) => {
   const [hasError, setHasError] = useState(false)
   const [errorDetails, setErrorDetails] = useState<Error | null>(null)
 
@@ -25,11 +25,10 @@ const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => {
     const handleError = (event: ErrorEvent | PromiseRejectionEvent): void => {
       setHasError(true)
 
-      // Сохраняем информацию об ошибке
       if ('reason' in event) {
-        setErrorDetails(event.reason) // Для unhandledrejection
+        setErrorDetails(event.reason)
       } else {
-        setErrorDetails(event.error) // Для обычных ошибок
+        setErrorDetails(event.error)
       }
     }
 
@@ -74,4 +73,4 @@ const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children }) => {
   return <>{children}</>
 }
 
-export default ErrorBoundary
+export default ErrorBoundaryWrapper

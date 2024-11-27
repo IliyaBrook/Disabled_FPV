@@ -2,20 +2,36 @@
 import SignUpInInput from '@/app/components/SignUpInInput/SignUpInInput'
 import SubmitButton from '@/app/components/SubmitButton/SubmitButton'
 import { useAppDispatch } from '@/app/store/hooks'
+import { setModal } from '@/app/store/slices'
 import type { ISignInForm } from '@/app/types/pages/signIn.types'
 
-import type { ILangProps } from '@/app/types/sharable.types'
+import type { ILangProps } from '@/app/types/shareable.types'
 import {
   getSignUpInFormActions,
   signInDefaultState,
 } from '@/app/utils/signUpInForm.utils'
 import styles from '@/app/wrappers/signInUpLayout/signInUpLayout.module.scss'
 import Form from 'next/form'
-import React, { useActionState, useRef } from 'react'
+import React, { useActionState, useEffect, useRef } from 'react'
 
 const SignInForm: React.FC<Omit<ILangProps, 'lang'>> = ({ dict, dir }) => {
   const dispatch = useAppDispatch()
   const timerRef = useRef<NodeJS.Timeout | null>(null)
+
+  // open modal test
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(
+        setModal({
+          isOpen: true,
+          type: 'error',
+          position: 'bottom',
+          message: 'password is required',
+          location: 'sign-in',
+        })
+      )
+    }, 1)
+  }, [])
 
   const fetchData = (): Promise<Response> => {
     return Promise.resolve({

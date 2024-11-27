@@ -29,3 +29,46 @@
 		}
 	}
 }
+
+@mixin cross($color: #ef5350, $crossSize: 5px, $crossThickness: 70%, $crossBorderRadius: 2px) {
+	&::before,
+	&::after {
+		content: '';
+		position: absolute;
+		width: $crossSize;
+		height: $crossThickness;
+		top: 50%;
+		left: 50%;
+		background-color: $color;
+		border-radius: $crossBorderRadius;
+		transform-origin: center;
+	}
+	
+	&::before {
+		transform: translate(-50%, -50%) rotate(-45deg);
+	}
+	
+	&::after {
+		transform: translate(-50%, -50%) rotate(45deg);
+	}
+}
+
+@mixin crossInsideCircle(  $color: #ef5350,
+  $size: 80px,
+  $circleWidth: 3px,
+  $crossSize: 5px,
+  $crossBorderRadius: 2px,
+  $crossThickness: 5px
+) {
+	position: relative;
+	width: $size;
+	height: $size;
+	border-radius: 50%;
+	border: $circleWidth solid $color;
+	
+	@include cross(  $color: $color,
+	$crossSize: $crossSize,
+	$crossBorderRadius: $crossBorderRadius,
+	$crossThickness: $crossThickness,
+	);
+}

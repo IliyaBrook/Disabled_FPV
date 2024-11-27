@@ -1,6 +1,6 @@
 'use client'
 
-import type { ILangProps } from '@/app/types/sharable.types'
+import type { ILangProps } from '@/app/types/shareable.types'
 import { changeUrlSegmentPath } from '@/app/utils/changeUrlSegmentPath'
 import Image from 'next/image'
 import Link from 'next/link'

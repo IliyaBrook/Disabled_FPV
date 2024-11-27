@@ -1,9 +1,9 @@
-import { statusSlice, localizationSlice } from './slices'
+import { modalSlice, localizationSlice } from './slices'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
 const rootReducer = combineReducers({
   [localizationSlice.name]: localizationSlice.reducer,
-  [statusSlice.name]: statusSlice.reducer,
+  [modalSlice.name]: modalSlice.reducer,
 })
 
 export const store = configureStore({

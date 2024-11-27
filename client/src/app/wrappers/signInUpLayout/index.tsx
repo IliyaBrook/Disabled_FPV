@@ -3,7 +3,7 @@ import { Spinner } from '@/app/components/Spinner/Spinner'
 import useIsClient from '@/app/hooks/useIsClient'
 import useWindowSize from '@/app/hooks/useWindowSize'
 
-import type { ILangProps } from '@/app/types/sharable.types'
+import type { ILangProps } from '@/app/types/shareable.types'
 import Link from 'next/link'
 import React from 'react'
 import { createPortal } from 'react-dom'

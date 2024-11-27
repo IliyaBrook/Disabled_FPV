@@ -1,8 +1,8 @@
 import type { useAppDispatch } from '@/app/store/hooks'
-import { resetStatus, setStatus } from '@/app/store/slices'
+import { closeModal, setModal } from '@/app/store/slices'
 import type { ISignInForm } from '@/app/types/pages/signIn.types'
 import type { ISignUpForm } from '@/app/types/pages/signUp.types'
-import type { TDict } from '@/app/types/sharable.types'
+import type { TDict } from '@/app/types/shareable.types'
 import { isEmail } from '@/app/utils/isEmail'
 import type React from 'react'
 
@@ -72,6 +72,15 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
   formData: FormData
 ) => Promise<T>) => {
   const resetFormInMs = 5000
+  const modal = (message: string): void => {
+    dispatch(
+      setModal({
+        message,
+        type: 'error',
+        location: pageName,
+      })
+    )
+  }
   return async (prevState: T, formData: FormData): Promise<T> => {
     const updatedState: T = {
       ...prevState,
@@ -90,15 +99,7 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
         : '',
     }
 
-    const setPending = (value: boolean): void => {
-      dispatch(
-        setStatus({
-          pending: value,
-        })
-      )
-    }
     try {
-      setPending(true)
       const result = handleSignUpInFormErrors<T>({
         ...updatedState,
         dict,
@@ -106,13 +107,7 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
       })
 
       if (result !== 'success') {
-        dispatch(
-          setStatus({
-            statusMessage: result,
-            location: pageName,
-            pending: false,
-          })
-        )
+        modal(result)
         return prevState
       } else {
         if (dataFetchFunc) {
@@ -120,7 +115,6 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
           const data: Promise<any> = await response.json()
           if (data && successDispatch) {
             successDispatch(data)
-            setPending(false)
             if (pageName === 'signUp') {
               prevState = signUpDefaultState as unknown as T
             } else {
@@ -130,18 +124,12 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
         }
       }
     } catch (error) {
-      const statusMessage = (error as Error).message
-      dispatch(
-        setStatus({
-          statusMessage,
-          location: pageName,
-          pending: false,
-        })
-      )
+      const modalMessage = (error as Error).message
+      modal(modalMessage)
     } finally {
       if (timerRef.current) clearTimeout(timerRef.current)
       timerRef.current = setTimeout(() => {
-        dispatch(resetStatus())
+        dispatch(closeModal())
       }, resetFormInMs)
     }
     return prevState

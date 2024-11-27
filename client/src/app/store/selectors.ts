@@ -1,14 +1,15 @@
 import type { RootState } from '@/app/store/store'
-import type { ILangProps } from '@/app/types/sharable.types'
-import type { statusState } from '@/app/types/store/status.types'
+import type { ILangProps } from '@/app/types/shareable.types'
+import type { modalState } from '@/app/types/store/modal.types'
 import { createSelector } from '@reduxjs/toolkit'
 
-const localSelector = (state: RootState): ILangProps => state.localization
-const statusSelector = (state: RootState): statusState => state.status
+export const localSelector = (state: RootState): ILangProps =>
+  state.localization
+export const modalSelector = (state: RootState): modalState => state.modal
 
 // noinspection JSUnusedGlobalSymbols
 export const signUpInFormSelector = createSelector(
-  [localSelector, statusSelector],
+  [localSelector, modalSelector],
   (local, errors) => {
     return { ...local, ...errors }
   }

@@ -1,16 +1,16 @@
 import Footer from '@/app/components/footer/footer'
-import NavBar from '@/app/components/navBar/navBar'
-import PagesLayout from '@/app/wrappers/pagesLayout/pagesLayout'
+import NavBar from '@/app/components/navBar'
+import PagesLayout from '@/app/wrappers/pagesLayout'
 
 import type {
   IServerPageParams,
   TDir,
   TLangOptions,
-} from '@/app/types/sharable.types'
+} from '@/app/types/shareable.types'
 import { getDictionary } from '@/app/utils/dictionaries'
-import ErrorBoundary from '@/app/wrappers/errorBoundary'
-import Initializer from '@/app/wrappers/Initializer'
-import StoreProvider from '@/app/wrappers/storeProvider'
+import ErrorBoundaryWrapper from '@/app/wrappers/errorBoundary'
+import Initializer from '@/app/components/Initializer'
+import StoreProviderWrapper from '@/app/wrappers/storeProvider'
 import type { Metadata } from 'next'
 import { Josefin_Sans, Sora } from 'next/font/google'
 import '../globalStyles/globals.scss'
@@ -86,14 +86,14 @@ export default async function RootLayout({
       className={`${sora.variable} ${josefinSans.variable}`}
     >
       <body>
-        <StoreProvider>
+        <StoreProviderWrapper>
           <Initializer lang={p.lang} dir={dir} dict={dict} />
-          <ErrorBoundary>
+          <ErrorBoundaryWrapper>
             <NavBar />
             <PagesLayout>{children}</PagesLayout>
-            <Footer dir={dir} />
-          </ErrorBoundary>
-        </StoreProvider>
+            <Footer />
+          </ErrorBoundaryWrapper>
+        </StoreProviderWrapper>
       </body>
     </html>
   )

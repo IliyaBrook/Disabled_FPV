@@ -3,7 +3,7 @@ import type {
   TDict,
   TDir,
   TLangOptions,
-} from '@/app/types/sharable.types'
+} from '@/app/types/shareable.types'
 import { getDefaultDict } from '@/app/utils/getDefaultDict'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'

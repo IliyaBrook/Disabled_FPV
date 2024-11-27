@@ -3,7 +3,7 @@
 import { useAppDispatch } from '@/app/store/hooks'
 import { setLocalization } from '@/app/store/slices'
 
-import type { ILangProps } from '@/app/types/sharable.types'
+import type { ILangProps } from '@/app/types/shareable.types'
 import type React from 'react'
 import { useEffect } from 'react'
 

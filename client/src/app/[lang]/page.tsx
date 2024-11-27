@@ -1,6 +1,6 @@
 import ButtonWithArrow from '@/app/components/ButtonWithArrow/ButtonWithArrow'
 
-import type { IServerPageParams, TDir } from '@/app/types/sharable.types'
+import type { IServerPageParams, TDir } from '@/app/types/shareable.types'
 import { getDictionary } from '@/app/utils/dictionaries'
 import Image from 'next/image'
 import React from 'react'

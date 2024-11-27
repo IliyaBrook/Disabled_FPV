@@ -1,4 +1,4 @@
-import type { TDir } from '@/app/types/sharable.types'
+import type { TDir } from '@/app/types/shareable.types'
 import type { ButtonHTMLAttributes } from 'react'
 import React from 'react'
 import { useFormStatus } from 'react-dom'
