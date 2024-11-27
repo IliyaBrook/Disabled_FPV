@@ -13,7 +13,7 @@ import styles from '@/app/wrappers/signInUpLayout/signInUpLayout.module.scss'
 import Form from 'next/form'
 import React, { useActionState, useRef } from 'react'
 
-const SignInForm: React.FC<ILangProps> = ({ dict, dir }) => {
+const SignInForm: React.FC<Omit<ILangProps, 'lang'>> = ({ dict, dir }) => {
   const dispatch = useAppDispatch()
   const timerRef = useRef<NodeJS.Timeout | null>(null)
 

@@ -8,7 +8,7 @@ import React from 'react'
 export default async function SignIn({
   params,
 }: {
-  params: IServerPageParams
+  params: Omit<IServerPageParams, 'lang'>
 }): Promise<React.ReactElement> {
   const p = await params
   const dir: TDir = p.lang === 'he' ? 'rtl' : 'ltr'
