@@ -84,7 +84,7 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
     )
   }
   return async (prevState: T, formData: FormData): Promise<T> => {
-    const updatedState: T = {
+    let updatedState: T = {
       ...prevState,
       first_name: formData.get('first_name')
         ? String(formData.get('first_name'))
@@ -100,6 +100,7 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
         ? String(formData.get('confirm_password'))
         : '',
     }
+    console.log('updatedState', updatedState)
 
     try {
       const result = handleSignUpInFormErrors<T>({
@@ -110,7 +111,7 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
 
       if (result !== 'success') {
         modal(result)
-        return prevState
+        return updatedState
       } else {
         if (dataFetchFunc) {
           const response = await dataFetchFunc()
@@ -118,9 +119,9 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
           if (data && successDispatch) {
             successDispatch(data)
             if (pageName === 'signUp') {
-              prevState = signUpDefaultState as unknown as T
+              updatedState = signUpDefaultState as unknown as T
             } else {
-              prevState = signInDefaultState as unknown as T
+              updatedState = signInDefaultState as unknown as T
             }
           }
         }
@@ -134,6 +135,6 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
         dispatch(closeModal())
       }, resetFormInMs)
     }
-    return prevState
+    return updatedState
   }
 }

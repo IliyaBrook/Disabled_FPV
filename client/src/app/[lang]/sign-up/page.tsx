@@ -16,11 +16,8 @@ export default async function SignUp({
   const dict = await getDictionary(p.lang)
 
   return (
-    <>
-      <AlertModal dir={dir} />
-      <SignInUpLayout lang={p.lang} dir={dir} dict={dict} pageName="sign-up">
-        <SignUpForm dict={dict} dir={dir} lang={p.lang} />
-      </SignInUpLayout>
-    </>
+    <SignInUpLayout lang={p.lang} dir={dir} dict={dict} pageName="sign-up">
+      <SignUpForm dict={dict} dir={dir} lang={p.lang} />
+    </SignInUpLayout>
   )
 }
