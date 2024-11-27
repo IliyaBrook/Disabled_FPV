@@ -1,5 +1,5 @@
 import 'server-only'
-import type { TDict, TLangOptions } from '@/app/types/shareable.types'
+import type { TDict, TLangOptions } from '@/app/types'
 
 const dictionaries = {
   en: () => import('../dictionaries/en.json').then((module) => module.default),

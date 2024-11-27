@@ -7,7 +7,6 @@ func NewAuthResponse(resp AuthResponse) *AuthResponse {
 type AuthResponse struct {
 	ID    string `json:"id"`
 	Email string `json:"email"`
-	Lang  string `json:"lang"`
 	Token string `json:"token"`
 	Role  string `json:"role,omitempty"`
 	Error string `json:"error,omitempty"`

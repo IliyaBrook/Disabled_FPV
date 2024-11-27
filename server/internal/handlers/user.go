@@ -62,7 +62,11 @@ func (h *UserHandler) Login(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": regRes.Error})
 		return
 	}
-	c.JSON(http.StatusOK, regRes)
+	c.JSON(http.StatusOK, map[string]string{
+		"email": regRes.Email,
+		"id":    regRes.ID,
+		"role":  regRes.Role,
+	})
 }
 
 func (h *UserHandler) AuthUser(c *gin.Context) {
@@ -80,7 +84,11 @@ func (h *UserHandler) AuthUser(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, regRes)
+	c.JSON(http.StatusOK, map[string]string{
+		"email": regRes.Email,
+		"id":    regRes.ID,
+		"role":  regRes.Role,
+	})
 }
 
 func (h *UserHandler) Logout(c *gin.Context) {

@@ -4,7 +4,7 @@ import SubmitButton from '@/app/components/SubmitButton/SubmitButton'
 import { useAppDispatch } from '@/app/store/hooks'
 import type { ISignUpForm } from '@/app/types/pages/signUp.types'
 
-import type { ILangProps } from '@/app/types/shareable.types'
+import type { ILangProps } from '@/app/types'
 import {
   getSignUpInFormActions,
   signUpDefaultState,

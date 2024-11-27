@@ -1,6 +1,6 @@
 'use client'
 
-import type { TDir } from '@/app/types/shareable.types'
+import type { TDir } from '@/app/types'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { type CSSProperties } from 'react'

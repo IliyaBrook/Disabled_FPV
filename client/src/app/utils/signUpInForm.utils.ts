@@ -2,7 +2,7 @@ import type { useAppDispatch } from '@/app/store/hooks'
 import { closeModal, setModal } from '@/app/store/slices'
 import type { ISignInForm } from '@/app/types/pages/signIn.types'
 import type { ISignUpForm } from '@/app/types/pages/signUp.types'
-import type { TDict } from '@/app/types/shareable.types'
+import type { IAuthServerRe, TDict } from '@/app/types'
 import { isEmail } from '@/app/utils/isEmail'
 import type React from 'react'
 
@@ -56,7 +56,7 @@ interface GetSignUpInFormActions<T> {
   timerRef: React.MutableRefObject<NodeJS.Timeout | null>
   dict: TDict
   dataFetchFunc?: (updatedState: T) => Promise<any>
-  successDispatch?: (fields: Record<string, any>) => void
+  successDispatch?: (fields: IAuthServerRe) => void
   pageName: 'signUp' | 'signIn'
 }
 
@@ -124,15 +124,19 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
         return updatedState
       } else {
         if (dataFetchFunc) {
-          const response = await dataFetchFunc(updatedState)
-          const data: Promise<any> = await response.json()
-          if (data && successDispatch) {
-            successDispatch(data)
-            if (pageName === 'signUp') {
-              updatedState = signUpDefaultState as unknown as T
-            } else {
-              updatedState = signInDefaultState as unknown as T
+          const response: Response = await dataFetchFunc(updatedState)
+          if (response.ok && response.status === 200) {
+            const data: IAuthServerRe = await response.json()
+            if (data && successDispatch) {
+              successDispatch(data)
+              if (pageName === 'signUp') {
+                updatedState = signUpDefaultState as unknown as T
+              } else {
+                updatedState = signInDefaultState as unknown as T
+              }
             }
+          } else {
+            modal('Server error')
           }
         }
       }

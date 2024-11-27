@@ -1,8 +1,7 @@
 import SignInForm from '@/app/[lang]/sign-in/signInForm'
 
-import type { IServerPageParams, TDir } from '@/app/types/shareable.types'
+import type { IServerPageParams, TDir } from '@/app/types'
 import { getDictionary } from '@/app/utils/dictionaries'
-import AlertModal from '../../components/alertModal'
 import SignInUpLayout from '@/app/wrappers/signInUpLayout'
 import React from 'react'
 

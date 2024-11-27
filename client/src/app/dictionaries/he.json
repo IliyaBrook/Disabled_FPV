@@ -42,5 +42,6 @@
 	"Invalid email address": "כתובת אימייל לא תקינה",
 	"Password must be at least 6 characters": "הסיסמה חייבת להיות לפחות באורך 6 תווים",
 	"Forgot your password?": "שכחת את הסיסמה?",
-	"Submit": "שלח"
+	"Submit": "שלח",
+	"Successfully logged in": "התחברת בהצלחה!"
 }

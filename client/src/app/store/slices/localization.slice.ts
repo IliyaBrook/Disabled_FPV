@@ -1,9 +1,4 @@
-import type {
-  ILangProps,
-  TDict,
-  TDir,
-  TLangOptions,
-} from '@/app/types/shareable.types'
+import type { ILangProps, TDict, TDir, TLangOptions } from '@/app/types'
 import { getDefaultDict } from '@/app/utils/getDefaultDict'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'

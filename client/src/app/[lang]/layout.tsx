@@ -3,11 +3,7 @@ import Footer from '@/app/components/footer/footer'
 import NavBar from '@/app/components/navBar'
 import PagesLayout from '@/app/wrappers/pagesLayout'
 
-import type {
-  IServerPageParams,
-  TDir,
-  TLangOptions,
-} from '@/app/types/shareable.types'
+import type { IServerPageParams, TDir, TLangOptions } from '@/app/types'
 import { getDictionary } from '@/app/utils/dictionaries'
 import ErrorBoundaryWrapper from '@/app/wrappers/errorBoundary'
 import Initializer from '@/app/components/Initializer'

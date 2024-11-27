@@ -2,7 +2,7 @@ import SignUpForm from '@/app/[lang]/sign-up/signUpForm'
 import AlertModal from '../../components/alertModal'
 import SignInUpLayout from '@/app/wrappers/signInUpLayout'
 
-import type { IServerPageParams, TDir } from '@/app/types/shareable.types'
+import type { IServerPageParams, TDir } from '@/app/types'
 import { getDictionary } from '@/app/utils/dictionaries'
 import React from 'react'
 

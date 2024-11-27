@@ -4,8 +4,8 @@ import SubmitButton from '@/app/components/SubmitButton/SubmitButton'
 import { useAppDispatch } from '@/app/store/hooks'
 import { setModal } from '@/app/store/slices'
 import type { ISignInForm } from '@/app/types/pages/signIn.types'
-
-import type { ILangProps } from '@/app/types/shareable.types'
+import { useRouter } from 'next/navigation'
+import type { IAuthServerRe, ILangProps } from '@/app/types'
 import { apiUrl } from '@/app/utils/constants'
 import {
   getSignUpInFormActions,
@@ -18,6 +18,7 @@ import React, { useActionState, useRef } from 'react'
 const SignInForm: React.FC<Omit<ILangProps, 'lang'>> = ({ dict, dir }) => {
   const dispatch = useAppDispatch()
   const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const router = useRouter()
   const fetchData = (state: ISignInForm): Promise<Response> => {
     return fetch(`${apiUrl}/public/login`, {
       method: 'POST',
@@ -31,10 +32,8 @@ const SignInForm: React.FC<Omit<ILangProps, 'lang'>> = ({ dict, dir }) => {
       }),
     })
   }
-  const handleSuccessDispatch = (serverResponse: any): void => {
-    console.log('serverResponse', serverResponse)
-
-    if (serverResponse.error) {
+  const handleSuccessDispatch = (serverResponse: IAuthServerRe): void => {
+    if ('error' in serverResponse) {
       dispatch(
         setModal({
           isOpen: true,
@@ -42,6 +41,17 @@ const SignInForm: React.FC<Omit<ILangProps, 'lang'>> = ({ dict, dir }) => {
           type: 'error',
         })
       )
+    } else {
+      dispatch(
+        setModal({
+          isOpen: true,
+          message: dict['Successfully logged in'],
+          type: 'success',
+        })
+      )
+      setTimeout(() => {
+        router.push(`/courses`)
+      }, 3000)
     }
   }
   const formActions = getSignUpInFormActions<ISignInForm>({
