@@ -51,11 +51,11 @@ const handleSignUpInFormErrors = <T extends Record<string, any>>({
   return 'success'
 }
 
-interface GetSignUpInFormActions {
+interface GetSignUpInFormActions<T> {
   dispatch: ReturnType<typeof useAppDispatch>
   timerRef: React.MutableRefObject<NodeJS.Timeout | null>
   dict: TDict
-  dataFetchFunc?: () => Promise<any>
+  dataFetchFunc?: (updatedState: T) => Promise<any>
   successDispatch?: (fields: Record<string, any>) => void
   pageName: 'signUp' | 'signIn'
 }
@@ -67,7 +67,7 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
   dataFetchFunc,
   successDispatch,
   pageName,
-}: GetSignUpInFormActions): ((
+}: GetSignUpInFormActions<T>): ((
   prevState: T,
   formData: FormData
 ) => Promise<T>) => {
@@ -86,21 +86,31 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
   return async (prevState: T, formData: FormData): Promise<T> => {
     let updatedState: T = {
       ...prevState,
-      first_name: formData.get('first_name')
-        ? String(formData.get('first_name'))
-        : '',
-      last_name: formData.get('last_name')
-        ? String(formData.get('last_name'))
-        : '',
       email: formData.get('email') ? String(formData.get('email')) : '',
       password: formData.get('password')
         ? String(formData.get('password'))
         : '',
-      confirm_password: formData.get('confirm_password')
-        ? String(formData.get('confirm_password'))
-        : '',
     }
-    console.log('updatedState', updatedState)
+    if (pageName == 'signUp') {
+      ;(updatedState as unknown as ISignUpForm).first_name = formData.get(
+        'first_name'
+      )
+        ? String(formData.get('first_name'))
+        : ''
+      ;(updatedState as unknown as ISignUpForm).last_name = formData.get(
+        'last_name'
+      )
+        ? String(formData.get('last_name'))
+        : ''
+      ;(updatedState as unknown as ISignUpForm).email = formData.get('email')
+        ? String(formData.get('email'))
+        : ''
+      ;(updatedState as unknown as ISignUpForm).confirm_password = formData.get(
+        'confirm_password'
+      )
+        ? String(formData.get('confirm_password'))
+        : ''
+    }
 
     try {
       const result = handleSignUpInFormErrors<T>({
@@ -114,7 +124,7 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
         return updatedState
       } else {
         if (dataFetchFunc) {
-          const response = await dataFetchFunc()
+          const response = await dataFetchFunc(updatedState)
           const data: Promise<any> = await response.json()
           if (data && successDispatch) {
             successDispatch(data)

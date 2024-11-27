@@ -6,33 +6,43 @@ import { setModal } from '@/app/store/slices'
 import type { ISignInForm } from '@/app/types/pages/signIn.types'
 
 import type { ILangProps } from '@/app/types/shareable.types'
+import { apiUrl } from '@/app/utils/constants'
 import {
   getSignUpInFormActions,
   signInDefaultState,
 } from '@/app/utils/signUpInForm.utils'
 import styles from '@/app/wrappers/signInUpLayout/signInUpLayout.module.scss'
 import Form from 'next/form'
-import React, { useActionState, useEffect, useRef } from 'react'
+import React, { useActionState, useRef } from 'react'
 
 const SignInForm: React.FC<Omit<ILangProps, 'lang'>> = ({ dict, dir }) => {
   const dispatch = useAppDispatch()
   const timerRef = useRef<NodeJS.Timeout | null>(null)
-
-  const fetchData = (): Promise<Response> => {
-    return Promise.resolve({
-      ok: true,
-      status: 200,
-      json: () => {
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            resolve({ firstName: 'John', lastName: 'Phone family n' })
-          }, 2000)
-        })
+  const fetchData = (state: ISignInForm): Promise<Response> => {
+    return fetch(`${apiUrl}/public/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    } as Response)
+      credentials: 'include',
+      body: JSON.stringify({
+        email: state.email,
+        password: state.password,
+      }),
+    })
   }
   const handleSuccessDispatch = (serverResponse: any): void => {
-    console.log('data:', serverResponse)
+    console.log('serverResponse', serverResponse)
+
+    if (serverResponse.error) {
+      dispatch(
+        setModal({
+          isOpen: true,
+          message: serverResponse.error,
+          type: 'error',
+        })
+      )
+    }
   }
   const formActions = getSignUpInFormActions<ISignInForm>({
     dispatch,
@@ -47,7 +57,6 @@ const SignInForm: React.FC<Omit<ILangProps, 'lang'>> = ({ dict, dir }) => {
     formActions,
     signInDefaultState
   )
-
   return (
     <div className={styles.formWrapper}>
       <Form className={styles.inputsContainer} action={formAction}>
@@ -56,14 +65,14 @@ const SignInForm: React.FC<Omit<ILangProps, 'lang'>> = ({ dict, dir }) => {
             type="email"
             placeholder={dict['Email']}
             name="email"
-            defaultValue={formState.email}
+            defaultValue={formState.email || 'brook@gmail.com'}
             dir={dir}
           />
           <SignUpInInput
             type="password"
             placeholder={dict['Password']}
             name="password"
-            defaultValue={formState.password}
+            defaultValue={formState.password || '12345678'}
             dir={dir}
           />
         </div>

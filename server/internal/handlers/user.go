@@ -62,7 +62,7 @@ func (h *UserHandler) Login(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": regRes.Error})
 		return
 	}
-	c.JSON(http.StatusCreated, regRes)
+	c.JSON(http.StatusOK, regRes)
 }
 
 func (h *UserHandler) AuthUser(c *gin.Context) {
