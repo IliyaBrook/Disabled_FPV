@@ -11,14 +11,6 @@ interface RichTextEditorProps {
   onChange: (value: string) => void
 }
 
-let recognition
-if (typeof window !== 'undefined' && 'webkitSpeechRecognition' in window) {
-  recognition = new (window as any).webkitSpeechRecognition()
-  recognition.continuous = true
-  recognition.interimResults = true
-  recognition.lang = 'en-US'
-}
-
 const RichTextEditor: React.FC<RichTextEditorProps> = ({
   initialValue = '',
   onChange,
@@ -30,17 +22,79 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
     onChange(newValue)
   }
 
+  const lang = 'en'
+
   return (
     <JoditEditor
       value={value}
       config={{
+        zIndex: 0,
+        language: lang,
         readonly: false,
-        speechRecognition: {
-          enable: true,
-          onError: (error) => {
-            console.error('Speech recognition error:', error)
-          },
-        },
+        buttons: [
+          'ai-assistant',
+          'bold',
+          'class-span',
+          'enter',
+          'file',
+          'font',
+          'fullsize',
+          'hr',
+          'image',
+          'indent',
+          'justify',
+          'limit',
+          'line-height',
+          'link',
+          'paste',
+          'preview',
+          'print',
+          'search',
+          'source',
+          'speech-recognize',
+          'spellcheck',
+          'symbols',
+          'table',
+          'video',
+          'aiAssistant',
+          'classSpan',
+          'enter',
+          'lineHeight',
+          'link',
+          'paste',
+          'resizeHandler',
+          'search',
+          'source',
+          'spellcheck',
+          'stat',
+          'source',
+          'bold',
+          'strikethrough',
+          'underline',
+          'italic',
+          'ul',
+          'ol',
+          'outdent',
+          'indent',
+          'font',
+          'fontsize',
+          'brush',
+          'paragraph',
+          'image',
+          'video',
+          'table',
+          'link',
+          'align',
+          'undo',
+          'redo',
+          'hr',
+          'eraser',
+          'copyformat',
+          'fullsize',
+          'about',
+        ],
+        events: {},
+        textIcons: false,
       }}
       onBlur={handleBlur}
     />
