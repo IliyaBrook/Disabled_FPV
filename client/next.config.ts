@@ -23,6 +23,7 @@ const nextConfig: NextConfig = {
   sassOptions: {
     silenceDeprecations: ['legacy-js-api'],
   },
+  reactStrictMode: false,
 }
 
 export default nextConfig

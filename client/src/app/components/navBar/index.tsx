@@ -21,8 +21,6 @@ export default function NavBar(): React.ReactElement {
     userDataWithLocalSelector
   )
 
-  // const data2 = useAppSelector(userDataWithLocalSelector)
-
   const [fetchLogOut] = useLogOutMutation()
   const router = useRouter()
   const isAuth = !!authUser

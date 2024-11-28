@@ -7,7 +7,6 @@ import type { TDir, TLangOptions } from '@/app/types'
 import { getDictionary } from '@/app/utils/dictionaries'
 import ErrorBoundaryWrapper from '@/app/wrappers/errorBoundary'
 import PagesLayout from '@/app/wrappers/pagesLayout'
-
 import StoreProviderWrapper from '@/app/wrappers/storeProvider'
 import type { Metadata } from 'next'
 import { Josefin_Sans, Sora } from 'next/font/google'
