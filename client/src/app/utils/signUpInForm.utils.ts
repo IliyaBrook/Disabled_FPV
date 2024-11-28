@@ -1,8 +1,9 @@
 import type { useAppDispatch } from '@/app/store/hooks'
 import { closeModal, setModal } from '@/app/store/slices'
+import type { TDict } from '@/app/types'
+import type { IAuthResponse, IServerErrorRe } from '@/app/types/api.type'
 import type { ISignInForm } from '@/app/types/pages/signIn.types'
 import type { ISignUpForm } from '@/app/types/pages/signUp.types'
-import type { IAuthServerRe, TDict } from '@/app/types'
 import { isEmail } from '@/app/utils/isEmail'
 import type React from 'react'
 
@@ -56,7 +57,7 @@ interface GetSignUpInFormActions<T> {
   timerRef: React.MutableRefObject<NodeJS.Timeout | null>
   dict: TDict
   dataFetchFunc?: (updatedState: T) => Promise<any>
-  successDispatch?: (fields: IAuthServerRe) => void
+  successDispatch?: (response: IAuthResponse) => void
   pageName: 'signUp' | 'signIn'
 }
 
@@ -123,11 +124,11 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
         modal(result)
         return updatedState
       } else {
-        if (dataFetchFunc) {
+        if (dataFetchFunc && successDispatch) {
           const response: Response = await dataFetchFunc(updatedState)
           if (response.ok && response.status === 200) {
-            const data: IAuthServerRe = await response.json()
-            if (data && successDispatch) {
+            const data: IAuthResponse = await response.json()
+            if (data) {
               successDispatch(data)
               if (pageName === 'signUp') {
                 updatedState = signUpDefaultState as unknown as T
@@ -136,7 +137,12 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
               }
             }
           } else {
-            modal('Server error')
+            if ('error' in response) {
+              const errorResponse = response as unknown as {
+                error: IServerErrorRe
+              }
+              successDispatch(errorResponse)
+            }
           }
         }
       }

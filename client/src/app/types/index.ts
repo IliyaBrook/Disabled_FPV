@@ -11,11 +11,3 @@ export interface ILangProps {
   dir: TDir
   dict: TDict
 }
-export type IAuthServerRe =
-  | { error: string }
-  | {
-      id: string
-      email: string
-      token: string
-      role: string
-    }

@@ -2,14 +2,15 @@
 
 import { useAppDispatch } from '@/app/store/hooks'
 import { setLocalization } from '@/app/store/slices'
+import { useAuthUserQuery } from '@/app/store/thunks'
 
 import type { ILangProps } from '@/app/types'
-import { apiUrl } from '@/app/utils/constants'
 import type React from 'react'
 import { useEffect } from 'react'
 
 const Initializer: React.FC<ILangProps> = ({ lang, dir, dict }) => {
   const dispatch = useAppDispatch()
+  const { isLoading, data, error } = useAuthUserQuery()
 
   useEffect(() => {
     dispatch(setLocalization({ lang, dir, dict }))
@@ -33,35 +34,7 @@ const Initializer: React.FC<ILangProps> = ({ lang, dir, dict }) => {
         dir === 'rtl' ? 'right' : 'left'
       )
     }
-    const authUser = new Promise((resolve, reject) => {
-      fetch(`${apiUrl}/public/authUser`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.error) {
-            reject(data.error)
-          } else {
-            resolve(data)
-          }
-        })
-        .catch((err) => {
-          resolve(err)
-        })
-    })
-    authUser
-      .then((data) => {
-        console.log('data', data)
-      })
-      .catch((err) => {
-        console.error('err', err)
-      })
   }, [])
-
   return null
 }
 

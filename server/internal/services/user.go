@@ -105,10 +105,12 @@ func (s *UserService) LoginUser(ctx context.Context, creds *models.Credentials) 
 	stringId := user.ID.Hex()
 	token, err := jwt.GenerateToken(stringId, email)
 	authResp := dto.NewAuthResponse(dto.AuthResponse{
-		ID:    stringId,
-		Role:  user.Role,
-		Email: email,
-		Token: token,
+		ID:        stringId,
+		Role:      user.Role,
+		Email:     email,
+		Token:     token,
+		FirstName: user.FirstName,
+		LastName:  user.LastName,
 	})
 	return authResp
 }

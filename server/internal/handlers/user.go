@@ -39,7 +39,13 @@ func (h *UserHandler) Register(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": regRes.Error})
 		return
 	}
-	c.JSON(http.StatusCreated, regRes)
+	c.JSON(http.StatusCreated, map[string]string{
+		"email":      regRes.Email,
+		"id":         regRes.ID,
+		"role":       regRes.Role,
+		"first_name": regRes.FirstName,
+		"last_name":  regRes.LastName,
+	})
 }
 
 func (h *UserHandler) Login(c *gin.Context) {
@@ -63,9 +69,11 @@ func (h *UserHandler) Login(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, map[string]string{
-		"email": regRes.Email,
-		"id":    regRes.ID,
-		"role":  regRes.Role,
+		"email":      regRes.Email,
+		"id":         regRes.ID,
+		"role":       regRes.Role,
+		"first_name": regRes.FirstName,
+		"last_name":  regRes.LastName,
 	})
 }
 
@@ -85,9 +93,11 @@ func (h *UserHandler) AuthUser(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, map[string]string{
-		"email": regRes.Email,
-		"id":    regRes.ID,
-		"role":  regRes.Role,
+		"email":      regRes.Email,
+		"id":         regRes.ID,
+		"role":       regRes.Role,
+		"first_name": regRes.FirstName,
+		"last_name":  regRes.LastName,
 	})
 }
 

@@ -3,36 +3,30 @@ import SignUpInInput from '@/app/components/SignUpInInput/SignUpInInput'
 import SubmitButton from '@/app/components/SubmitButton/SubmitButton'
 import { useAppDispatch } from '@/app/store/hooks'
 import { setModal } from '@/app/store/slices'
+import { useSignInMutation } from '@/app/store/thunks'
+import type { ILangProps } from '@/app/types'
+import type { IAuthResponse, ILogoutResponse } from '@/app/types/api.type'
 import type { ISignInForm } from '@/app/types/pages/signIn.types'
-import { useRouter } from 'next/navigation'
-import type { IAuthServerRe, ILangProps } from '@/app/types'
-import { apiUrl } from '@/app/utils/constants'
+// import { apiUrl } from '@/app/utils/constants'
 import {
   getSignUpInFormActions,
   signInDefaultState,
 } from '@/app/utils/signUpInForm.utils'
 import styles from '@/app/wrappers/signInUpLayout/signInUpLayout.module.scss'
 import Form from 'next/form'
+import { useRouter } from 'next/navigation'
 import React, { useActionState, useRef } from 'react'
 
 const SignInForm: React.FC<Omit<ILangProps, 'lang'>> = ({ dict, dir }) => {
   const dispatch = useAppDispatch()
   const timerRef = useRef<NodeJS.Timeout | null>(null)
   const router = useRouter()
-  const fetchData = (state: ISignInForm): Promise<Response> => {
-    return fetch(`${apiUrl}/public/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify({
-        email: state.email,
-        password: state.password,
-      }),
-    })
-  }
-  const handleSuccessDispatch = (serverResponse: IAuthServerRe): void => {
+  const [fetchData] = useSignInMutation()
+  const handleSuccessDispatch = (
+    serverResponse: IAuthResponse | ILogoutResponse
+  ): void => {
+    console.log('serverResponse', serverResponse)
+
     if ('error' in serverResponse) {
       dispatch(
         setModal({

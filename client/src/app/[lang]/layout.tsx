@@ -6,12 +6,13 @@ import PagesLayout from '@/app/wrappers/pagesLayout'
 import type { IServerPageParams, TDir, TLangOptions } from '@/app/types'
 import { getDictionary } from '@/app/utils/dictionaries'
 import ErrorBoundaryWrapper from '@/app/wrappers/errorBoundary'
-import Initializer from '@/app/components/Initializer'
+
 import StoreProviderWrapper from '@/app/wrappers/storeProvider'
 import type { Metadata } from 'next'
 import { Josefin_Sans, Sora } from 'next/font/google'
 import '../globalStyles/globals.scss'
 import React from 'react'
+import Initializer from '@/app/components/Initializer'
 
 const sora = Sora({
   subsets: ['latin'],
