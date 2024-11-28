@@ -270,7 +270,7 @@
     ckeditor5 "43.3.1"
     lodash-es "4.17.21"
 
-"@ckeditor/ckeditor5-font@43.3.1":
+"@ckeditor/ckeditor5-font@43.3.1", "@ckeditor/ckeditor5-font@^43.3.1":
   version "43.3.1"
   resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-font/-/ckeditor5-font-43.3.1.tgz#495d2f761917233561e56ba584c8657d375791a3"
   integrity sha512-NOeBtScqMuBLVWFPuW0snleh7rMFkNb006yzDIG6JApnF3Vxi0JLQXub/lPHPgw5srqJ3z159DWT++exoyz/mQ==
