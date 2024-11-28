@@ -32,7 +32,7 @@ const SignInForm: React.FC<Omit<ILangProps, 'lang'>> = ({ dict, dir }) => {
       dispatch(
         setModal({
           isOpen: true,
-          message: dict['Registration successful'],
+          message: dict['Successfully logged in'],
           type: 'success',
         })
       )

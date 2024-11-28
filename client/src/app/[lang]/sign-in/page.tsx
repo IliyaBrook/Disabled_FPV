@@ -1,6 +1,6 @@
 import SignInForm from '@/app/[lang]/sign-in/signInForm'
 
-import type { IServerPageParams, TDir } from '@/app/types'
+import type { TDir, TLangOptions } from '@/app/types'
 import { getDictionary } from '@/app/utils/dictionaries'
 import SignInUpLayout from '@/app/wrappers/signInUpLayout'
 import React from 'react'
@@ -8,7 +8,7 @@ import React from 'react'
 export default async function SignIn({
   params,
 }: {
-  params: Omit<IServerPageParams, 'lang'>
+  params: Promise<{ lang: TLangOptions }>
 }): Promise<React.ReactElement> {
   const p = await params
   const dir: TDir = p.lang === 'he' ? 'rtl' : 'ltr'

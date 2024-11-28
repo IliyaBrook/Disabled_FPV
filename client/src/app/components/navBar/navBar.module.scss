@@ -165,7 +165,7 @@
 
 .buttonWithArrow {
 	@media (min-width: 768px) {
-		&:not(.logOut){
+		&:not(.logOut, .myCourses){
 			background: shareable.$violet;
 		}
 		border-radius: 200px;
@@ -194,5 +194,12 @@
 	color: shareable.$red;
 	&:hover {
 		background: color.scale(shareable.$red, $lightness: -10%);
+	}
+}
+.myCourses {
+	background: shareable.$blue-light;
+	color: white;
+	&:hover {
+		background: color.scale(shareable.$blue-light, $lightness: -10%);
 	}
 }

@@ -1,18 +1,18 @@
 import AlertModal from '@/app/components/alertModal'
 import Footer from '@/app/components/footer/footer'
+import Initializer from '@/app/components/Initializer'
 import NavBar from '@/app/components/navBar'
-import PagesLayout from '@/app/wrappers/pagesLayout'
 
-import type { IServerPageParams, TDir, TLangOptions } from '@/app/types'
+import type { TDir, TLangOptions } from '@/app/types'
 import { getDictionary } from '@/app/utils/dictionaries'
 import ErrorBoundaryWrapper from '@/app/wrappers/errorBoundary'
+import PagesLayout from '@/app/wrappers/pagesLayout'
 
 import StoreProviderWrapper from '@/app/wrappers/storeProvider'
 import type { Metadata } from 'next'
 import { Josefin_Sans, Sora } from 'next/font/google'
 import '../globalStyles/globals.scss'
 import React from 'react'
-import Initializer from '@/app/components/Initializer'
 
 const sora = Sora({
   subsets: ['latin'],
@@ -71,7 +71,7 @@ export default async function RootLayout({
   params,
 }: {
   children: React.ReactNode
-  params: IServerPageParams
+  params: Promise<{ lang: TLangOptions }>
 }): Promise<React.ReactNode> {
   const p = await params
 

@@ -1,6 +1,7 @@
 'use client'
 import ButtonWithArrow from '@/app/components/ButtonWithArrow/ButtonWithArrow'
 import LangSwitcher from '@/app/components/langSwitcher/langSwitcher'
+import useOutsideClick from '@/app/hooks/useOutsideClick'
 import useWindowSize from '@/app/hooks/useWindowSize'
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks'
 import { userDataWithLocalSelector } from '@/app/store/selectors'
@@ -9,25 +10,29 @@ import { useLogOutMutation } from '@/app/store/thunks'
 import isClient from '@/app/utils/isClient'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import styles from './navBar.module.scss'
 
 export default function NavBar(): React.ReactElement {
-  const { lang, dict, dir } = useAppSelector((state) => state.localization)
   const dispatch = useAppDispatch()
-  const data = useAppSelector(userDataWithLocalSelector)
+  const { authUser, lang, dir, dict } = useAppSelector(
+    userDataWithLocalSelector
+  )
+
+  // const data2 = useAppSelector(userDataWithLocalSelector)
+
   const [fetchLogOut] = useLogOutMutation()
-  const isAuth = !!data.authUser
+  const router = useRouter()
+  const isAuth = !!authUser
 
   const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const signInUpBtnsDesktopRef = useRef<HTMLDivElement>(null)
-  const signUpMobileRef = useRef<HTMLLIElement>(null)
-  const signInMobileRef = useRef<HTMLLIElement>(null)
-  const logOutMobileRef = useRef<HTMLLIElement>(null)
+  const buttonFirstRef = useRef<HTMLLIElement>(null)
+  const buttonSecondRef = useRef<HTMLLIElement>(null)
 
   const getLinkClass = (href: string): string => {
     const cleanPath = pathname.split('/').slice(2).join('/') || '/'
@@ -38,38 +43,22 @@ export default function NavBar(): React.ReactElement {
 
   const toggleMenu = (): void => setIsMenuOpen((prev) => !prev)
 
-  const handleOutsideClick = (event: MouseEvent): void => {
-    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-      setIsMenuOpen(false)
-    }
-  }
+  useOutsideClick(menuRef, () => setIsMenuOpen(false))
 
   useEffect(() => {
     setIsMenuOpen(false)
   }, [pathname])
 
-  useEffect(() => {
-    document.addEventListener('mousedown', handleOutsideClick)
-
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick)
-    }
-  }, [])
   const { screenWidth } = useWindowSize()
-  const signUpTarget = isClient()
+  const buttonFirstTarget = isClient()
     ? screenWidth > 768
       ? signInUpBtnsDesktopRef.current
-      : signUpMobileRef.current
+      : buttonFirstRef.current
     : null
-  const signInTarget = isClient()
+  const buttonSecondTarget = isClient()
     ? screenWidth > 768
       ? signInUpBtnsDesktopRef.current
-      : signInMobileRef.current
-    : null
-  const logOutTarget = isClient()
-    ? screenWidth > 768
-      ? signInUpBtnsDesktopRef.current
-      : signInMobileRef.current
+      : buttonSecondRef.current
     : null
 
   const onLogout = (): void => {
@@ -77,7 +66,7 @@ export default function NavBar(): React.ReactElement {
       dispatch(
         setModal({
           isOpen: true,
-          message: dict['You have been successfully logged out'],
+          message: dict?.['You have been successfully logged out'],
           type: 'success',
         })
       )
@@ -85,6 +74,11 @@ export default function NavBar(): React.ReactElement {
         window.location.href = '/'
       }, 3000)
     })
+  }
+  const onMyCoursesClick = (): void => {
+    if (authUser?.id) {
+      router.push(`/courses/${authUser.id}`)
+    }
   }
 
   return (
@@ -111,66 +105,82 @@ export default function NavBar(): React.ReactElement {
         </button>
         <ul className={`${styles.navLinks} ${isMenuOpen ? styles.open : ''}`}>
           <li className={getLinkClass('/')}>
-            <Link href={`/${lang}/`}>{dict['Home']}</Link>
+            <Link href={`/${lang}/`}>{dict?.['Home']}</Link>
           </li>
           <li className={getLinkClass('about')}>
-            <Link href={`/${lang}/about`}>{dict['About us']}</Link>
+            <Link href={`/${lang}/about`}>{dict?.['About us']}</Link>
           </li>
           <li className={getLinkClass('courses')}>
-            <Link href={`/${lang}/courses`}>{dict['Courses']}</Link>
+            <Link href={`/${lang}/courses`}>{dict?.['Courses']}</Link>
           </li>
           <li className={getLinkClass('shop')}>
-            <Link href={`/${lang}/shop`}>{dict['Shop']}</Link>
+            <Link href={`/${lang}/shop`}>{dict?.['Shop']}</Link>
           </li>
           <li className={getLinkClass('contact')}>
-            <Link href={`/${lang}/contact`}>{dict['Contact']}</Link>
+            <Link href={`/${lang}/contact`}>{dict?.['Contact']}</Link>
           </li>
-          {!isAuth ? (
-            <>
-              <li className={styles.signUpMobile} ref={signUpMobileRef}></li>
-              <li className={styles.signInMobile} ref={signInMobileRef}></li>
-            </>
-          ) : (
-            <li className={styles.logOutMobile} ref={logOutMobileRef}></li>
-          )}
+          <li className={styles.signUpMobile} ref={buttonFirstRef}></li>
+          <li className={styles.signInMobile} ref={buttonSecondRef}></li>
+          {/* {!isAuth ? ( */}
+          {/*   <> */}
+          {/*     <li className={styles.signUpMobile} ref={buttonFirstRef}></li> */}
+          {/*     <li className={styles.signInMobile} ref={buttonSecondRef}></li> */}
+          {/*   </> */}
+          {/* ) : ( */}
+          {/*   <> */}
+          {/*     <li className={styles.logOutMobile} ref={buttonSecondRef}></li> */}
+          {/*   </> */}
+          {/* )} */}
         </ul>
         <div className={styles.signInUpBtns} ref={signInUpBtnsDesktopRef}>
           {!isAuth ? (
             <>
-              {signUpTarget &&
+              {buttonFirstTarget &&
                 createPortal(
                   <ButtonWithArrow
                     destination={`/${lang}/sign-up`}
-                    title={dict['Sign Up']}
+                    title={dict?.['Sign Up']}
                     dir={dir}
                     className={styles.buttonWithArrow}
                   />,
-                  signUpTarget
+                  buttonFirstTarget
                 )}
-              {signInTarget &&
+              {buttonSecondTarget &&
                 createPortal(
                   <ButtonWithArrow
                     destination={`/${lang}/sign-in`}
-                    title={dict['Sign In']}
+                    title={dict?.['Sign In']}
                     dir={dir}
                     className={styles.buttonWithArrow}
                   />,
-                  signInTarget
+                  buttonSecondTarget
                 )}
             </>
           ) : (
             <>
-              {logOutTarget &&
+              {buttonFirstTarget &&
                 createPortal(
                   <ButtonWithArrow
                     logic="onClick"
-                    title={dict['Log Out']}
+                    title={dict?.['Log Out']}
                     dir={dir}
                     className={`${styles.buttonWithArrow} ${styles.logOut}`}
                     backgroundColor="#d32f2f"
                     onClick={onLogout}
                   />,
-                  logOutTarget
+                  buttonFirstTarget
+                )}
+              {buttonSecondTarget &&
+                createPortal(
+                  <ButtonWithArrow
+                    logic="onClick"
+                    title={dict?.['My'].concat(' ', dict?.['Courses'])}
+                    dir={dir}
+                    className={`${styles.buttonWithArrow} ${styles.myCourses}`}
+                    backgroundColor="#d32f2f"
+                    onClick={onMyCoursesClick}
+                  />,
+                  buttonSecondTarget
                 )}
             </>
           )}
