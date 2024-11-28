@@ -1,21 +1,23 @@
-export type IServerErrorRe = {
-  status: number
-  data: {
-    error: string
+export type TServerErrorRe = {
+  error: {
+    status: number
+    data: {
+      error: string
+    }
   }
 }
 
-/**
- * Response from the `/public/authUser | login | register`, endpoints.
- */
-export interface IAuthResponse {
-  id: string
-  email: string
-  role: string
-  first_name: string
-  last_name: string
-  error?: IServerErrorRe
+export type TAuthSuccessResponse = {
+  data: {
+    id: string
+    email: string
+    role: string
+    first_name: string
+    last_name: string
+  }
 }
+
+export type TAuthResponse = TServerErrorRe | TAuthSuccessResponse
 
 /**
  * Response from the `/public/logout` endpoint.

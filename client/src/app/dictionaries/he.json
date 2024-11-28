@@ -43,5 +43,6 @@
 	"Password must be at least 6 characters": "הסיסמה חייבת להיות לפחות באורך 6 תווים",
 	"Forgot your password?": "שכחת את הסיסמה?",
 	"Submit": "שלח",
-	"Successfully logged in": "התחברת בהצלחה!"
+	"Successfully logged in": "התחברת בהצלחה!",
+	"Registration successful": "ההרשמה הצליחה! אפשר להתחבר!"
 }

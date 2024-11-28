@@ -1,7 +1,7 @@
 import type { useAppDispatch } from '@/app/store/hooks'
 import { closeModal, setModal } from '@/app/store/slices'
 import type { TDict } from '@/app/types'
-import type { IAuthResponse, IServerErrorRe } from '@/app/types/api.type'
+import type { TAuthResponse, TServerErrorRe } from '@/app/types/api.type'
 import type { ISignInForm } from '@/app/types/pages/signIn.types'
 import type { ISignUpForm } from '@/app/types/pages/signUp.types'
 import { isEmail } from '@/app/utils/isEmail'
@@ -57,7 +57,7 @@ interface GetSignUpInFormActions<T> {
   timerRef: React.MutableRefObject<NodeJS.Timeout | null>
   dict: TDict
   dataFetchFunc?: (updatedState: T) => Promise<any>
-  successDispatch?: (response: IAuthResponse) => void
+  successDispatch?: (response: TAuthResponse) => void
   pageName: 'signUp' | 'signIn'
 }
 
@@ -125,23 +125,18 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
         return updatedState
       } else {
         if (dataFetchFunc && successDispatch) {
-          const response: Response = await dataFetchFunc(updatedState)
-          if (response.ok && response.status === 200) {
-            const data: IAuthResponse = await response.json()
-            if (data) {
-              successDispatch(data)
-              if (pageName === 'signUp') {
-                updatedState = signUpDefaultState as unknown as T
-              } else {
-                updatedState = signInDefaultState as unknown as T
-              }
+          const response: TAuthResponse = await dataFetchFunc(updatedState)
+
+          if ('data' in response) {
+            successDispatch(response)
+            if (pageName === 'signUp') {
+              updatedState = signUpDefaultState as unknown as T
+            } else {
+              updatedState = signInDefaultState as unknown as T
             }
           } else {
             if ('error' in response) {
-              const errorResponse = response as unknown as {
-                error: IServerErrorRe
-              }
-              successDispatch(errorResponse)
+              successDispatch(response)
             }
           }
         }

@@ -1,7 +1,6 @@
 import { authUser } from '@/app/store/thunks'
-import { apiUrl } from '@/app/utils/constants'
-import { modalSlice, localizationSlice } from './slices'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { localizationSlice, modalSlice } from './slices'
 
 const rootReducer = combineReducers({
   [localizationSlice.name]: localizationSlice.reducer,

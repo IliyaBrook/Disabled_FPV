@@ -43,5 +43,6 @@
 	"Password must be at least 6 characters": "Password must be at least 6 characters",
 	"Forgot your password?": "Forgot your password?",
 	"Submit": "Submit",
-	"Successfully logged in": "Successfully logged in"
+	"Successfully logged in": "Successfully logged in",
+	"Registration successful": "Registration successful!"
 }

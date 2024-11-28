@@ -71,10 +71,12 @@ func (j *JWTServ) ValidateToken(ctx context.Context, tokenStr string, repo *mong
 		return dto.NewAuthResponse(dto.AuthResponse{Error: "database error"})
 	}
 	authResp := dto.NewAuthResponse(dto.AuthResponse{
-		ID:    userId,
-		Email: user.Email,
-		Token: tokenStr,
-		Role:  user.Role,
+		ID:        userId,
+		Email:     user.Email,
+		Token:     tokenStr,
+		Role:      user.Role,
+		FirstName: user.FirstName,
+		LastName:  user.LastName,
 	})
 	return authResp
 }

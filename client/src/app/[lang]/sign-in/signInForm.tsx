@@ -5,33 +5,26 @@ import { useAppDispatch } from '@/app/store/hooks'
 import { setModal } from '@/app/store/slices'
 import { useSignInMutation } from '@/app/store/thunks'
 import type { ILangProps } from '@/app/types'
-import type { IAuthResponse, ILogoutResponse } from '@/app/types/api.type'
+import type { TAuthResponse } from '@/app/types/api.type'
 import type { ISignInForm } from '@/app/types/pages/signIn.types'
-// import { apiUrl } from '@/app/utils/constants'
 import {
   getSignUpInFormActions,
   signInDefaultState,
 } from '@/app/utils/signUpInForm.utils'
 import styles from '@/app/wrappers/signInUpLayout/signInUpLayout.module.scss'
 import Form from 'next/form'
-import { useRouter } from 'next/navigation'
 import React, { useActionState, useRef } from 'react'
 
 const SignInForm: React.FC<Omit<ILangProps, 'lang'>> = ({ dict, dir }) => {
   const dispatch = useAppDispatch()
   const timerRef = useRef<NodeJS.Timeout | null>(null)
-  const router = useRouter()
   const [fetchData] = useSignInMutation()
-  const handleSuccessDispatch = (
-    serverResponse: IAuthResponse | ILogoutResponse
-  ): void => {
-    console.log('serverResponse', serverResponse)
-
+  const handleSuccessDispatch = (serverResponse: TAuthResponse): void => {
     if ('error' in serverResponse) {
       dispatch(
         setModal({
           isOpen: true,
-          message: serverResponse.error,
+          message: serverResponse.error.data.error,
           type: 'error',
         })
       )
@@ -39,12 +32,12 @@ const SignInForm: React.FC<Omit<ILangProps, 'lang'>> = ({ dict, dir }) => {
       dispatch(
         setModal({
           isOpen: true,
-          message: dict['Successfully logged in'],
+          message: dict['Registration successful'],
           type: 'success',
         })
       )
       setTimeout(() => {
-        router.push(`/courses`)
+        window.location.href = '/courses'
       }, 3000)
     }
   }

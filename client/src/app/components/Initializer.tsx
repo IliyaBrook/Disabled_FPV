@@ -10,7 +10,7 @@ import { useEffect } from 'react'
 
 const Initializer: React.FC<ILangProps> = ({ lang, dir, dict }) => {
   const dispatch = useAppDispatch()
-  const { isLoading, data, error } = useAuthUserQuery()
+  useAuthUserQuery()
 
   useEffect(() => {
     dispatch(setLocalization({ lang, dir, dict }))

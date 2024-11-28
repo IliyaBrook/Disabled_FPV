@@ -69,10 +69,12 @@ func (s *UserService) Register(ctx context.Context, user *models.User) *dto.Auth
 		})
 	}
 	authResp := dto.NewAuthResponse(dto.AuthResponse{
-		ID:    userID,
-		Email: email,
-		Token: token,
-		Role:  "user",
+		ID:        userID,
+		Email:     email,
+		Token:     token,
+		Role:      "user",
+		FirstName: user.FirstName,
+		LastName:  user.LastName,
 	})
 
 	return authResp

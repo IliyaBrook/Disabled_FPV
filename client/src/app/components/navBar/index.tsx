@@ -1,5 +1,9 @@
 'use client'
 import useWindowSize from '@/app/hooks/useWindowSize'
+import {
+  authUserSelector,
+  userDataWithLocalizationSelector,
+} from '@/app/store/selectors'
 import isClient from '@/app/utils/isClient'
 import React, { useEffect, useRef, useState } from 'react'
 import LangSwitcher from '@/app/components/langSwitcher/langSwitcher'
@@ -13,6 +17,9 @@ import styles from './navBar.module.scss'
 
 export default function NavBar(): React.ReactElement {
   const { lang, dict, dir } = useAppSelector((state) => state.localization)
+  const user = useAppSelector(userDataWithLocalizationSelector)
+  console.log('user in NavBar', user)
+
   const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
