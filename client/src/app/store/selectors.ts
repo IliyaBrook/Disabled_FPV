@@ -19,7 +19,7 @@ export const signUpInFormSelector = createSelector(
 )
 
 // userDataWithLocalization
-export const userDataWithLocalizationSelector = createSelector(
+export const userDataWithLocalSelector = createSelector(
   [authUserSelector, localSelector],
   (user, local) => {
     if (!user) {

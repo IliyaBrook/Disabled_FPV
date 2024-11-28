@@ -41,9 +41,9 @@ const ButtonWithArrow = ({
       }
       style={
         {
+          ...style,
           '--background-color': backgroundColor,
           '--background-hover-color': backgroundHoverColor,
-          ...style,
         } as React.CSSProperties
       }
       className={`${styles.buttonWithArrow}

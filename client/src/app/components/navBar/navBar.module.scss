@@ -165,10 +165,14 @@
 
 .buttonWithArrow {
 	@media (min-width: 768px) {
-		background: shareable.$violet;
+		&:not(.logOut){
+			background: shareable.$violet;
+		}
 		border-radius: 200px;
 		&:hover {
-			background: color.scale(shareable.$violet, $lightness: -10%);
+			&:not(.logOut){
+				background: color.scale(shareable.$violet, $lightness: -10%);
+			}
 		}
 	}
 	@media (max-width: 768px) {
@@ -183,5 +187,12 @@
 			color: black;
 			float: right;
 		}
+	}
+}
+
+.logOut {
+	color: shareable.$red;
+	&:hover {
+		background: color.scale(shareable.$red, $lightness: -10%);
 	}
 }

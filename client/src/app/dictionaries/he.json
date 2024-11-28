@@ -44,5 +44,7 @@
 	"Forgot your password?": "שכחת את הסיסמה?",
 	"Submit": "שלח",
 	"Successfully logged in": "התחברת בהצלחה!",
-	"Registration successful": "ההרשמה הצליחה! אפשר להתחבר!"
+	"Registration successful": "ההרשמה הצליחה! אפשר להתחבר!",
+	"Log Out": "התנתק",
+	"You have been successfully logged out": "יצאת בהצלחה מהמערכת."
 }

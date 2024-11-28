@@ -44,5 +44,7 @@
 	"Forgot your password?": "Forgot your password?",
 	"Submit": "Submit",
 	"Successfully logged in": "Successfully logged in",
-	"Registration successful": "Registration successful!"
+	"Registration successful": "Registration successful!",
+	"Log Out": "Log Out",
+	"You have been successfully logged out": "You have been successfully logged out."
 }
