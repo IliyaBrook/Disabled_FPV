@@ -1,5 +1,5 @@
 @mixin calculatedHeight() {
-	height: calc(100vh - calc(var(--footer-height, 40px)) - calc(var(--footer-height, 40px)));
+	height: calc(100vh - calc(var(--navbar-height, 54.4px)) - calc(var(--footer-height, 40px)));
 }
 
 @mixin loader(

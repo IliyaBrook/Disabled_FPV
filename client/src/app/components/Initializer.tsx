@@ -23,12 +23,6 @@ const Initializer: React.FC<ILangProps> = ({ lang, dir, dict }) => {
       if (footerSelector && navBarSelector) {
         const navBarHeight = navBarSelector.offsetHeight
         const footerHeight = footerSelector.offsetHeight
-        console.log(
-          'navBarHeight: ',
-          navBarHeight,
-          'footerHeight: ',
-          footerHeight
-        )
 
         document.documentElement.style.setProperty(
           '--navbar-height',
