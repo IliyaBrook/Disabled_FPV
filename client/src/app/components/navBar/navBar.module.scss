@@ -172,7 +172,7 @@
 		}
 		border-radius: 200px;
 		&:hover {
-			&:not(.logOut) {
+			&:not(.logOut .myCourses) {
 				background: color.scale(shareable.$violet, $lightness: -10%);
 			}
 		}
