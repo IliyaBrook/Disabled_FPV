@@ -1,6 +1,6 @@
+import dotenv from 'dotenv'
 import type { NextConfig } from 'next'
 import path from 'path'
-import dotenv from 'dotenv'
 
 if (process.env.NODE_ENV !== 'production') {
   const envPath = path.resolve(__dirname, '../.env')
@@ -22,6 +22,12 @@ const nextConfig: NextConfig = {
   },
   sassOptions: {
     silenceDeprecations: ['legacy-js-api'],
+  },
+  webpack(config, { dev }) {
+    if (dev) {
+      config.devtool = 'source-map'
+    }
+    return config
   },
   reactStrictMode: false,
 }

@@ -2,12 +2,12 @@
 import SignUpInInput from '@/app/components/SignUpInInput/SignUpInInput'
 import SubmitButton from '@/app/components/SubmitButton/SubmitButton'
 import { useAppDispatch } from '@/app/store/hooks'
-import { setModal } from '@/app/store/slices'
 import { useSignUpMutation } from '@/app/store/thunks'
 
 import type { ILangProps } from '@/app/types'
 import type { ISignUpForm } from '@/app/types/pages/signUp.types'
 import {
+  getHandleSuccessDispatch,
   getSignUpInFormActions,
   signUpDefaultState,
 } from '@/app/utils/signUpInForm.utils'
@@ -19,28 +19,14 @@ const SignUpForm: React.FC<ILangProps> = ({ dict, dir }) => {
   const dispatch = useAppDispatch()
   const timerRef = useRef<NodeJS.Timeout | null>(null)
   const [fetchData] = useSignUpMutation()
-  const handleSuccessDispatch = (serverResponse: any): void => {
-    if ('error' in serverResponse) {
-      dispatch(
-        setModal({
-          isOpen: true,
-          message: serverResponse.error.data.error,
-          type: 'error',
-        })
-      )
-    } else {
-      dispatch(
-        setModal({
-          isOpen: true,
-          message: dict['Registration successful'],
-          type: 'success',
-        })
-      )
-      setTimeout(() => {
-        window.location.href = '/courses'
-      }, 3000)
-    }
-  }
+
+  const handleSuccessDispatch = getHandleSuccessDispatch({
+    afterSuccessRedirectTo: '/courses',
+    dict,
+    dispatch,
+    successMessage: dict['Registration successful'],
+  })
+
   const formActions = getSignUpInFormActions<ISignUpForm>({
     dispatch,
     timerRef,

@@ -6,7 +6,7 @@
 	"Shop": "Shop",
 	"My": "My",
 	"Contact": "Contact",
-	"English" : "English",
+	"English": "English",
 	"Hebrew": "Hebrew",
 	"Language": "Language",
 	"Something went wrong!": "Something went wrong!",
@@ -21,7 +21,7 @@
 	"Disabled FPV": "Disabled FPV",
 	"online courses": "online courses",
 	"main_page_header_text": "Discover Your Future in FPV Drone Technology",
-	"main_page_text" : "Master FPV Drone Assembly and Control Skills with Expert Guidance — 100% Free!",
+	"main_page_text": "Master FPV Drone Assembly and Control Skills with Expert Guidance — 100% Free!",
 	"Find courses": "Start Learning Now",
 	"First name": "First name",
 	"Last name": "Last name",
@@ -47,5 +47,6 @@
 	"Successfully logged in": "Successfully logged in",
 	"Registration successful": "Registration successful!",
 	"Log Out": "Log Out",
-	"You have been successfully logged out": "You have been successfully logged out."
+	"You have been successfully logged out": "You have been successfully logged out.",
+	"Server unavailable error": "Server error. The server is currently unavailable."
 }

@@ -2,12 +2,12 @@
 import SignUpInInput from '@/app/components/SignUpInInput/SignUpInInput'
 import SubmitButton from '@/app/components/SubmitButton/SubmitButton'
 import { useAppDispatch } from '@/app/store/hooks'
-import { setModal } from '@/app/store/slices'
 import { useSignInMutation } from '@/app/store/thunks'
 import type { ILangProps } from '@/app/types'
-import type { TAuthResponse } from '@/app/types/api.type'
 import type { ISignInForm } from '@/app/types/pages/signIn.types'
+import { defaultEmail, defaultPassword } from '@/app/utils/constants'
 import {
+  getHandleSuccessDispatch,
   getSignUpInFormActions,
   signInDefaultState,
 } from '@/app/utils/signUpInForm.utils'
@@ -19,28 +19,14 @@ const SignInForm: React.FC<Omit<ILangProps, 'lang'>> = ({ dict, dir }) => {
   const dispatch = useAppDispatch()
   const timerRef = useRef<NodeJS.Timeout | null>(null)
   const [fetchData] = useSignInMutation()
-  const handleSuccessDispatch = (serverResponse: TAuthResponse): void => {
-    if ('error' in serverResponse) {
-      dispatch(
-        setModal({
-          isOpen: true,
-          message: serverResponse.error.data.error,
-          type: 'error',
-        })
-      )
-    } else {
-      dispatch(
-        setModal({
-          isOpen: true,
-          message: dict['Successfully logged in'],
-          type: 'success',
-        })
-      )
-      setTimeout(() => {
-        window.location.href = '/courses'
-      }, 3000)
-    }
-  }
+
+  const handleSuccessDispatch = getHandleSuccessDispatch({
+    afterSuccessRedirectTo: '/courses',
+    dict,
+    dispatch,
+    successMessage: dict['Successfully logged in'],
+  })
+
   const formActions = getSignUpInFormActions<ISignInForm>({
     dispatch,
     timerRef,
@@ -62,14 +48,15 @@ const SignInForm: React.FC<Omit<ILangProps, 'lang'>> = ({ dict, dir }) => {
             type="email"
             placeholder={dict['Email']}
             name="email"
-            defaultValue={formState.email || 'brook@gmail.com'}
+            defaultValue={formState.email || defaultEmail}
             dir={dir}
           />
+
           <SignUpInInput
             type="password"
             placeholder={dict['Password']}
             name="password"
-            defaultValue={formState.password || '12345678'}
+            defaultValue={formState.password || defaultPassword}
             dir={dir}
           />
         </div>

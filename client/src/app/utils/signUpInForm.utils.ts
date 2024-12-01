@@ -1,7 +1,7 @@
 import type { useAppDispatch } from '@/app/store/hooks'
 import { closeModal, setModal } from '@/app/store/slices'
 import type { TDict } from '@/app/types'
-import type { TAuthResponse, TServerErrorRe } from '@/app/types/api.type'
+import type { TAuthResponse } from '@/app/types/api.type'
 import type { ISignInForm } from '@/app/types/pages/signIn.types'
 import type { ISignUpForm } from '@/app/types/pages/signUp.types'
 import { isEmail } from '@/app/utils/isEmail'
@@ -151,5 +151,54 @@ export const getSignUpInFormActions = <T extends Record<string, any>>({
       }, resetFormInMs)
     }
     return updatedState
+  }
+}
+
+interface IHandleSuccessDispatch {
+  dispatch: ReturnType<typeof useAppDispatch>
+  successMessage: string
+  afterSuccessRedirectTo: string
+  dict: TDict
+}
+
+export const getHandleSuccessDispatch = ({
+  dispatch,
+  afterSuccessRedirectTo,
+  dict,
+  successMessage,
+}: IHandleSuccessDispatch): ((serverResponse: TAuthResponse) => void) => {
+  return (serverResponse: TAuthResponse) => {
+    if ('error' in serverResponse) {
+      if (serverResponse?.error?.data?.error) {
+        dispatch(
+          setModal({
+            isOpen: true,
+            message: serverResponse.error.data.error,
+            type: 'error',
+          })
+        )
+        return
+      } else if (serverResponse?.error?.status) {
+        dispatch(
+          setModal({
+            isOpen: true,
+            message: dict['Server unavailable error'],
+            type: 'error',
+          })
+        )
+        return
+      }
+    } else {
+      dispatch(
+        setModal({
+          isOpen: true,
+          message: successMessage,
+          type: 'success',
+        })
+      )
+      setTimeout(() => {
+        window.location.href = afterSuccessRedirectTo
+      }, 3000)
+    }
   }
 }

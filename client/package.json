@@ -1,40 +1,42 @@
 {
-  "name": "disabled-fpv-client",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev  --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "format": "prettier --write .",
-    "check-format": "prettier --check ."
-  },
-  "dependencies": {
-    "@formatjs/intl-localematcher": "^0.5.8",
-    "@reduxjs/toolkit": "^2.3.0",
-    "jodit": "^4.2.43",
-    "jodit-react": "^4.1.2",
-    "negotiator": "^1.0.0",
-    "next": "15.0.3",
-    "quill": "^2.0.2",
-    "react": "19.0.0-rc-91061073-20241121",
-    "react-dom": "19.0.0-rc-91061073-20241121",
-    "react-redux": "^9.1.2"
-  },
-  "devDependencies": {
-    "@types/negotiator": "^0.6.3",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "@types/react-draft-wysiwyg": "^1.13.8",
-    "dotenv": "^16.4.5",
-    "eslint": "^8",
-    "eslint-config-next": "15.0.2",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "prettier": "^3.3.3",
-    "sass": "^1.81.0",
-    "typescript": "^5"
-  }
+	"name": "disabled-fpv-client",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev-turbo": "next dev  --turbopack",
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint",
+		"format": "prettier --write .",
+		"check-format": "prettier --check ."
+	},
+	"dependencies": {
+		"@formatjs/intl-localematcher": "^0.5.8",
+		"@reduxjs/toolkit": "^2.3.0",
+		"jodit": "^4.2.43",
+		"jodit-react": "^4.1.2",
+		"negotiator": "^1.0.0",
+		"next": "15.0.3",
+		"quill": "^2.0.2",
+		"react": "19.0.0-rc-91061073-20241121",
+		"react-dom": "19.0.0-rc-91061073-20241121",
+		"react-redux": "^9.1.2"
+	},
+	"devDependencies": {
+		"@types/negotiator": "^0.6.3",
+		"@types/node": "^20",
+		"@types/react": "^18",
+		"@types/react-dom": "^18",
+		"@types/react-draft-wysiwyg": "^1.13.8",
+		"cross-env": "^7.0.3",
+		"dotenv": "^16.4.5",
+		"eslint": "^8",
+		"eslint-config-next": "15.0.2",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-prettier": "^5.2.1",
+		"prettier": "^3.3.3",
+		"sass": "^1.81.0",
+		"typescript": "^5"
+	}
 }

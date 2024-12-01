@@ -12,8 +12,7 @@ const CoursePageTest = () => {
   }
 
   return (
-    <div>
-      <h1>Rich Text Editor</h1>
+    <div style={{ height: '100%' }}>
       <RichTextEditor initialValue={content} onChange={setContent} />
       <button onClick={handleSave}>Save</button>
     </div>
