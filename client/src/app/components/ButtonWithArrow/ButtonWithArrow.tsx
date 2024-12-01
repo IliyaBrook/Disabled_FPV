@@ -46,8 +46,8 @@ const ButtonWithArrow = ({
           '--background-hover-color': backgroundHoverColor,
         } as React.CSSProperties
       }
-      className={`${styles.buttonWithArrow}
-      ${className} ${dir === 'rtl' ? styles.rtlStyle : {}}`}
+      className={`${styles?.buttonWithArrow || ''}
+      ${className || ''} ${dir === 'rtl' ? styles.rtlStyle : ''}`}
     >
       <span className={styles.title}>{title}</span>
       <span className={styles.arrowWrapper}>

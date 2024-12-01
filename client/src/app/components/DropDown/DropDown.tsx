@@ -55,34 +55,27 @@ const DropDown = ({
     if (TriggerButtonComponent) {
       return TriggerButtonComponent
     } else {
-      if (triggerButtonText && triggerButtonImageUrl) {
-        return (
-          <>
+      return (
+        <>
+          {triggerButtonImageUrl && (
             <Image
-              src={triggerButtonImageUrl}
-              alt={triggerButtonText}
+              src={triggerButtonImageUrl ?? ''}
+              alt={triggerButtonImageUrl}
               width={20}
               height={20}
             />
+          )}
 
+          {triggerButtonText && (
             <div
               className={styles.dropDownText}
               style={{ marginRight: isRtl ? '10px' : 0 }}
             >
-              {dict.Language}
+              {triggerButtonText}
             </div>
-          </>
-        )
-      } else {
-        return (
-          <div
-            className={styles.dropDownText}
-            style={{ marginRight: isRtl ? '10px' : 0 }}
-          >
-            {dict.Language}
-          </div>
-        )
-      }
+          )}
+        </>
+      )
     }
   }
 

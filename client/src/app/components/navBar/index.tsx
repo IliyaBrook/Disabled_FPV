@@ -33,11 +33,15 @@ export default function NavBar(): React.ReactElement {
   const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isLangDropdownOpen, setLangDropDownOpen] = useState(false)
+  const [isDropdown, setDropDownOpen] = useState(false)
 
   useOutsideClick(menuRef, () => setIsMenuOpen(false))
   const { screenWidth } = useWindowSize()
+  const isDesktop = screenWidth > 768
 
   const isAuth = !!authUser
+  const isAdmin = isAuth && authUser?.role === 'admin'
+  const userId = isAuth && authUser?.id
 
   const getLinkClass = (href: string): string => {
     const cleanPath = pathname.split('/').slice(2).join('/') || '/'
@@ -53,12 +57,12 @@ export default function NavBar(): React.ReactElement {
   }, [pathname])
 
   const buttonFirstTarget = isClient()
-    ? screenWidth > 768
+    ? isDesktop
       ? signInUpBtnsDesktopRef.current
       : buttonFirstRef.current
     : null
   const buttonSecondTarget = isClient()
-    ? screenWidth > 768
+    ? isDesktop
       ? signInUpBtnsDesktopRef.current
       : buttonSecondRef.current
     : null
@@ -82,7 +86,48 @@ export default function NavBar(): React.ReactElement {
       router.push(`/courses/${authUser.id}`)
     }
   }
+  const profileRoute = (
+    <Link key="profileRoute" href={`/profile/${userId}`}>
+      <p>{lang['User Settings']}</p>
+    </Link>
+  )
+  const adminUserDropDown: React.ReactNode[] = [
+    profileRoute,
+    <Link key="profileRoute" href={`/admin/courses/create`}>
+      <p>{lang['Add course']}</p>
+    </Link>,
+  ]
+  const userDropDown: React.ReactNode[] = [profileRoute]
 
+  const renderLogo = (
+    <div className={styles.logo}>
+      <Image
+        src="/img/nav_bar_logo.svg"
+        alt="Disabled FPV Logo"
+        width={35}
+        height={35}
+        className={styles.logoImg}
+      />
+      <span className={styles.logoText}>Disabled FPV</span>
+    </div>
+  )
+
+  const renderDropDown = (
+    <DropDown
+      isModalOpen={isLangDropdownOpen}
+      setModalOpen={setLangDropDownOpen}
+      dict={dict}
+      dir={dir}
+      dropDownElements={
+        isAdmin ? adminUserDropDown : isAuth ? userDropDown : []
+      }
+      triggerButtonImageUrl="/img/user.svg"
+    />
+  )
+  console.log('buttonFirstTarget:', buttonFirstTarget)
+  console.log('buttonSecondTarget:', buttonSecondTarget)
+  console.log('isAuth:', isAuth)
+  console.log('authUser:', authUser)
   return (
     <nav className={styles.navBar} aria-label="Main Navigation" id="navBar">
       <div className={styles.navBarContent} ref={menuRef}>
@@ -157,7 +202,7 @@ export default function NavBar(): React.ReactElement {
                     title={dict?.['Log Out']}
                     dir={dir}
                     className={`${styles.buttonWithArrow} ${styles.logOut}`}
-                    backgroundColor="#d32f2f"
+                    backgroundColor={isDesktop ? '#d32f2f' : ''}
                     onClick={onLogout}
                   />,
                   buttonFirstTarget
@@ -169,7 +214,7 @@ export default function NavBar(): React.ReactElement {
                     title={dict?.['My'].concat(' ', dict?.['Courses'])}
                     dir={dir}
                     className={`${styles.buttonWithArrow} ${styles.myCourses}`}
-                    backgroundColor="#d32f2f"
+                    backgroundColor={isDesktop ? '#1677ff' : ''}
                     onClick={onMyCoursesClick}
                   />,
                   buttonSecondTarget

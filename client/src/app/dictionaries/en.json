@@ -48,5 +48,7 @@
 	"Registration successful": "Registration successful!",
 	"Log Out": "Log Out",
 	"You have been successfully logged out": "You have been successfully logged out.",
-	"Server unavailable error": "Server error. The server is currently unavailable."
+	"Server unavailable error": "Server error. The server is currently unavailable.",
+	"User Settings": "User Settings",
+	"Add course": "Add Course"
 }

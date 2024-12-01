@@ -48,5 +48,7 @@
 	"Registration successful": "ההרשמה הצליחה! אפשר להתחבר!",
 	"Log Out": "התנתק",
 	"You have been successfully logged out": "יצאת בהצלחה מהמערכת.",
-	"Server unavailable error": "שגיאת שרת. השרת אינו זמין כעת."
+	"Server unavailable error": "שגיאת שרת. השרת אינו זמין כעת.",
+	"User Settings": "הגדרות משתמש",
+	"Add Course": "הוספת קורס"
 }
