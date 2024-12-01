@@ -5,7 +5,7 @@ import (
 )
 
 type CoursePage struct {
-	ID         primitive.ObjectID `bson:"_id,omitempty" json:"id,omitempty"`
+	ID         primitive.ObjectID `bson:"_id, omitempty" json:"id,omitempty"`
 	CourseID   primitive.ObjectID `bson:"course_id" json:"course_id"`
 	PageNumber int                `bson:"page_number" json:"page_number"`
 	Content    string             `bson:"content" json:"content"`

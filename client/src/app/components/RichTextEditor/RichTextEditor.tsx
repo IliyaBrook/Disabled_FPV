@@ -3,7 +3,7 @@
 import type { TLangOptions } from '@/app/types'
 import dynamic from 'next/dynamic'
 import React, { useState } from 'react'
-import styles from './richTextEditor.module.scss'
+import './richTextEditor.global.scss'
 
 const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false })
 
@@ -12,6 +12,7 @@ interface RichTextEditorProps {
   onChange: (value: string) => void
   lang: TLangOptions
   className?: string
+  readonly?: boolean
 }
 
 const RichTextEditor: React.FC<RichTextEditorProps> = ({
@@ -19,6 +20,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   onChange,
   lang,
   className,
+  readonly = false,
 }) => {
   const [value, setValue] = useState(initialValue)
 
@@ -29,14 +31,14 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
 
   return (
     <JoditEditor
-      className={`${className} ${styles.richTextEditor}`}
+      className={className}
       value={value}
       config={{
-        zIndex: 0,
         language: lang,
-        readonly: false,
+        readonly,
         disablePlugins: ['speech-recognize'],
         textIcons: false,
+        containerStyle: {},
       }}
       onBlur={handleBlur}
     />

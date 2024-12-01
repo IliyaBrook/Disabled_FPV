@@ -1,0 +1,6 @@
+// rich text global styles
+.jodit-react-container {
+	.jodit-status-bar-link, .jodit-add-new-line {
+		display: none;
+	}
+}

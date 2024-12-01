@@ -1,0 +1,18 @@
+.createCourse {
+	min-height: 500px;
+	
+	.richTextEditor {
+	
+	}
+	
+	.saveButtonContainer {
+		display: flex;
+		justify-content: center;
+		padding: 10px 0;
+		
+		.submitButton {
+			width: 300px;
+		}
+	}
+	
+}

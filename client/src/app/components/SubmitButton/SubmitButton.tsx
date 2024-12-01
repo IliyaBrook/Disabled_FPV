@@ -22,9 +22,12 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
       className={`${styles.submitButton} ${pending ? styles.loading : ''} ${className || ''}`}
       disabled={pending}
       {...props}
-      style={{ paddingLeft: isRtl ? 0 : '3rem' }}
+      style={{
+        paddingLeft: isRtl ? 0 : '2rem',
+        paddingRight: isRtl ? '2rem' : 0,
+      }}
     >
-      <span className={styles.text}>{children || 'Submit'}</span>
+      <div className={styles.text}>{children || 'Submit'}</div>
       <span className={styles.loaderWrapper}>
         {pending && <span className={styles.loader} />}
       </span>

@@ -8,11 +8,10 @@ export default async function CreateCoursePage({
   params: Promise<{ lang: TLangOptions }>
 }): Promise<React.ReactElement> {
   const p = await params
-  console.log('p', p)
 
   return (
     <div>
-      <CreateCourse lang={p.lang} />
+      <CreateCourse />
     </div>
   )
 }

@@ -17,7 +17,7 @@ const PagesLayout: React.FC<{ children: React.ReactNode }> = ({
     return <Spinner />
   }
   const isAdmin = (state.data as any)?.role === 'admin'
-  if (!isAdmin && pathname.startsWith('/admin/')) {
+  if (!isAdmin && pathname.includes('/admin/')) {
     return <NotFound />
   }
   return <div className={styles.mainLayout}>{children}</div>
