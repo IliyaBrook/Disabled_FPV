@@ -1,8 +1,8 @@
-import CoursePageTest from '@/app/[lang]/admin/courses/create/CoursePageTest'
+import CreateCourse from '@/app/[lang]/admin/courses/create/CreateCourse'
 import type { TLangOptions } from '@/app/types'
 import React from 'react'
 
-export default async function CreateCourse({
+export default async function CreateCoursePage({
   params,
 }: {
   params: Promise<{ lang: TLangOptions }>
@@ -12,8 +12,7 @@ export default async function CreateCourse({
 
   return (
     <div>
-      <h1>Create new Course</h1>
-      <CoursePageTest />
+      <CreateCourse lang={p.lang} />
     </div>
   )
 }

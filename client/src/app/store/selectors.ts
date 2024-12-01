@@ -1,6 +1,5 @@
 import type { RootState } from '@/app/store/store'
-import type { ILangProps, TDict, TDir, TLangOptions } from '@/app/types'
-import type { modalState } from '@/app/types/store/modal.types'
+import type { TDict, TDir, TLangOptions } from '@/app/types'
 import { createSelector } from '@reduxjs/toolkit'
 
 type AuthUserState = {
@@ -22,12 +21,16 @@ interface UserData {
   dict: TDict
 }
 
-export const localSelector = (state: RootState): ILangProps =>
+export const localSelector = (state: RootState): RootState['localization'] =>
   state.localization
-export const modalSelector = (state: RootState): modalState => state.modal
+export const modalSelector = (state: RootState): RootState['modal'] =>
+  state.modal
+
 export const authUserSelector = (
   state: RootState
-): typeof state.authUser.queries.details => state.authUser.queries.details
+): RootState['authUser']['queries']['details'] => {
+  return state.authUser.queries.details
+}
 
 // noinspection JSUnusedGlobalSymbols
 export const signUpInFormSelector = createSelector(

@@ -1,39 +1,41 @@
 'use client'
 
-import React, { useState } from 'react'
+import type { TLangOptions } from '@/app/types'
 import dynamic from 'next/dynamic'
-// import 'jodit/es2021/jodit.min.css'
+import React, { useState } from 'react'
+import styles from './richTextEditor.module.scss'
 
 const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false })
 
 interface RichTextEditorProps {
   initialValue?: string
   onChange: (value: string) => void
+  lang: TLangOptions
+  className?: string
 }
 
 const RichTextEditor: React.FC<RichTextEditorProps> = ({
   initialValue = '',
   onChange,
+  lang,
+  className,
 }) => {
   const [value, setValue] = useState(initialValue)
 
-  const handleBlur = (newValue: string) => {
+  const handleBlur = (newValue: string): void => {
     setValue(newValue)
     onChange(newValue)
   }
 
-  const lang = 'en'
-
   return (
     <JoditEditor
+      className={`${className} ${styles.richTextEditor}`}
       value={value}
       config={{
         zIndex: 0,
         language: lang,
         readonly: false,
-        //removeButtons: ['speech-recognize'],
         disablePlugins: ['speech-recognize'],
-        events: {},
         textIcons: false,
       }}
       onBlur={handleBlur}
