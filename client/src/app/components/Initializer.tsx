@@ -18,22 +18,33 @@ const Initializer: React.FC<ILangProps> = ({ lang, dir, dict }) => {
   useEffect(() => {
     const footerSelector = document.getElementById('footer')
     const navBarSelector = document.getElementById('navBar')
-    if (footerSelector && navBarSelector) {
-      const navBarHeight = navBarSelector.offsetHeight
-      const footerHeight = footerSelector.offsetHeight
-      document.documentElement.style.setProperty(
-        '--navbar-height',
-        `${navBarHeight}px`
-      )
-      document.documentElement.style.setProperty(
-        '--footer-height',
-        `${footerHeight}px`
-      )
-      document.documentElement.style.setProperty(
-        '--text-align',
-        dir === 'rtl' ? 'right' : 'left'
-      )
-    }
+
+    const timeout = setTimeout(() => {
+      if (footerSelector && navBarSelector) {
+        const navBarHeight = navBarSelector.offsetHeight
+        const footerHeight = footerSelector.offsetHeight
+        console.log(
+          'navBarHeight: ',
+          navBarHeight,
+          'footerHeight: ',
+          footerHeight
+        )
+
+        document.documentElement.style.setProperty(
+          '--navbar-height',
+          `${navBarHeight}px`
+        )
+        document.documentElement.style.setProperty(
+          '--footer-height',
+          `${footerHeight}px`
+        )
+        document.documentElement.style.setProperty(
+          '--text-align',
+          dir === 'rtl' ? 'right' : 'left'
+        )
+      }
+    }, 100)
+    return () => clearTimeout(timeout)
   }, [])
   return null
 }

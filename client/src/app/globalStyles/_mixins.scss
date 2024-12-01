@@ -1,5 +1,5 @@
 @mixin calculatedHeight() {
-	height: calc(100vh - calc(var(--footer-height, 40px)));
+	height: calc(100vh - calc(var(--footer-height, 40px)) - calc(var(--footer-height, 40px)));
 }
 
 @mixin loader(
@@ -14,6 +14,7 @@
 		margin: $marginTop $marginRight $marginBottom $marginLeft;
 		display: inline-flex;
 		min-width: $width;
+		
 		.loader {
 			width: $width;
 			height: $width;
@@ -66,7 +67,7 @@
 	border-radius: 50%;
 	border: $circleWidth solid $color;
 	
-	@include cross(  $color: $color,
+	@include cross($color: $color,
 	$crossSize: $crossSize,
 	$crossBorderRadius: $crossBorderRadius,
 	$crossThickness: $crossThickness,

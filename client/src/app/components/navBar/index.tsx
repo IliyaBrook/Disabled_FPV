@@ -1,12 +1,13 @@
 'use client'
 import ButtonWithArrow from '@/app/components/ButtonWithArrow/ButtonWithArrow'
-import LangSwitcher from '@/app/components/langSwitcher/langSwitcher'
+import DropDown from '@/app/components/DropDown/DropDown'
 import useOutsideClick from '@/app/hooks/useOutsideClick'
 import useWindowSize from '@/app/hooks/useWindowSize'
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks'
 import { userDataWithLocalSelector } from '@/app/store/selectors'
 import { setModal } from '@/app/store/slices'
 import { useLogOutMutation } from '@/app/store/thunks'
+import { changeUrlSegmentPath } from '@/app/utils/changeUrlSegmentPath'
 import isClient from '@/app/utils/isClient'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -16,6 +17,11 @@ import { createPortal } from 'react-dom'
 import styles from './navBar.module.scss'
 
 export default function NavBar(): React.ReactElement {
+  const menuRef = useRef<HTMLDivElement>(null)
+  const signInUpBtnsDesktopRef = useRef<HTMLDivElement>(null)
+  const buttonFirstRef = useRef<HTMLLIElement>(null)
+  const buttonSecondRef = useRef<HTMLLIElement>(null)
+
   const dispatch = useAppDispatch()
   const { authUser, lang, dir, dict } = useAppSelector(
     userDataWithLocalSelector
@@ -23,14 +29,15 @@ export default function NavBar(): React.ReactElement {
 
   const [fetchLogOut] = useLogOutMutation()
   const router = useRouter()
-  const isAuth = !!authUser
 
   const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const menuRef = useRef<HTMLDivElement>(null)
-  const signInUpBtnsDesktopRef = useRef<HTMLDivElement>(null)
-  const buttonFirstRef = useRef<HTMLLIElement>(null)
-  const buttonSecondRef = useRef<HTMLLIElement>(null)
+  const [isLangDropdownOpen, setLangDropDownOpen] = useState(false)
+
+  useOutsideClick(menuRef, () => setIsMenuOpen(false))
+  const { screenWidth } = useWindowSize()
+
+  const isAuth = !!authUser
 
   const getLinkClass = (href: string): string => {
     const cleanPath = pathname.split('/').slice(2).join('/') || '/'
@@ -41,13 +48,10 @@ export default function NavBar(): React.ReactElement {
 
   const toggleMenu = (): void => setIsMenuOpen((prev) => !prev)
 
-  useOutsideClick(menuRef, () => setIsMenuOpen(false))
-
   useEffect(() => {
     setIsMenuOpen(false)
   }, [pathname])
 
-  const { screenWidth } = useWindowSize()
   const buttonFirstTarget = isClient()
     ? screenWidth > 768
       ? signInUpBtnsDesktopRef.current
@@ -119,16 +123,6 @@ export default function NavBar(): React.ReactElement {
           </li>
           <li className={styles.signUpMobile} ref={buttonFirstRef}></li>
           <li className={styles.signInMobile} ref={buttonSecondRef}></li>
-          {/* {!isAuth ? ( */}
-          {/*   <> */}
-          {/*     <li className={styles.signUpMobile} ref={buttonFirstRef}></li> */}
-          {/*     <li className={styles.signInMobile} ref={buttonSecondRef}></li> */}
-          {/*   </> */}
-          {/* ) : ( */}
-          {/*   <> */}
-          {/*     <li className={styles.logOutMobile} ref={buttonSecondRef}></li> */}
-          {/*   </> */}
-          {/* )} */}
         </ul>
         <div className={styles.signInUpBtns} ref={signInUpBtnsDesktopRef}>
           {!isAuth ? (
@@ -184,7 +178,30 @@ export default function NavBar(): React.ReactElement {
           )}
         </div>
         <div className={styles.langSwitcher}>
-          <LangSwitcher dict={dict} lang={lang} />
+          <DropDown
+            isModalOpen={isLangDropdownOpen}
+            setModalOpen={setLangDropDownOpen}
+            dict={dict}
+            dir={dir}
+            dropDownElements={[
+              <Link
+                key="en"
+                href={changeUrlSegmentPath('en')}
+                onClick={() => setLangDropDownOpen(false)}
+              >
+                <p>English</p>
+              </Link>,
+              <Link
+                key="he"
+                href={changeUrlSegmentPath('he')}
+                onClick={() => setLangDropDownOpen(false)}
+              >
+                <p>עברית</p>
+              </Link>,
+            ]}
+            triggerButtonImageUrl="/img/lang_icon.svg"
+            triggerButtonText={dict.Language}
+          />
         </div>
       </div>
     </nav>

@@ -85,8 +85,8 @@ export default async function RootLayout({
       <body>
         <StoreProviderWrapper>
           <Initializer lang={p.lang} dir={dir} dict={dict} />
+          <NavBar />
           <ErrorBoundaryWrapper>
-            <NavBar />
             <PagesLayout>{children}</PagesLayout>
             <Footer />
             <AlertModal dir={dir} />

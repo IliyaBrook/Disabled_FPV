@@ -1,8 +1,10 @@
 @use "../../globalStyles/index" as global;
-.mainLayout{
+
+.mainLayout {
 	@include global.calculatedHeight();
-	padding-top: var(--navbar-height, 8vh);
-	*{
+	margin-top: var(--navbar-height);
+	
+	* {
 		text-align: var(--text-align, 'right');
 	}
 }
