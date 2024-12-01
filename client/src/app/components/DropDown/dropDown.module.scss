@@ -25,7 +25,7 @@
 	.dropdownContent {
 		position: absolute;
 		top: 100%;
-		left: -3px;
+		
 		background-color: white;
 		min-width: 10px;
 		box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
@@ -39,6 +39,7 @@
 			padding: 17px 30px;
 			text-decoration: none;
 			display: block;
+			white-space: nowrap;
 			
 			&:hover {
 				background-color: rgba(221, 221, 221, 0.3);

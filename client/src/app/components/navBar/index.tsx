@@ -33,7 +33,7 @@ export default function NavBar(): React.ReactElement {
   const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isLangDropdownOpen, setLangDropDownOpen] = useState(false)
-  const [isDropdown, setDropDownOpen] = useState(false)
+  const [isDropdownOpen, setDropDownOpen] = useState(false)
 
   useOutsideClick(menuRef, () => setIsMenuOpen(false))
   const { screenWidth } = useWindowSize()
@@ -88,13 +88,13 @@ export default function NavBar(): React.ReactElement {
   }
   const profileRoute = (
     <Link key="profileRoute" href={`/profile/${userId}`}>
-      <p>{lang['User Settings']}</p>
+      <p>{dict['User Settings']}</p>
     </Link>
   )
   const adminUserDropDown: React.ReactNode[] = [
     profileRoute,
     <Link key="profileRoute" href={`/admin/courses/create`}>
-      <p>{lang['Add course']}</p>
+      <p>{dict['Add Course']}</p>
     </Link>,
   ]
   const userDropDown: React.ReactNode[] = [profileRoute]
@@ -114,32 +114,28 @@ export default function NavBar(): React.ReactElement {
 
   const renderDropDown = (
     <DropDown
-      isModalOpen={isLangDropdownOpen}
-      setModalOpen={setLangDropDownOpen}
-      dict={dict}
+      isModalOpen={isDropdownOpen}
+      setModalOpen={setDropDownOpen}
       dir={dir}
-      dropDownElements={
-        isAdmin ? adminUserDropDown : isAuth ? userDropDown : []
+      dropDownElements={isAdmin ? adminUserDropDown : userDropDown}
+      TriggerButtonComponent={
+        <Image
+          src="/img/menu.svg"
+          alt="Disabled FPV Logo"
+          width={30}
+          height={30}
+          className={styles.logoImg}
+        />
       }
-      triggerButtonImageUrl="/img/user.svg"
+      triggerButtonImageUrl="/img/menu.svg"
     />
   )
-  console.log('buttonFirstTarget:', buttonFirstTarget)
-  console.log('buttonSecondTarget:', buttonSecondTarget)
-  console.log('isAuth:', isAuth)
-  console.log('authUser:', authUser)
+
   return (
     <nav className={styles.navBar} aria-label="Main Navigation" id="navBar">
       <div className={styles.navBarContent} ref={menuRef}>
         <div className={styles.logo}>
-          <Image
-            src="/img/nav_bar_logo.svg"
-            alt="Disabled FPV Logo"
-            width={35}
-            height={35}
-            className={styles.logoImg}
-          />
-          <span className={styles.logoText}>Disabled FPV</span>
+          {!isAuth || !isDesktop ? renderLogo : renderDropDown}
         </div>
         <button
           className={styles.burgerMenu}
@@ -226,7 +222,6 @@ export default function NavBar(): React.ReactElement {
           <DropDown
             isModalOpen={isLangDropdownOpen}
             setModalOpen={setLangDropDownOpen}
-            dict={dict}
             dir={dir}
             dropDownElements={[
               <Link

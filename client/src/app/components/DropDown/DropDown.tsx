@@ -1,12 +1,11 @@
 'use client'
 
-import type { TDict, TDir } from '@/app/types'
+import type { TDir } from '@/app/types'
 import Image from 'next/image'
 import React, { useEffect, useRef } from 'react'
 import styles from './dropDown.module.scss'
 
 interface IDropDown {
-  dict: TDict
   dir: TDir
   TriggerButtonComponent?: React.ReactElement
   triggerButtonImageUrl?: string
@@ -17,7 +16,6 @@ interface IDropDown {
 }
 
 const DropDown = ({
-  dict,
   dir,
   TriggerButtonComponent,
   triggerButtonText,
@@ -26,7 +24,6 @@ const DropDown = ({
   setModalOpen,
   isModalOpen,
 }: IDropDown): React.ReactElement => {
-  // const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const isRtl = dir === 'rtl'
@@ -79,13 +76,22 @@ const DropDown = ({
     }
   }
 
+  const dropdownContentStyles: React.CSSProperties =
+    dir === 'rtl'
+      ? {
+          right: '-10px',
+        }
+      : {
+          left: '-10px',
+        }
+
   return (
     <div className={styles.dropDown} ref={dropdownRef}>
       <button className={styles.dropdownButton} onClick={toggleDropdown}>
         <RenderTriggerButton />
       </button>
       {isModalOpen && (
-        <div className={styles.dropdownContent}>
+        <div className={styles.dropdownContent} style={dropdownContentStyles}>
           {dropDownElements.map((element, index) => (
             <div key={index}>
               {element}
