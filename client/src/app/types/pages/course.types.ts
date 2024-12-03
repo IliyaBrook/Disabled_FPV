@@ -5,6 +5,7 @@ export interface ICourse {
   created_at?: string
   updated_at?: string
   image: string
+  pages: ICoursePage[]
 }
 
 export type TCourseForm = Pick<ICourse, 'name' | 'description' | 'image'>
@@ -14,7 +15,7 @@ export interface ICoursePage {
   course_id: ICourse['id']
   page_number: number
   content: string
-  videos?: ICourseVideo[]
+  videos: ICourseVideo[]
   created_at?: string
 }
 

@@ -1,4 +1,4 @@
-import CoursePage from '@/app/[lang]/courses/[courseId]/coursePage'
+import Course from '@/app/[lang]/courses/[courseId]/course'
 import type { TLangOptions } from '@/app/types'
 import React from 'react'
 
@@ -8,5 +8,5 @@ export default async function CoursesPageByUserId({
   params: Promise<{ courseId: string; lang: TLangOptions }>
 }): Promise<React.ReactElement> {
   const { courseId } = await params
-  return <CoursePage courseId={courseId} />
+  return <Course courseId={courseId} />
 }

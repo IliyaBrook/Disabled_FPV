@@ -11,4 +11,5 @@ type Course struct {
 	CreatedAt   primitive.DateTime `bson:"created_at" json:"created_at"`
 	UpdatedAt   primitive.DateTime `bson:"updated_at" json:"updated_at"`
 	Image       string             `bson:"image" json:"image"`
+	Pages       []CoursePage       `bson:"pages,omitempty" json:"pages,omitempty"`
 }

@@ -78,7 +78,7 @@ func (s *CourseService) GetCourseById(ctx context.Context, courseID primitive.Ob
 		"$eq": []interface{}{"$course_id", "$$course_id"},
 	}
 
-	if pageNumber != -1 {
+	if pageNumber > 0 {
 		matchExpr = bson.M{
 			"$and": []interface{}{
 				bson.M{"$eq": []interface{}{"$course_id", "$$course_id"}},
@@ -93,7 +93,9 @@ func (s *CourseService) GetCourseById(ctx context.Context, courseID primitive.Ob
 			"from": "course_pages",
 			"let":  bson.M{"course_id": "$_id"},
 			"pipeline": mongo.Pipeline{
-				{{"$match", bson.M{"$expr": matchExpr}}},
+				{{"$match", bson.M{
+					"$expr": matchExpr,
+				}}},
 				{{"$sort", bson.M{"page_number": 1}}},
 			},
 			"as": "pages",
