@@ -1,7 +1,7 @@
 export const changeUrlSegmentPath = (
   newSegment: string,
   segmentIndex = 0
-): string | undefined => {
+): string => {
   'use client'
   try {
     if (typeof window === 'undefined') {
@@ -14,5 +14,7 @@ export const changeUrlSegmentPath = (
     segments[segmentIndex] = newSegment
 
     return `/${segments.join('/')}`
-  } catch {}
+  } catch {
+    return ''
+  }
 }
