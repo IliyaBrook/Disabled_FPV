@@ -55,5 +55,6 @@
 	"Name": "Name",
 	"Image": "Image",
 	"Description": "Description",
-	"cannot be empty": "cannot be empty"
+	"cannot be empty": "cannot be empty",
+	"New course created successfully": "New course created successfully!"
 }

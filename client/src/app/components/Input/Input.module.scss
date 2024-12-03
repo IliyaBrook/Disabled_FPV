@@ -37,17 +37,23 @@
 			font-size: 0.875rem;
 		}
 	}
-	
-	.errorInput {
-		border-color: #dc3545;
-	}
-	
-	.errorText {
-		font-size: 0.875rem;
-		color: #dc3545;
+	.errorWrapper {
+		width: 100%;
+		min-height: 20px;
+		height: 20px;
+		align-items: center;
 		
-		@media (max-width: 768px) {
-			font-size: 0.75rem;
+		.errorInput {
+			border-color: #dc3545;
+		}
+		
+		.errorText {
+			font-size: 0.875rem;
+			color: #dc3545;
+			
+			@media (max-width: 768px) {
+				font-size: 0.75rem;
+			}
 		}
 	}
 }

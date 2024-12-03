@@ -55,5 +55,6 @@
 	"Name": "שם",
 	"Image": "תמונה",
 	"Description": "תיאור",
-	"cannot be empty": "לא יכול להיות ריק"
+	"cannot be empty": "לא יכול להיות ריק",
+	"New course created successfully": "קורס חדש נוצר בהצלחה!"
 }

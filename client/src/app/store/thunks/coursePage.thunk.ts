@@ -1,4 +1,4 @@
-import type { ICoursePage } from '@/app/types/pages/course.types'
+import type { ICoursePage, TCourseForm } from '@/app/types/pages/course.types'
 import { apiUrl } from '@/app/utils/constants'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
@@ -30,7 +30,7 @@ export const coursePageThunk = createApi({
         method: 'GET',
       }),
     }),
-    addCoursePage: builder.mutation<ICoursePage, Partial<ICoursePage>>({
+    addCoursePage: builder.mutation<ICoursePage, TCourseForm>({
       query: (data) => ({
         url: '/admin/addCoursePage',
         method: 'POST',
