@@ -1,15 +1,18 @@
 export const changeUrlSegmentPath = (
   newSegment: string,
   segmentIndex = 0
-): string => {
-  if (typeof window === 'undefined') {
-    throw new Error('This function must be called in a browser environment.')
-  }
+): string | undefined => {
+  'use client'
+  try {
+    if (typeof window === 'undefined') {
+      console.log('This function must be called in a browser environment.')
+    }
 
-  const pathname = window.location.pathname
-  const segments = pathname.split('/').filter(Boolean)
+    const pathname = window.location.pathname
+    const segments = pathname.split('/').filter(Boolean)
 
-  segments[segmentIndex] = newSegment
+    segments[segmentIndex] = newSegment
 
-  return `/${segments.join('/')}`
+    return `/${segments.join('/')}`
+  } catch {}
 }
