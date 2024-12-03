@@ -36,10 +36,13 @@ const Course: React.FC<CoursePageProps> = ({ courseId }) => {
       <h1 className={styles.courseTitle}>{courseData.name}</h1>
       {isAdmin && (
         <div className={styles.adminControls}>
-          <button className={styles.adminButton} onClick={handleEditCourse}>
+          <button
+            className={styles.editCourseButton}
+            onClick={handleEditCourse}
+          >
             Edit Course
           </button>
-          <button className={styles.adminButton} onClick={handleAddPage}>
+          <button className={styles.addPageButton} onClick={handleAddPage}>
             Add Page
           </button>
         </div>

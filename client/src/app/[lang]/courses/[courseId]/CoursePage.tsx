@@ -76,7 +76,6 @@ const CoursePage: React.FC<CoursePageProps> = ({
                     dangerouslySetInnerHTML={{ __html: video.description }}
                   />
                 )}
-                {/* Отображение видео */}
                 <iframe
                   src={`https://www.youtube.com/embed/${video.video_id}`}
                   title={video.title}
@@ -99,35 +98,40 @@ const CoursePage: React.FC<CoursePageProps> = ({
         )}
       </div>
 
-      {isAdmin && (
-        <div className={styles.adminControls}>
-          {isEditing ? (
-            <button className={styles.saveButton} onClick={handleSaveContent}>
-              Save Changes
-            </button>
-          ) : (
-            <button
-              className={styles.editButton}
-              onClick={() => setIsEditing(true)}
-            >
-              Edit Page
-            </button>
-          )}
-        </div>
-      )}
+      <div className={styles.bottomButtons}>
+        {isAdmin && (
+          <div className={styles.adminControls}>
+            {isEditing ? (
+              <button className={styles.saveButton} onClick={handleSaveContent}>
+                Save Changes
+              </button>
+            ) : (
+              <button
+                className={styles.editButton}
+                onClick={() => setIsEditing(true)}
+              >
+                Edit Page
+              </button>
+            )}
+          </div>
+        )}
 
-      <div className={styles.pageSelector}>
-        {pages.map((page) => (
-          <button
-            key={page.page_number}
-            onClick={() => handlePageChange(page.page_number)}
-            className={`${styles.pageButton} ${
-              currentPage === page.page_number ? styles.activePage : ''
-            }`}
-          >
-            Page {page.page_number}
-          </button>
-        ))}
+        <div
+          className={styles.pageSelector}
+          style={{ width: isAdmin ? '80%' : '100%' }}
+        >
+          {pages.map((page) => (
+            <button
+              key={page.page_number}
+              onClick={() => handlePageChange(page.page_number)}
+              className={`${styles.pageButton} ${
+                currentPage === page.page_number ? styles.activePage : ''
+              }`}
+            >
+              Page {page.page_number}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   )

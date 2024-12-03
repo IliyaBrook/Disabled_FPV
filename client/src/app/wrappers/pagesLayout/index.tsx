@@ -1,6 +1,5 @@
 'use client'
 import NotFound from '@/app/[lang]/not-found'
-import { Spinner } from '@/app/components/Spinner/Spinner'
 import { useAppSelector } from '@/app/store/hooks'
 import { authUserSelector } from '@/app/store/selectors'
 import { usePathname } from 'next/navigation'
@@ -11,12 +10,17 @@ const PagesLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }): React.ReactElement => {
   const state = useAppSelector(authUserSelector)
-  const isReady = state?.status === 'fulfilled' || state?.status === 'rejected'
+
+  // const isReady = state?.status === 'fulfilled'
+  // const isRejected = state?.status === 'rejected'
+  // if (isRejected) {
+  //   // window.location.href = '/'
+  // }
   const pathname = usePathname()
-  if (!isReady) {
-    return <Spinner />
-  }
-  const isAdmin = (state.data as any)?.role === 'admin'
+  // if (!isReady) {
+  //   return <Spinner />
+  // }
+  const isAdmin = (state?.data as any)?.role === 'admin'
   if (!isAdmin && pathname.includes('/admin/')) {
     return <NotFound />
   }
