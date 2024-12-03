@@ -1,18 +1,25 @@
 .createCourse {
-	min-height: 500px;
-	
-	.richTextEditor {
-	
-	}
-	
-	.saveButtonContainer {
+	padding: 2rem;
+	&, .formContainer{
 		display: flex;
 		justify-content: center;
-		padding: 10px 0;
+	}
+	form{
+		width: 50%;
 		
-		.submitButton {
-			width: 300px;
+		.formContainer{
+			flex-direction: column;
+			gap: 10px 0;
+			input{
+			
+			}
+			.buttonContainer{
+				padding: 1rem 2rem;
+				button{
+				
+				}
+			}
+			
 		}
 	}
-	
 }

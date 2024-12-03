@@ -51,5 +51,9 @@
 	"Server unavailable error": "Server error. The server is currently unavailable.",
 	"User Settings": "User Settings",
 	"Add Course": "Add Course",
-	"Save": "Save"
+	"Save": "Save",
+	"Name": "Name",
+	"Image": "Image",
+	"Description": "Description",
+	"cannot be empty": "cannot be empty"
 }

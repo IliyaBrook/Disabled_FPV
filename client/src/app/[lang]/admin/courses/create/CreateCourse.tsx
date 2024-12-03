@@ -1,36 +1,83 @@
 'use client'
-
+import Input from '@/app/components/Input/Input'
 import SubmitButton from '@/app/components/SubmitButton/SubmitButton'
-import { useAppSelector } from '@/app/store/hooks'
+import { useAppDispatch, useAppSelector } from '@/app/store/hooks'
 import { localSelector } from '@/app/store/selectors'
-import React, { type ReactElement, useState } from 'react'
-import RichTextEditor from '../../../../components/RichTextEditor/RichTextEditor'
+import { setModal } from '@/app/store/slices'
+import type { TCourseForm } from '@/app/types/pages/course.types'
+import Form from 'next/form'
+import React, { useActionState } from 'react'
 import styles from './createCourse.module.scss'
 
-const CreateCourse = (): ReactElement => {
-  const [content, setContent] = useState('')
-  const { dict, lang } = useAppSelector(localSelector)
-
-  const initialValue = `<h1 style="text-align: center;"><u>super course</u><br></h1><p><br></p><iframe width="400px" height="345px" src="https://www.youtube.com/embed/UkD_ejtCbWg" frameborder="0" allowfullscreen="" style="display: block; margin-left: auto; margin-right: auto;"></iframe><p style="text-align: right;"><br></p>`
-
-  const handleSave = () => {
-    console.log('Saving content:', content)
-    // Добавьте логику сохранения, например, API-запро
+const CreateCourse: React.FC = () => {
+  const { dict, dir } = useAppSelector(localSelector)
+  const dispatch = useAppDispatch()
+  const setErrorModal = (message: string): void => {
+    dispatch(
+      setModal({
+        message,
+        type: 'error',
+        location: 'createCourse',
+        isOpen: true,
+        position: 'bottom',
+      })
+    )
   }
+
+  const formActions = (state: TCourseForm, formData: FormData): TCourseForm => {
+    const name = String(formData.get('name'))
+    const image = String(formData.get('image'))
+    const description = String(formData.get('description'))
+    state.image = image
+    if (!name) {
+      setErrorModal([dict['Name'], dict['cannot be empty']].join(' '))
+      return state
+    } else {
+      state.name = name
+    }
+
+    if (!description) {
+      setErrorModal([dict['Description'], dict['cannot be empty']].join(' '))
+      return state
+    } else {
+      state.description = description
+    }
+    return state
+  }
+
+  const [formState, formAction] = useActionState<TCourseForm, FormData>(
+    formActions,
+    {
+      name: '',
+      description: '',
+      image: '',
+    }
+  )
 
   return (
     <div className={styles.createCourse}>
-      <RichTextEditor
-        initialValue={initialValue}
-        onChange={setContent}
-        lang={lang}
-        className={styles.richTextEditor}
-      />
-      <div className={styles.saveButtonContainer}>
-        <SubmitButton className={styles.submitButton} onClick={handleSave}>
-          {dict['Save']}
-        </SubmitButton>
-      </div>
+      <Form className={styles.form} action={formAction}>
+        <div className={styles.formContainer}>
+          <Input
+            label={dict['Name']}
+            name="name"
+            defaultValue={formState.name}
+          />
+          <Input
+            label={dict['Description']}
+            name="description"
+            defaultValue={formState.description}
+          />
+          <Input
+            label={dict['Image']}
+            name="image"
+            defaultValue={formState.image}
+          />
+        </div>
+        <div className={styles.buttonContainer}>
+          <SubmitButton dir={dir}>{dict['Sign In'].toUpperCase()}</SubmitButton>
+        </div>
+      </Form>
     </div>
   )
 }

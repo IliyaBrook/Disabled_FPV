@@ -36,7 +36,7 @@ const SignUpForm: React.FC<ILangProps> = ({ dict, dir }) => {
     successDispatch: handleSuccessDispatch,
   })
 
-  const [formState, formAction] = useActionState(
+  const [formState, formAction] = useActionState<ISignUpForm, FormData>(
     formActions,
     signUpDefaultState
   )

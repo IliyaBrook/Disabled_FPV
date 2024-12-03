@@ -51,5 +51,9 @@
 	"Server unavailable error": "שגיאת שרת. השרת אינו זמין כעת.",
 	"User Settings": "הגדרות משתמש",
 	"Add Course": "הוספת קורס",
-	"Save": "שמור"
+	"Save": "שמור",
+	"Name": "שם",
+	"Image": "תמונה",
+	"Description": "תיאור",
+	"cannot be empty": "לא יכול להיות ריק"
 }

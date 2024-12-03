@@ -36,7 +36,7 @@ const SignInForm: React.FC<Omit<ILangProps, 'lang'>> = ({ dict, dir }) => {
     successDispatch: handleSuccessDispatch,
   })
 
-  const [formState, formAction] = useActionState(
+  const [formState, formAction] = useActionState<ISignInForm, FormData>(
     formActions,
     signInDefaultState
   )

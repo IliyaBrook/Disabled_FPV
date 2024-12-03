@@ -23,13 +23,19 @@ const nextConfig: NextConfig = {
   sassOptions: {
     silenceDeprecations: ['legacy-js-api'],
   },
-  webpack(config, { dev }) {
+  webpack(config, { dev, isServer }) {
     if (dev) {
       config.devtool = 'source-map'
     }
+    if (dev && !isServer) {
+      config.plugins = config.plugins.filter(
+        (plugin: { constructor: { name: string } }) =>
+          plugin.constructor.name !== 'MiniCssExtractPlugin'
+      )
+    }
     return config
   },
-  reactStrictMode: false,
+  reactStrictMode: true,
 }
 
 export default nextConfig

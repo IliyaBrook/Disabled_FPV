@@ -32,7 +32,9 @@
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/consistent-type-imports": "warn",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/exhaustive-deps": [
+      "off"
+    ],
     "@next/next/no-img-element": "off",
     "prettier/prettier": [
       "error",
@@ -41,7 +43,8 @@
         "singleQuote": true,
         "trailingComma": "es5",
         "tabWidth": 2,
-        "printWidth": 80
+        "printWidth": 80,
+        "jsxBracketSameLine": false
       }
     ],
     "no-empty": [
@@ -49,6 +52,10 @@
       {
         "allowEmptyCatch": true
       }
+    ],
+    "react/jsx-max-props-per-line": [
+      "error",
+      { "maximum": 1, "when": "multiline" }
     ]
   }
 }

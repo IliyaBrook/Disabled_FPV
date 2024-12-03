@@ -93,7 +93,7 @@ const DropDown = ({
       {isModalOpen && (
         <div className={styles.dropdownContent} style={dropdownContentStyles}>
           {dropDownElements.map((element, index) => (
-            <div key={index}>
+            <div key={index} onClick={toggleDropdown}>
               {element}
               <hr className={styles.separator} />
             </div>

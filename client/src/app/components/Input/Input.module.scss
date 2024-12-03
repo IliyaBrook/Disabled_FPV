@@ -1,0 +1,53 @@
+.inputContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	width: 100%;
+	
+	@media (max-width: 768px) {
+		gap: 0.25rem;
+	}
+	
+	.label {
+		font-size: 1rem;
+		font-weight: 500;
+		color: #333;
+		
+		@media (max-width: 768px) {
+			font-size: 0.875rem;
+		}
+	}
+	
+	.input {
+		width: 100%;
+		padding: 0.5rem;
+		font-size: 1rem;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		transition: border-color 0.2s, box-shadow 0.2s;
+		
+		&:focus {
+			border-color: #007bff;
+			box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+			outline: none;
+		}
+		
+		@media (max-width: 768px) {
+			padding: 0.4rem;
+			font-size: 0.875rem;
+		}
+	}
+	
+	.errorInput {
+		border-color: #dc3545;
+	}
+	
+	.errorText {
+		font-size: 0.875rem;
+		color: #dc3545;
+		
+		@media (max-width: 768px) {
+			font-size: 0.75rem;
+		}
+	}
+}
