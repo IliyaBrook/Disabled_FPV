@@ -15,8 +15,8 @@ type CoursePage struct {
 }
 
 type Video struct {
-	VideoID      string             `bson:"video_id" json:"video_id"`
-	Title        string             `bson:"title" json:"title"`
+	VideoID string `bson:"video_id" json:"video_id"`
+	//Title        string             `bson:"title" json:"title"`
 	Description  string             `bson:"description" json:"description"`
 	PublishedAt  primitive.DateTime `bson:"published_at" json:"published_at"`
 	Duration     int                `bson:"duration" json:"duration"`

@@ -23,7 +23,7 @@ export interface ICoursePage {
 
 export interface ICourseVideo {
   video_id: string
-  title: string
+  // title: string
   description: string
   published_at: string
   duration: string

@@ -70,7 +70,7 @@ const Course: React.FC<CoursePageProps> = ({ courseId }) => {
               className={styles.editCourseButton}
               onClick={() => setIsEditing(true)}
             >
-              Edit course name
+              Edit course
             </button>
           )}
         </div>

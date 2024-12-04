@@ -22,7 +22,6 @@ const AlertModal: React.FC<AlertModalProps> = ({ dir }) => {
     position = 'center',
     message,
     type,
-    location,
   } = useAppSelector(modalSelector)
 
   const onClose = (): void => {

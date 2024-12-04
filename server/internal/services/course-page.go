@@ -97,9 +97,9 @@ func (s *CoursePageService) UpdateSingleVideoInCoursePage(ctx context.Context, c
 			if len(updatedPage.Videos) > 0 {
 				updatedVideo := updatedPage.Videos[0]
 
-				if updatedVideo.Title != "" {
-					currentCoursePage.Videos[i].Title = updatedVideo.Title
-				}
+				//if updatedVideo.Title != "" {
+				//	currentCoursePage.Videos[i].Title = updatedVideo.Title
+				//}
 				if updatedVideo.Description != "" {
 					currentCoursePage.Videos[i].Description = updatedVideo.Description
 				}

@@ -1,4 +1,6 @@
 // auth user thunks
+// noinspection JSUnusedGlobalSymbols
+
 import { authUser } from './auth.thunks'
 import { coursePageThunk } from './coursePage.thunk'
 import { coursesThunk } from './courses.thunk'

@@ -12,7 +12,7 @@ import React, { useActionState, useState } from 'react'
 import styles from './createCourse.module.scss'
 
 const CreateCourse: React.FC = () => {
-  const { dict, dir, lang } = useAppSelector(localSelector)
+  const { dict, dir } = useAppSelector(localSelector)
   const dispatch = useAppDispatch()
   const router = useRouter()
   const [fetchAddCourse] = useAddCourseMutation()
