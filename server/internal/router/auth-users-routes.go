@@ -13,8 +13,8 @@ func authUsersRoutes(router *gin.Engine, mongoClient *mongo.Client) {
 	orderHandler := handlers.NewOrderHandler(mongoClient)
 	productHandler := handlers.NewProductHandler(mongoClient)
 	courseProgressHandler := handlers.NewUserCourseProgressHandler(mongoClient)
-	coursesHandler := handlers.NewCourseHandler(mongoClient)
-	coursePagesHandler := handlers.NewCoursePageHandler(mongoClient)
+	//coursesHandler := handlers.NewCourseHandler(mongoClient)
+	//coursePagesHandler := handlers.NewCoursePageHandler(mongoClient)
 	cartHandler := handlers.NewCartHandler(mongoClient)
 
 	// Groups
@@ -23,7 +23,7 @@ func authUsersRoutes(router *gin.Engine, mongoClient *mongo.Client) {
 	orders := api.Group("/orders")
 	courseProgress := api.Group("/courseProgress")
 	courses := api.Group("/courses")
-	coursePages := api.Group("/coursePages")
+	//coursePages := api.Group("/coursePages")
 	cart := api.Group("/cart")
 	// apply middlewares
 	authMiddleware := middleware.AuthMiddleware(utils.NewJWT(), mongoClient, false)
@@ -32,7 +32,7 @@ func authUsersRoutes(router *gin.Engine, mongoClient *mongo.Client) {
 	orders.Use(authMiddleware)
 	courseProgress.Use(authMiddleware)
 	courses.Use(authMiddleware)
-	coursePages.Use(authMiddleware)
+	//coursePages.Use(authMiddleware)
 	// Routes
 	// products
 	products.GET("/", productHandler.GetAllProducts)
@@ -44,11 +44,11 @@ func authUsersRoutes(router *gin.Engine, mongoClient *mongo.Client) {
 	courseProgress.PATCH("/", courseProgressHandler.UpdateCourseProgress)
 	courseProgress.POST("/", courseProgressHandler.CreateUserCourseProgress)
 	// courses
-	courses.GET("/", coursesHandler.GetAllCourses)
-	courses.GET("/:course_id", coursesHandler.GetCourseById)
+	//courses.GET("/", coursesHandler.GetAllCourses)
+	//courses.GET("/:course_id", coursesHandler.GetCourseById)
 	// course pages
-	coursePages.GET("/:course_id/:page_number", coursePagesHandler.GetCoursePageByIdAndPageNum)
-	coursePages.GET("/", coursePagesHandler.GetCoursePages)
+	//coursePages.GET("/:course_id/:page_number", coursePagesHandler.GetCoursePageByIdAndPageNum)
+	//coursePages.GET("/", coursePagesHandler.GetCoursePages)
 	// cart
 	cart.POST("/add", cartHandler.AddToCart)
 	cart.GET("/", cartHandler.GetUserCart)

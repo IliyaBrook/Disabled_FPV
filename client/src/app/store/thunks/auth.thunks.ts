@@ -1,4 +1,4 @@
-import type { TAuthResponse, ILogoutResponse } from '@/app/types/api.type'
+import type { ILogoutResponse, TAuthResponse } from '@/app/types/api.type'
 import type { ISignInForm } from '@/app/types/pages/signIn.types'
 import { apiUrl } from '@/app/utils/constants'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
@@ -16,7 +16,7 @@ export const authUser = createApi({
   endpoints: (builder) => ({
     authUser: builder.query<TAuthResponse, void>({
       query: () => ({
-        url: `/public/authUser`,
+        url: `/api/authUser`,
       }),
       serializeQueryArgs: () => {
         return 'details'
@@ -24,18 +24,18 @@ export const authUser = createApi({
     }),
     signIn: builder.mutation<TAuthResponse, ISignInForm>({
       query: (data) => ({
-        url: `/public/login`,
+        url: `/api/login`,
         body: data,
       }),
     }),
     signUp: builder.mutation<TAuthResponse, ISignInForm>({
       query: (data) => ({
-        url: `/public/register`,
+        url: `/api/register`,
         body: data,
       }),
     }),
     logOut: builder.mutation<ILogoutResponse, void>({
-      query: () => `/public/logout`,
+      query: () => `/api/logout`,
     }),
   }),
 })

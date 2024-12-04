@@ -9,11 +9,21 @@ import (
 func publicRoutes(router *gin.Engine, mongoClient *mongo.Client) {
 	// handlers
 	userHandler := handlers.NewUserHandler(mongoClient)
+	coursesHandler := handlers.NewCourseHandler(mongoClient)
+	coursePagesHandler := handlers.NewCoursePageHandler(mongoClient)
 	// Groups
-	public := router.Group("/public")
+	api := router.Group("/api")
+	courses := api.Group("/courses")
+	coursePages := api.Group("/coursePages")
 	// Routes
-	public.POST("/register", userHandler.Register)
-	public.POST("/login", userHandler.Login)
-	public.POST("/authUser", userHandler.AuthUser)
-	public.POST("/logout", userHandler.Logout)
+	api.POST("/register", userHandler.Register)
+	api.POST("/login", userHandler.Login)
+	api.POST("/authUser", userHandler.AuthUser)
+	api.POST("/logout", userHandler.Logout)
+	// courses routes
+	courses.GET("/", coursesHandler.GetAllCourses)
+	courses.GET("/:course_id", coursesHandler.GetCourseById)
+	// course pages
+	coursePages.GET("/:course_id/:page_number", coursePagesHandler.GetCoursePageByIdAndPageNum)
+	coursePages.GET("/", coursePagesHandler.GetCoursePages)
 }

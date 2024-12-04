@@ -20,7 +20,7 @@ export type TAuthSuccessResponse = {
 export type TAuthResponse = TServerErrorRe | TAuthSuccessResponse
 
 /**
- * Response from the `/public/logout` endpoint.
+ * Response from the `/api/logout` endpoint.
  */
 export interface ILogoutResponse {
   message: string
