@@ -1,4 +1,5 @@
 'use client'
+import Input from '@/app/components/Input/Input'
 import RichTextEditor from '@/app/components/RichTextEditor/RichTextEditor'
 import { useUpdateCoursePageMutation } from '@/app/store/thunks'
 import type { ICoursePage } from '@/app/types/pages/course.types'
@@ -24,8 +25,6 @@ const CoursePage: React.FC<CoursePageProps> = ({
     currentPage.content
   )
   const [updatePage] = useUpdateCoursePageMutation()
-  const pageLogic = currentPage.logic
-  console.log('current page logic:', pageLogic)
 
   const handlePageChange = (pageNumber: number): void => {
     setCurrentPage((prev) => ({ ...prev, page_number: pageNumber }))
@@ -35,7 +34,6 @@ const CoursePage: React.FC<CoursePageProps> = ({
   }
 
   const handleSaveContent = async (): Promise<void> => {
-    // const page = pages.find((page) => page.page_number === currentPage)
     if (!currentPage) return
     await updatePage({
       course_id: courseId,
@@ -48,6 +46,8 @@ const CoursePage: React.FC<CoursePageProps> = ({
   const currentPageData = pages.find(
     (page) => page.page_number === currentPage.page_number
   )
+  const pageLogic = currentPageData?.logic
+  console.log('current page logic:', pageLogic)
 
   if (!currentPageData) {
     return <div className={styles.error}>Page not found</div>
@@ -60,7 +60,22 @@ const CoursePage: React.FC<CoursePageProps> = ({
           <div className={styles.videoList}>
             {currentPageData.videos.map((video) => (
               <div className={styles.videoItem} key={video.video_id}>
-                <h3>{video.title}</h3>
+                {isAdmin && isEditing ? (
+                  <Input
+                    defaultValue={video.title}
+                    onChange={(value) => {
+                      const videoIndex = currentPageData.videos.findIndex(
+                        (v) => v.video_id === video.video_id
+                      )
+                      if (videoIndex !== -1) {
+                        currentPageData.videos[videoIndex].title = value
+                      }
+                    }}
+                  />
+                ) : (
+                  <h3>{video.title}</h3>
+                )}
+
                 {isAdmin && isEditing ? (
                   <RichTextEditor
                     initialValue={video.description}
