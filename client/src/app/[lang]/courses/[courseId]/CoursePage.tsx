@@ -1,4 +1,5 @@
 'use client'
+
 import Input from '@/app/components/Input/Input'
 import RichTextEditor from '@/app/components/RichTextEditor/RichTextEditor'
 import { useUpdateCoursePageMutation } from '@/app/store/thunks'
@@ -18,104 +19,112 @@ const CoursePage: React.FC<CoursePageProps> = ({
   courseId,
 }) => {
   const [currentPage, setCurrentPage] = useState(
-    pages.length > 0 ? pages[0] : pages[1]
+    pages.length > 0 ? pages[0] : null
   )
   const [isEditing, setIsEditing] = useState(false)
-  const [content, setContent] = useState<string | undefined>(
-    currentPage.content
-  )
   const [updatePage] = useUpdateCoursePageMutation()
 
+  if (!currentPage) {
+    return <div className={styles.error}>No pages available</div>
+  }
+
   const handlePageChange = (pageNumber: number): void => {
-    setCurrentPage((prev) => ({ ...prev, page_number: pageNumber }))
-    const page = pages.find((page) => page.page_number === pageNumber)
-    setContent(page?.content)
-    setIsEditing(false)
+    const page = pages.find((p) => p.page_number === pageNumber)
+    if (page) {
+      setCurrentPage(page)
+      setIsEditing(false)
+    }
+  }
+
+  const updateVideoContent = (
+    videoId: string,
+    field: 'title' | 'description',
+    value: string
+  ): void => {
+    setCurrentPage((prev) => {
+      if (!prev) return prev
+      const updatedVideos = prev.videos.map((video) =>
+        video.video_id === videoId ? { ...video, [field]: value } : video
+      )
+      return { ...prev, videos: updatedVideos }
+    })
   }
 
   const handleSaveContent = async (): Promise<void> => {
     if (!currentPage) return
     await updatePage({
       course_id: courseId,
-      content,
+      content: currentPage.content,
       page_number: currentPage.page_number,
+      videos: currentPage.videos,
     })
     setIsEditing(false)
   }
 
-  const currentPageData = pages.find(
-    (page) => page.page_number === currentPage.page_number
-  )
-  const pageLogic = currentPageData?.logic
-  console.log('current page logic:', pageLogic)
-
-  if (!currentPageData) {
-    return <div className={styles.error}>Page not found</div>
+  const renderContent = (): React.ReactElement => {
+    if (currentPage.videos.length > 0) {
+      return (
+        <div className={styles.videoList}>
+          {currentPage.videos.map((video) => (
+            <div className={styles.videoItem} key={video.video_id}>
+              {isAdmin && isEditing ? (
+                <>
+                  <Input
+                    defaultValue={video.title}
+                    onChange={(e) =>
+                      updateVideoContent(
+                        video.video_id,
+                        'title',
+                        e.target.value
+                      )
+                    }
+                  />
+                  <RichTextEditor
+                    initialValue={video.description}
+                    onChange={(value) =>
+                      updateVideoContent(video.video_id, 'description', value)
+                    }
+                    lang="en"
+                    className={styles.richTextEditor}
+                  />
+                </>
+              ) : (
+                <>
+                  <h3>{video.title}</h3>
+                  <div
+                    dangerouslySetInnerHTML={{ __html: video.description }}
+                  />
+                </>
+              )}
+              <iframe
+                src={`https://www.youtube.com/embed/${video.video_id}`}
+                title={video.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className={styles.videoIframe}
+              />
+            </div>
+          ))}
+        </div>
+      )
+    }
+    return isAdmin && isEditing ? (
+      <RichTextEditor
+        initialValue={currentPage.content}
+        onChange={(value) =>
+          setCurrentPage((prev) => (prev ? { ...prev, content: value } : prev))
+        }
+        lang="en"
+        className={styles.richTextEditor}
+      />
+    ) : (
+      <div dangerouslySetInnerHTML={{ __html: currentPage.content }} />
+    )
   }
 
   return (
     <div className={styles.coursePage}>
-      <div className={styles.pageContent}>
-        {currentPageData.videos?.length > 0 ? (
-          <div className={styles.videoList}>
-            {currentPageData.videos.map((video) => (
-              <div className={styles.videoItem} key={video.video_id}>
-                {isAdmin && isEditing ? (
-                  <Input
-                    defaultValue={video.title}
-                    onChange={(value) => {
-                      const videoIndex = currentPageData.videos.findIndex(
-                        (v) => v.video_id === video.video_id
-                      )
-                      if (videoIndex !== -1) {
-                        currentPageData.videos[videoIndex].title = value
-                      }
-                    }}
-                  />
-                ) : (
-                  <h3>{video.title}</h3>
-                )}
-
-                {isAdmin && isEditing ? (
-                  <RichTextEditor
-                    initialValue={video.description}
-                    onChange={(value) => {
-                      const videoIndex = currentPageData.videos.findIndex(
-                        (v) => v.video_id === video.video_id
-                      )
-                      if (videoIndex !== -1) {
-                        currentPageData.videos[videoIndex].description = value
-                      }
-                    }}
-                    lang="en"
-                    className={styles.richTextEditor}
-                  />
-                ) : (
-                  <div
-                    dangerouslySetInnerHTML={{ __html: video.description }}
-                  />
-                )}
-                <iframe
-                  src={`https://www.youtube.com/embed/${video.video_id}`}
-                  title={video.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className={styles.videoIframe}
-                />
-              </div>
-            ))}
-          </div>
-        ) : isAdmin && isEditing ? (
-          <RichTextEditor
-            initialValue={currentPageData.content}
-            onChange={setContent}
-            lang="en"
-            className={styles.richTextEditor}
-          />
-        ) : (
-          <div dangerouslySetInnerHTML={{ __html: currentPageData.content }} />
-        )}
-      </div>
+      <div className={styles.pageContent}>{renderContent()}</div>
 
       <div className={styles.bottomButtons}>
         {isAdmin && (
