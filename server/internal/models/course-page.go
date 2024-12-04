@@ -11,6 +11,7 @@ type CoursePage struct {
 	Content    string             `bson:"content" json:"content"`
 	Videos     []Video            `bson:"videos" json:"videos"`
 	CreatedAt  primitive.DateTime `bson:"created_at" json:"created_at"`
+	logic      string             `bson:"logic" json:"logic"`
 }
 
 type Video struct {

@@ -3,9 +3,8 @@ import ButtonWithArrow from '@/app/components/ButtonWithArrow/ButtonWithArrow'
 import DropDown from '@/app/components/DropDown/DropDown'
 import useOutsideClick from '@/app/hooks/useOutsideClick'
 import useWindowSize from '@/app/hooks/useWindowSize'
-import { useAppDispatch, useAppSelector } from '@/app/store/hooks'
+import { useAppSelector } from '@/app/store/hooks'
 import { userDataWithLocalSelector } from '@/app/store/selectors'
-import { setModal } from '@/app/store/slices'
 import { useLogOutMutation } from '@/app/store/thunks'
 import { changeUrlSegmentPath } from '@/app/utils/changeUrlSegmentPath'
 import isClient from '@/app/utils/isClient'
@@ -22,7 +21,6 @@ export default function NavBar(): React.ReactElement {
   const buttonFirstRef = useRef<HTMLLIElement>(null)
   const buttonSecondRef = useRef<HTMLLIElement>(null)
 
-  const dispatch = useAppDispatch()
   const { authUser, lang, dir, dict } = useAppSelector(
     userDataWithLocalSelector
   )
@@ -67,20 +65,6 @@ export default function NavBar(): React.ReactElement {
       : buttonSecondRef.current
     : null
 
-  const onLogout = (): void => {
-    fetchLogOut().then(() => {
-      dispatch(
-        setModal({
-          isOpen: true,
-          message: dict?.['You have been successfully logged out'],
-          type: 'success',
-        })
-      )
-      setTimeout(() => {
-        window.location.href = '/'
-      }, 3000)
-    })
-  }
   const onMyCoursesClick = (): void => {
     if (authUser?.id) {
       router.push(`/courses/${authUser.id}`)
@@ -199,7 +183,7 @@ export default function NavBar(): React.ReactElement {
                     dir={dir}
                     className={`${styles.buttonWithArrow} ${styles.logOut}`}
                     backgroundColor={isDesktop ? '#d32f2f' : ''}
-                    onClick={onLogout}
+                    onClick={() => fetchLogOut()}
                   />,
                   buttonFirstTarget
                 )}

@@ -32,6 +32,10 @@ export const authUserSelector = (
   return state.authUser.queries.details
 }
 
+export const courseSelector = (
+  state: RootState
+): RootState['courses']['queries']['course'] => state.courses.queries.course
+
 // noinspection JSUnusedGlobalSymbols
 export const signUpInFormSelector = createSelector(
   [localSelector, modalSelector],
@@ -49,3 +53,11 @@ export const userDataWithLocalSelector = createSelector(
     ...local,
   })
 )
+
+// export const coursePageSelector = createSelector(
+//   [authUserSelector, courseSelector],
+//   (user, course) => ({
+//     authUser: (user?.data as AuthUserState['data']) ?? null,
+//     course: course?.data,
+//   })
+// )

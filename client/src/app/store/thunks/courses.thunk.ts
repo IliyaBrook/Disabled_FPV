@@ -11,6 +11,7 @@ export const coursesThunk = createApi({
       'Content-Type': 'application/json',
     },
   }),
+  tagTypes: ['Course'],
   endpoints: (builder) => ({
     getCourses: builder.query<
       ICourse[],
@@ -24,6 +25,7 @@ export const coursesThunk = createApi({
         url: `/api/courses?name=${data.name}&page=${data.page}&limit=${data.limit}`,
         method: 'GET',
       }),
+      serializeQueryArgs: () => 'courses',
     }),
     getCourseById: builder.query<
       ICourse,
@@ -33,6 +35,13 @@ export const coursesThunk = createApi({
         url: `/api/courses/${data.course_id}?page_number=${data.page_number}`,
         method: 'GET',
       }),
+      serializeQueryArgs: () => 'course',
+      providesTags: (_result, _error, { course_id }) => [
+        {
+          type: 'Course',
+          id: course_id,
+        },
+      ],
     }),
     addCourse: builder.mutation<ICourse, TCourseForm>({
       query: (data) => ({
@@ -53,6 +62,10 @@ export const coursesThunk = createApi({
           body: restData,
         }
       },
+      invalidatesTags: (_result, _error, { course_id }) => [
+        { type: 'Course', id: course_id },
+      ],
+      // invalidatesTags: ['Course'],
     }),
     deleteCourse: builder.mutation<ICourse, { course_id: string }>({
       query: (data) => ({

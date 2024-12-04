@@ -3,7 +3,7 @@ import Input from '@/app/components/Input/Input'
 import SubmitButton from '@/app/components/SubmitButton/SubmitButton'
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks'
 import { localSelector } from '@/app/store/selectors'
-import { setModal } from '@/app/store/slices'
+import { closeModal, setModal } from '@/app/store/slices'
 import { useAddCourseMutation } from '@/app/store/thunks'
 import type { TCourseForm } from '@/app/types/pages/course.types'
 import Form from 'next/form'
@@ -76,6 +76,7 @@ const CreateCourse: React.FC = () => {
           })
         )
         setTimeout(() => {
+          dispatch(closeModal())
           router.push(`/courses/${newCourseId}`)
         }, 3000)
       }
