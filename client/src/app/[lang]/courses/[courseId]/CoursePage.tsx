@@ -114,6 +114,9 @@ const CoursePage: React.FC<CoursePageProps> = ({
       <div dangerouslySetInnerHTML={{ __html: currentPage.content }} />
     )
   }
+  const logic = currentPage.logic
+  console.log('logic:', logic)
+  console.log('currentPage:', currentPage)
 
   return (
     <div className={styles.coursePage}>
