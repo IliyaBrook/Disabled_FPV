@@ -17,33 +17,37 @@ const CoursePage: React.FC<CoursePageProps> = ({
   courseId,
 }) => {
   const [currentPage, setCurrentPage] = useState(
-    pages.length > 0 ? pages[0].page_number : 1
+    pages.length > 0 ? pages[0] : pages[1]
   )
   const [isEditing, setIsEditing] = useState(false)
   const [content, setContent] = useState<string | undefined>(
-    pages.find((page) => page.page_number === currentPage)?.content
+    currentPage.content
   )
   const [updatePage] = useUpdateCoursePageMutation()
+  const pageLogic = currentPage.logic
+  console.log('current page logic:', pageLogic)
 
   const handlePageChange = (pageNumber: number): void => {
-    setCurrentPage(pageNumber)
+    setCurrentPage((prev) => ({ ...prev, page_number: pageNumber }))
     const page = pages.find((page) => page.page_number === pageNumber)
     setContent(page?.content)
     setIsEditing(false)
   }
 
   const handleSaveContent = async (): Promise<void> => {
-    const page = pages.find((page) => page.page_number === currentPage)
-    if (!page) return
+    // const page = pages.find((page) => page.page_number === currentPage)
+    if (!currentPage) return
     await updatePage({
       course_id: courseId,
       content,
-      page_number: currentPage,
+      page_number: currentPage.page_number,
     })
     setIsEditing(false)
   }
 
-  const currentPageData = pages.find((page) => page.page_number === currentPage)
+  const currentPageData = pages.find(
+    (page) => page.page_number === currentPage.page_number
+  )
 
   if (!currentPageData) {
     return <div className={styles.error}>Page not found</div>
@@ -125,7 +129,9 @@ const CoursePage: React.FC<CoursePageProps> = ({
               key={page.page_number}
               onClick={() => handlePageChange(page.page_number)}
               className={`${styles.pageButton} ${
-                currentPage === page.page_number ? styles.activePage : ''
+                currentPage.page_number === page.page_number
+                  ? styles.activePage
+                  : ''
               }`}
             >
               Page {page.page_number}

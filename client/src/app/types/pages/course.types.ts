@@ -9,6 +9,7 @@ export interface ICourse {
 }
 
 export type TCourseForm = Pick<ICourse, 'name' | 'description' | 'image'>
+export type TPageLogic = 'reach_text' | 'video_items'
 
 export interface ICoursePage {
   id: string
@@ -17,6 +18,7 @@ export interface ICoursePage {
   content: string
   videos: ICourseVideo[]
   created_at?: string
+  logic: TPageLogic
 }
 
 export interface ICourseVideo {
