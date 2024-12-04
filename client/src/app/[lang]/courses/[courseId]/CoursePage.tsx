@@ -2,6 +2,7 @@
 
 import Input from '@/app/components/Input/Input'
 import RichTextEditor from '@/app/components/RichTextEditor/RichTextEditor'
+import YouTubeFrame from '@/app/components/YouTubeFrame/YouTubeFrame'
 import { useUpdateCoursePageMutation } from '@/app/store/thunks'
 import type { ICoursePage } from '@/app/types/pages/course.types'
 import React, { useState } from 'react'
@@ -38,7 +39,7 @@ const CoursePage: React.FC<CoursePageProps> = ({
 
   const updateVideoContent = (
     videoId: string,
-    field: 'title' | 'description',
+    field: 'title' | 'description' | 'video_id',
     value: string
   ): void => {
     setCurrentPage((prev) => {
@@ -69,16 +70,6 @@ const CoursePage: React.FC<CoursePageProps> = ({
             <div className={styles.videoItem} key={video.video_id}>
               {isAdmin && isEditing ? (
                 <>
-                  <Input
-                    defaultValue={video.title}
-                    onChange={(e) =>
-                      updateVideoContent(
-                        video.video_id,
-                        'title',
-                        e.target.value
-                      )
-                    }
-                  />
                   <RichTextEditor
                     initialValue={video.description}
                     onChange={(value) =>
@@ -89,20 +80,22 @@ const CoursePage: React.FC<CoursePageProps> = ({
                   />
                 </>
               ) : (
-                <>
-                  <h3>{video.title}</h3>
-                  <div
-                    dangerouslySetInnerHTML={{ __html: video.description }}
-                  />
-                </>
+                <div dangerouslySetInnerHTML={{ __html: video.description }} />
               )}
-              <iframe
-                src={`https://www.youtube.com/embed/${video.video_id}`}
-                title={video.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className={styles.videoIframe}
-              />
+              {isAdmin && isEditing ? (
+                <Input
+                  defaultValue={video.video_id}
+                  onChange={(e) =>
+                    updateVideoContent(
+                      video.video_id,
+                      'video_id',
+                      e.target.value
+                    )
+                  }
+                />
+              ) : (
+                <YouTubeFrame videoId={video.video_id} />
+              )}
             </div>
           ))}
         </div>
