@@ -58,12 +58,30 @@ const CoursePage: React.FC<CoursePageProps> = ({
       content: currentPage.content,
       page_number: currentPage.page_number,
       videos: currentPage.videos,
+      logic: currentPage.logic,
     })
     setIsEditing(false)
   }
 
   const renderContent = (): React.ReactElement => {
-    if (currentPage.videos.length > 0) {
+    if (currentPage.logic === 'rich_text') {
+      return isAdmin && isEditing ? (
+        <RichTextEditor
+          initialValue={currentPage.content}
+          onChange={(value) =>
+            setCurrentPage((prev) =>
+              prev ? { ...prev, content: value } : prev
+            )
+          }
+          lang="en"
+          className={styles.richTextEditor}
+        />
+      ) : (
+        <div dangerouslySetInnerHTML={{ __html: currentPage.content }} />
+      )
+    }
+
+    if (currentPage.logic === 'video_items') {
       return (
         <div className={styles.videoList}>
           {currentPage.videos.map((video) => (
@@ -101,25 +119,44 @@ const CoursePage: React.FC<CoursePageProps> = ({
         </div>
       )
     }
-    return isAdmin && isEditing ? (
-      <RichTextEditor
-        initialValue={currentPage.content}
-        onChange={(value) =>
-          setCurrentPage((prev) => (prev ? { ...prev, content: value } : prev))
-        }
-        lang="en"
-        className={styles.richTextEditor}
-      />
-    ) : (
-      <div dangerouslySetInnerHTML={{ __html: currentPage.content }} />
-    )
+    return <div>No valid logic defined</div>
   }
-  const logic = currentPage.logic
-  console.log('logic:', logic)
-  console.log('currentPage:', currentPage)
+  console.log('currentPage.logic: ', currentPage)
 
   return (
     <div className={styles.coursePage}>
+      {isAdmin && isEditing && (
+        <div className={styles.logicSelector}>
+          <label>
+            <input
+              type="radio"
+              name="logic"
+              value="video_items"
+              checked={currentPage.logic === 'video_items'}
+              onChange={() =>
+                setCurrentPage((prev) =>
+                  prev ? { ...prev, logic: 'video_items' } : prev
+                )
+              }
+            />
+            Video Items
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="logic"
+              value="rich_text"
+              checked={currentPage.logic === 'rich_text'}
+              onChange={() =>
+                setCurrentPage((prev) =>
+                  prev ? { ...prev, logic: 'rich_text' } : prev
+                )
+              }
+            />
+            Rich Text
+          </label>
+        </div>
+      )}
       <div className={styles.pageContent}>{renderContent()}</div>
 
       <div className={styles.bottomButtons}>

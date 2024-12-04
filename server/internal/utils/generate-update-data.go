@@ -2,6 +2,7 @@ package utils
 
 import (
 	"go.mongodb.org/mongo-driver/bson"
+	"log"
 	"reflect"
 )
 
@@ -27,6 +28,6 @@ func GenerateUpdateData(data interface{}) bson.M {
 			}
 		}
 	}
-
+	log.Printf("updateData field: %s", updateData)
 	return updateData
 }

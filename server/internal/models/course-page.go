@@ -11,12 +11,11 @@ type CoursePage struct {
 	Content    string             `bson:"content" json:"content"`
 	Videos     []Video            `bson:"videos" json:"videos"`
 	CreatedAt  primitive.DateTime `bson:"created_at" json:"created_at"`
-	Logic      string             `bson:"logic" json:"logic"` // reach_text || video_items
+	Logic      string             `bson:"logic" json:"logic"`
 }
 
 type Video struct {
-	VideoID string `bson:"video_id" json:"video_id"`
-	//Title        string             `bson:"title" json:"title"`
+	VideoID      string             `bson:"video_id" json:"video_id"`
 	Description  string             `bson:"description" json:"description"`
 	PublishedAt  primitive.DateTime `bson:"published_at" json:"published_at"`
 	Duration     int                `bson:"duration" json:"duration"`

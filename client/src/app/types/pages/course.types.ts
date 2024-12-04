@@ -9,7 +9,7 @@ export interface ICourse {
 }
 
 export type TCourseForm = Pick<ICourse, 'name' | 'description' | 'image'>
-export type TPageLogic = 'reach_text' | 'video_items'
+export type TPageLogic = 'rich_text' | 'video_items'
 
 export interface ICoursePage {
   id: string

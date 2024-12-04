@@ -71,8 +71,6 @@ func (h *CoursePageHandler) UpdateCoursePage(c *gin.Context) {
 		return
 	}
 
-	videoID := c.Query("video_id")
-
 	var updatedPage models.CoursePage
 	if err := c.ShouldBindJSON(&updatedPage); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid page data"})
@@ -80,20 +78,12 @@ func (h *CoursePageHandler) UpdateCoursePage(c *gin.Context) {
 	}
 
 	service := services.NewCoursePageService(h.mongoClient)
-
-	var page *models.CoursePage
-	if videoID != "" && len(updatedPage.Videos) == 1 {
-		page, err = service.UpdateSingleVideoInCoursePage(c.Request.Context(), courseObjID, pageNumber, videoID, &updatedPage)
-	} else if len(updatedPage.Videos) > 0 {
-		page, err = service.UpdateAllVideosInCoursePage(c.Request.Context(), courseObjID, pageNumber, &updatedPage)
-	} else {
-		page, err = service.UpdateAllFieldsExceptVideos(c.Request.Context(), courseObjID, pageNumber, &updatedPage)
-	}
-
+	page, err := service.UpdateAllFields(c.Request.Context(), courseObjID, pageNumber, &updatedPage)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
+
 	c.JSON(http.StatusOK, page)
 }
 
