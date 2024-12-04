@@ -121,7 +121,6 @@ const CoursePage: React.FC<CoursePageProps> = ({
     }
     return <div>No valid logic defined</div>
   }
-  console.log('currentPage.logic: ', currentPage)
 
   return (
     <div className={styles.coursePage}>
