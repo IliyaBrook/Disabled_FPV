@@ -10,18 +10,21 @@ const rootReducer = combineReducers({
   [coursePageThunk.reducerPath]: coursePageThunk.reducer,
 })
 
-export const store = configureStore({
-  reducer: rootReducer,
-  devTools: process.env.NODE_ENV !== 'production',
-  middleware: (getDefaultMiddleware) => {
-    const middlewareArray = [
-      authUser.middleware,
-      coursesThunk.middleware,
-      coursePageThunk.middleware,
-    ]
-    return getDefaultMiddleware().concat(...middlewareArray)
-  },
-})
+/* eslint-disable */
+export const makeStore = () =>
+  configureStore({
+    reducer: rootReducer,
+    devTools: process.env.NODE_ENV !== 'production',
+    middleware: (getDefaultMiddleware) => {
+      const middlewareArray = [
+        authUser.middleware,
+        coursesThunk.middleware,
+        coursePageThunk.middleware,
+      ]
+      return getDefaultMiddleware().concat(...middlewareArray)
+    },
+  })
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type AppStore = ReturnType<typeof makeStore>
+export type RootState = ReturnType<AppStore['getState']>
+export type AppDispatch = AppStore['dispatch']
