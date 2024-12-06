@@ -9,6 +9,7 @@ interface FetchServerOptions {
   headers?: Record<string, string>
   body?: any
   includeAuth?: boolean
+  throwError?: boolean
 }
 
 export async function fetchServer<T>({
@@ -17,6 +18,7 @@ export async function fetchServer<T>({
   headers = {},
   body,
   includeAuth = true,
+  throwError = true,
 }: FetchServerOptions): Promise<T> {
   const cookieStore = await cookies()
   const authCookie = includeAuth ? cookieStore.get('auth_token') : null
@@ -33,14 +35,13 @@ export async function fetchServer<T>({
     body: body ? JSON.stringify(body) : undefined,
   })
 
-  console.log(`fetchServer [${method}] ${endpoint} response:`, response)
-
   if (!response.ok) {
     const errorText = await response.text()
-    console.error(`fetchServer error: ${errorText}`)
-    throw new Error(
-      `Request failed with status ${response.status}: ${errorText}`
-    )
+    if (throwError === true) {
+      throw new Error(
+        `Request failed with status ${response.status}: ${errorText}`
+      )
+    }
   }
 
   return response.json()
