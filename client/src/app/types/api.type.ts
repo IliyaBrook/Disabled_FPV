@@ -19,6 +19,10 @@ export type TAuthSuccessResponse = {
 
 export type TAuthResponse = TServerErrorRe | TAuthSuccessResponse
 
+export type TFetchServerAuthUser =
+  | TAuthSuccessResponse['data']
+  | { error: string }
+
 /**
  * Response from the `/api/logout` endpoint.
  */

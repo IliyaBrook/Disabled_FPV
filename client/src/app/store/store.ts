@@ -11,7 +11,9 @@ const rootReducer = combineReducers({
 })
 
 /* eslint-disable */
-export const makeStore = () =>
+export type RootState = ReturnType<typeof rootReducer>
+
+export const makeStore = (preloadedState?: Partial<RootState>) =>
   configureStore({
     reducer: rootReducer,
     devTools: process.env.NODE_ENV !== 'production',
@@ -23,8 +25,24 @@ export const makeStore = () =>
       ]
       return getDefaultMiddleware().concat(...middlewareArray)
     },
+    preloadedState,
   })
 
 export type AppStore = ReturnType<typeof makeStore>
-export type RootState = ReturnType<AppStore['getState']>
 export type AppDispatch = AppStore['dispatch']
+
+// export const store = configureStore({
+//   reducer: rootReducer,
+//   devTools: process.env.NODE_ENV !== 'production',
+//   middleware: (getDefaultMiddleware) => {
+//     const middlewareArray = [
+//       authUser.middleware,
+//       coursesThunk.middleware,
+//       coursePageThunk.middleware,
+//     ]
+//     return getDefaultMiddleware().concat(...middlewareArray)
+//   },
+// })
+//
+// export type RootState = ReturnType<typeof store.getState>
+// export type AppDispatch = typeof store.dispatch
