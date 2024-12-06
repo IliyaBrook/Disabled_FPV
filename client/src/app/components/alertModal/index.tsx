@@ -1,20 +1,17 @@
 'use client'
 
+import useGetDir from '@/app/hooks/useGetDir'
 import useOutsideClick from '@/app/hooks/useOutsideClick'
 import { useAppSelector } from '@/app/store/hooks'
 import { modalSelector } from '@/app/store/selectors'
 import { closeModal } from '@/app/store/slices'
-import type { TDir } from '@/app/types'
 import React, { useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import styles from './alertModal.module.scss'
 
-interface AlertModalProps {
-  dir: TDir
-}
-
-const AlertModal: React.FC<AlertModalProps> = ({ dir }) => {
+const AlertModal: React.FC = () => {
   const modalRef = useRef<HTMLDivElement | null>(null)
+  const dir = useGetDir()
   const closeButtonRef = useRef<HTMLButtonElement | null>(null)
   const dispatch = useDispatch()
   const {

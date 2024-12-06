@@ -1,6 +1,6 @@
 import ButtonWithArrow from '@/app/components/ButtonWithArrow/ButtonWithArrow'
 
-import type { TDir, TLangOptions } from '@/app/types'
+import type { TLangOptions } from '@/app/types'
 import { getDictionary } from '@/app/utils/dictionaries'
 import Image from 'next/image'
 import React from 'react'
@@ -13,7 +13,6 @@ export default async function HomePage({
 }): Promise<React.ReactElement> {
   const p = await params
   const dict = await getDictionary(p.lang)
-  const dir: TDir = p.lang === 'he' ? 'rtl' : 'ltr'
   return (
     <div className={styles.homePage}>
       <Image
@@ -47,7 +46,6 @@ export default async function HomePage({
               className={styles.buttonWithArrow}
               title={dict['Find courses']}
               destination={`/${p.lang}/courses`}
-              dir={dir}
             />
           </div>
         </div>

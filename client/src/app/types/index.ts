@@ -6,6 +6,5 @@ export type TDir = 'ltr' | 'rtl'
 
 export interface ILangProps {
   lang: TLangOptions
-  dir: TDir
   dict: TDict
 }

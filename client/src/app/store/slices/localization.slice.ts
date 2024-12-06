@@ -5,7 +5,6 @@ import { createSlice } from '@reduxjs/toolkit'
 
 export const initialState: ILangProps = {
   lang: 'he',
-  dir: 'rtl',
   dict: getDefaultDict,
 }
 export const localizationSlice = createSlice({
@@ -21,7 +20,6 @@ export const localizationSlice = createSlice({
       }>
     ) {
       state.lang = action.payload.lang
-      state.dir = action.payload.dir
       state.dict = action.payload.dict
     },
   },

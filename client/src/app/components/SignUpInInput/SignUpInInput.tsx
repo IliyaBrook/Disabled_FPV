@@ -1,6 +1,6 @@
 'use client'
+import useGetDir from '@/app/hooks/useGetDir'
 import useWindowSize from '@/app/hooks/useWindowSize'
-import type { TDir } from '@/app/types'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import styles from './signUpInInput.module.scss'
@@ -10,7 +10,6 @@ interface ISignUpInInputProps {
   placeholder: string
   name: string
   defaultValue?: string
-  dir?: TDir
 }
 
 const SignUpInInput: React.FC<ISignUpInInputProps> = ({
@@ -18,8 +17,8 @@ const SignUpInInput: React.FC<ISignUpInInputProps> = ({
   placeholder,
   name,
   defaultValue,
-  dir,
 }) => {
+  const dir = useGetDir()
   const isRtl = dir === 'rtl'
   const { screenWidth } = useWindowSize()
   const [isDesktop, setIsDesktop] = useState(false)

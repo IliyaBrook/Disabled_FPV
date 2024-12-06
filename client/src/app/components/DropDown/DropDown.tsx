@@ -1,12 +1,11 @@
 'use client'
 
-import type { TDir } from '@/app/types'
+import useGetDir from '@/app/hooks/useGetDir'
 import Image from 'next/image'
 import React, { useEffect, useRef } from 'react'
 import styles from './dropDown.module.scss'
 
 interface IDropDown {
-  dir: TDir
   TriggerButtonComponent?: React.ReactElement
   triggerButtonImageUrl?: string
   triggerButtonText?: string
@@ -16,7 +15,6 @@ interface IDropDown {
 }
 
 const DropDown = ({
-  dir,
   TriggerButtonComponent,
   triggerButtonText,
   triggerButtonImageUrl,
@@ -25,7 +23,7 @@ const DropDown = ({
   isModalOpen,
 }: IDropDown): React.ReactElement => {
   const dropdownRef = useRef<HTMLDivElement>(null)
-
+  const dir = useGetDir()
   const isRtl = dir === 'rtl'
 
   const toggleDropdown = (): void => {

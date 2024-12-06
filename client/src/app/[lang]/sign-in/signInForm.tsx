@@ -15,7 +15,7 @@ import styles from '@/app/wrappers/signInUpLayout/signInUpLayout.module.scss'
 import Form from 'next/form'
 import React, { useActionState, useRef } from 'react'
 
-const SignInForm: React.FC<Omit<ILangProps, 'lang'>> = ({ dict, dir }) => {
+const SignInForm: React.FC<Omit<ILangProps, 'lang'>> = ({ dict }) => {
   const dispatch = useAppDispatch()
   const timerRef = useRef<NodeJS.Timeout | null>(null)
   const [fetchData] = useSignInMutation()
@@ -49,7 +49,6 @@ const SignInForm: React.FC<Omit<ILangProps, 'lang'>> = ({ dict, dir }) => {
             placeholder={dict['Email']}
             name="email"
             defaultValue={formState.email || defaultEmail}
-            dir={dir}
           />
 
           <SignUpInInput
@@ -57,11 +56,10 @@ const SignInForm: React.FC<Omit<ILangProps, 'lang'>> = ({ dict, dir }) => {
             placeholder={dict['Password']}
             name="password"
             defaultValue={formState.password || defaultPassword}
-            dir={dir}
           />
         </div>
         <div className={styles.submitBtnContainer}>
-          <SubmitButton dir={dir}>{dict['Sign In'].toUpperCase()}</SubmitButton>
+          <SubmitButton>{dict['Sign In'].toUpperCase()}</SubmitButton>
         </div>
       </Form>
     </div>

@@ -1,12 +1,12 @@
 'use client'
 import ButtonWithArrow from '@/app/components/ButtonWithArrow/ButtonWithArrow'
 import DropDown from '@/app/components/DropDown/DropDown'
+import { useChangeUrlSegmentPath } from '@/app/hooks/useChangeUrlSegmentPath'
 import useOutsideClick from '@/app/hooks/useOutsideClick'
 import useWindowSize from '@/app/hooks/useWindowSize'
 import { useAppSelector } from '@/app/store/hooks'
 import { userDataWithLocalSelector } from '@/app/store/selectors'
 import { useLogOutMutation } from '@/app/store/thunks'
-import { changeUrlSegmentPath } from '@/app/utils/changeUrlSegmentPath'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
@@ -21,9 +21,7 @@ export default function NavBar(): React.ReactElement {
   const buttonSecondRef = useRef<HTMLLIElement>(null)
   const [isClient, setIsClient] = useState(false)
 
-  const { authUser, lang, dir, dict } = useAppSelector(
-    userDataWithLocalSelector
-  )
+  const { authUser, lang, dict } = useAppSelector(userDataWithLocalSelector)
 
   const [fetchLogOut] = useLogOutMutation()
   const router = useRouter()
@@ -103,7 +101,6 @@ export default function NavBar(): React.ReactElement {
     <DropDown
       isModalOpen={isDropdownOpen}
       setModalOpen={setDropDownOpen}
-      dir={dir}
       dropDownElements={isAdmin ? adminUserDropDown : userDropDown}
       TriggerButtonComponent={
         <Image
@@ -117,6 +114,8 @@ export default function NavBar(): React.ReactElement {
       triggerButtonImageUrl="/img/menu.svg"
     />
   )
+
+  const changeUrlSegmentPath = useChangeUrlSegmentPath()
 
   return (
     <nav className={styles.navBar} aria-label="Main Navigation" id="navBar">
@@ -160,7 +159,6 @@ export default function NavBar(): React.ReactElement {
                   <ButtonWithArrow
                     destination={`/${lang}/sign-up`}
                     title={dict?.['Sign Up']}
-                    dir={dir}
                     className={styles.buttonWithArrow}
                   />,
                   buttonFirstTarget
@@ -170,7 +168,6 @@ export default function NavBar(): React.ReactElement {
                   <ButtonWithArrow
                     destination={`/${lang}/sign-in`}
                     title={dict?.['Sign In']}
-                    dir={dir}
                     className={styles.buttonWithArrow}
                   />,
                   buttonSecondTarget
@@ -183,7 +180,6 @@ export default function NavBar(): React.ReactElement {
                   <ButtonWithArrow
                     logic="onClick"
                     title={dict?.['Log Out']}
-                    dir={dir}
                     className={`${styles.buttonWithArrow} ${styles.logOut}`}
                     backgroundColor={isDesktop ? '#d32f2f' : ''}
                     onClick={() => fetchLogOut()}
@@ -195,7 +191,6 @@ export default function NavBar(): React.ReactElement {
                   <ButtonWithArrow
                     logic="onClick"
                     title={dict?.['My'].concat(' ', dict?.['Courses'])}
-                    dir={dir}
                     className={`${styles.buttonWithArrow} ${styles.myCourses}`}
                     backgroundColor={isDesktop ? '#1677ff' : ''}
                     onClick={onMyCoursesClick}
@@ -209,18 +204,17 @@ export default function NavBar(): React.ReactElement {
           <DropDown
             isModalOpen={isLangDropdownOpen}
             setModalOpen={setLangDropDownOpen}
-            dir={dir}
             dropDownElements={[
               <Link
                 key="en"
-                href={isClient ? changeUrlSegmentPath('en') : '#'}
+                href={changeUrlSegmentPath('en')}
                 onClick={() => setLangDropDownOpen(false)}
               >
                 <p>English</p>
               </Link>,
               <Link
                 key="he"
-                href={isClient ? changeUrlSegmentPath('he') : '#'}
+                href={changeUrlSegmentPath('he')}
                 onClick={() => setLangDropDownOpen(false)}
               >
                 <p>עברית</p>

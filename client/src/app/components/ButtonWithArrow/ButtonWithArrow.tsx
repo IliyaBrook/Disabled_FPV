@@ -1,6 +1,6 @@
 'use client'
 
-import type { TDir } from '@/app/types'
+import useGetDir from '@/app/hooks/useGetDir'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { type CSSProperties } from 'react'
@@ -9,7 +9,6 @@ import styles from './ButtonWithArrow.module.scss'
 interface IButtonProps {
   destination?: string
   title?: string
-  dir?: TDir
   className?: string
   logic?: 'link' | 'onClick'
   backgroundColor?: CSSProperties['backgroundColor']
@@ -21,7 +20,6 @@ interface IButtonProps {
 const ButtonWithArrow = ({
   destination = '',
   title,
-  dir,
   className,
   logic = 'link',
   onClick,
@@ -29,6 +27,7 @@ const ButtonWithArrow = ({
   backgroundHoverColor,
   style = {},
 }: IButtonProps): React.ReactElement => {
+  const dir = useGetDir()
   const router = useRouter()
   return (
     <button

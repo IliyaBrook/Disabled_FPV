@@ -1,5 +1,5 @@
 import type { RootState } from '@/app/store/store'
-import type { TDict, TDir, TLangOptions } from '@/app/types'
+import type { TDict, TLangOptions } from '@/app/types'
 import { createSelector } from '@reduxjs/toolkit'
 
 type AuthUserState = {
@@ -17,7 +17,7 @@ interface UserData {
   authUser: AuthUserState['data']
   status: AuthUserState['status']
   lang: TLangOptions
-  dir: TDir
+  // dir: TDir
   dict: TDict
 }
 

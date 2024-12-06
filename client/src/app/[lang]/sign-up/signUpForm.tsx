@@ -15,7 +15,7 @@ import styles from '@/app/wrappers/signInUpLayout/signInUpLayout.module.scss'
 import Form from 'next/form'
 import React, { useActionState, useRef } from 'react'
 
-const SignUpForm: React.FC<ILangProps> = ({ dict, dir }) => {
+const SignUpForm: React.FC<ILangProps> = ({ dict }) => {
   const dispatch = useAppDispatch()
   const timerRef = useRef<NodeJS.Timeout | null>(null)
   const [fetchData] = useSignUpMutation()
@@ -50,39 +50,34 @@ const SignUpForm: React.FC<ILangProps> = ({ dict, dir }) => {
             placeholder={dict['First name']}
             name="first_name"
             defaultValue={formState.first_name}
-            dir={dir}
           />
           <SignUpInInput
             type="text"
             placeholder={dict['Last name']}
             name="last_name"
             defaultValue={formState.last_name}
-            dir={dir}
           />
           <SignUpInInput
             type="email"
             placeholder={dict['Email']}
             name="email"
             defaultValue={formState.email}
-            dir={dir}
           />
           <SignUpInInput
             type="password"
             placeholder={dict['Password']}
             name="password"
             defaultValue={formState.password}
-            dir={dir}
           />
           <SignUpInInput
             type="password"
             placeholder={dict['Confirm password']}
             name="confirm_password"
             defaultValue={formState.confirm_password}
-            dir={dir}
           />
         </div>
         <div className={styles.submitBtnContainer}>
-          <SubmitButton dir={dir}>{dict['Sign Up'].toUpperCase()}</SubmitButton>
+          <SubmitButton>{dict['Sign Up'].toUpperCase()}</SubmitButton>
         </div>
       </Form>
     </div>
