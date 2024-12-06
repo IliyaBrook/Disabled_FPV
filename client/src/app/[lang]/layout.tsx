@@ -5,7 +5,6 @@ import NavBar from '@/app/components/navBar'
 
 import type { TDir, TLangOptions } from '@/app/types'
 import { getDictionary } from '@/app/utils/dictionaries'
-import ErrorBoundaryWrapper from '@/app/wrappers/errorBoundary'
 import StoreProviderWrapper from '@/app/wrappers/storeProvider'
 import type { Metadata } from 'next'
 import { Josefin_Sans, Sora } from 'next/font/google'
@@ -85,11 +84,11 @@ export default async function RootLayout({
         <StoreProviderWrapper>
           <Initializer lang={p.lang} dict={dict} />
           <NavBar />
-          <ErrorBoundaryWrapper>
-            <div className="pagesWrapper">{children}</div>
-            <Footer />
-            <AlertModal />
-          </ErrorBoundaryWrapper>
+        </StoreProviderWrapper>
+        <div className="pagesWrapper">{children}</div>
+        <Footer />
+        <StoreProviderWrapper>
+          <AlertModal />
         </StoreProviderWrapper>
       </body>
     </html>

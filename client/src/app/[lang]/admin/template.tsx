@@ -1,21 +1,25 @@
-import NotFound from '@/app/[lang]/not-found'
-import type { TLangOptions } from '@/app/types'
-import { fetchServerAuthUser } from '@/app/utils/serverUtils/fetchServerAuthUser'
-import getCurrentPathServer from '@/app/utils/serverUtils/getPathServer'
+import { getUserDataServer } from '@/app/store/serverFunctions/getUserDataServer'
+import StoreProviderWrapper from '@/app/wrappers/storeProvider'
 import React from 'react'
 
 export default async function Template({
   children,
+  ...rest
 }: {
   children: React.ReactNode
 }) {
-  const path = await getCurrentPathServer()
-  const lang = path.split('/')[3] as TLangOptions
+  console.log('template rest:', rest)
 
-  const userData = await fetchServerAuthUser()
-  if (!userData || 'error' in userData || userData.role !== 'admin') {
-    return <NotFound lang={lang} />
-  }
+  const userData = await getUserDataServer()
+  console.log('userData: ', userData)
 
-  return <div>{children}</div>
+  // if (!userData || 'error' in userData || userData.role !== 'admin') {
+  //   return <NotFound />
+  // }
+
+  // if (!userData || 'error' in userData || userData.role !== 'admin') {
+  //   return <NotFound />
+  // }
+
+  return <StoreProviderWrapper>{children}</StoreProviderWrapper>
 }

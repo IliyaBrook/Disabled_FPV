@@ -17,9 +17,10 @@ export const authUser = createApi({
   }),
   tagTypes: ['Auth'],
   endpoints: (builder) => ({
-    authUser: builder.query<TAuthResponse, void>({
-      query: () => ({
+    authUser: builder.query<TAuthResponse, void | RequestCredentials>({
+      query: (credentials) => ({
         url: `/api/authUser`,
+        credentials: credentials ?? 'include',
       }),
       serializeQueryArgs: () => 'details',
     }),

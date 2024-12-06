@@ -3,11 +3,9 @@
 import { useAppDispatch } from '@/app/store/hooks'
 import { setLocalization } from '@/app/store/slices'
 import { useAuthUserQuery } from '@/app/store/thunks'
-
 import type { ILangProps } from '@/app/types'
 import { getDir } from '@/app/utils/getDir'
-import type React from 'react'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 const Initializer: React.FC<ILangProps> = ({ lang, dict }) => {
   const dispatch = useAppDispatch()

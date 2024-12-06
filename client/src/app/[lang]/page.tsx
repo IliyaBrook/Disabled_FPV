@@ -1,5 +1,5 @@
+import 'server-only'
 import ButtonWithArrow from '@/app/components/ButtonWithArrow/ButtonWithArrow'
-
 import type { TLangOptions } from '@/app/types'
 import { getDictionary } from '@/app/utils/dictionaries'
 import Image from 'next/image'
@@ -12,7 +12,7 @@ export default async function HomePage({
   params: Promise<{ lang: TLangOptions }>
 }): Promise<React.ReactElement> {
   const p = await params
-  const dict = await getDictionary(p.lang)
+  const dict = await getDictionary(p.lang, 'homePage')
   return (
     <div className={styles.homePage}>
       <Image

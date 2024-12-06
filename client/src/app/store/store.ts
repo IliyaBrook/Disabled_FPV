@@ -30,19 +30,3 @@ export const makeStore = (preloadedState?: Partial<RootState>) =>
 
 export type AppStore = ReturnType<typeof makeStore>
 export type AppDispatch = AppStore['dispatch']
-
-// export const store = configureStore({
-//   reducer: rootReducer,
-//   devTools: process.env.NODE_ENV !== 'production',
-//   middleware: (getDefaultMiddleware) => {
-//     const middlewareArray = [
-//       authUser.middleware,
-//       coursesThunk.middleware,
-//       coursePageThunk.middleware,
-//     ]
-//     return getDefaultMiddleware().concat(...middlewareArray)
-//   },
-// })
-//
-// export type RootState = ReturnType<typeof store.getState>
-// export type AppDispatch = typeof store.dispatch

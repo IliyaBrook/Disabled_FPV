@@ -1,7 +1,7 @@
 import 'server-only'
 
 import { apiUrl } from '@/app/utils/constants'
-import { cookies } from 'next/headers'
+import getServerSideToken from '@/app/utils/serverUtils/getServerSideToken'
 
 interface FetchServerOptions {
   endpoint: string
@@ -34,8 +34,8 @@ export async function fetchServer<T>({
   includeAuth = true,
   throwError = true,
 }: FetchServerOptions): Promise<T | null> {
-  const cookieStore = await cookies()
-  const authCookie = includeAuth ? cookieStore.get('auth_token') : null
+  const authToken = await getServerSideToken()
+  const authCookie = includeAuth ? authToken : null
 
   const fetchHeaders: Record<string, string> = {
     'Content-Type': 'application/json',
