@@ -1,10 +1,9 @@
 'use client'
-import type { TDir } from '@/app/types'
-import React, { useState } from 'react'
-import Image from 'next/image'
 import useWindowSize from '@/app/hooks/useWindowSize'
+import type { TDir } from '@/app/types'
+import Image from 'next/image'
+import React, { useEffect, useState } from 'react'
 import styles from './signUpInInput.module.scss'
-import isClient from '@/app/utils/isClient'
 
 interface ISignUpInInputProps {
   type: 'email' | 'password' | 'text'
@@ -23,9 +22,12 @@ const SignUpInInput: React.FC<ISignUpInInputProps> = ({
 }) => {
   const isRtl = dir === 'rtl'
   const { screenWidth } = useWindowSize()
-  const isDesktop = isClient() ? screenWidth > 768 : false
-
+  const [isDesktop, setIsDesktop] = useState(false)
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+
+  useEffect(() => {
+    setIsDesktop(screenWidth > 768)
+  }, [screenWidth])
 
   const handleTogglePasswordVisibility = (): void => {
     setIsPasswordVisible((prev) => !prev)

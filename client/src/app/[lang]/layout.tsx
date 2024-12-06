@@ -5,7 +5,6 @@ import NavBar from '@/app/components/navBar'
 
 import type { TDir, TLangOptions } from '@/app/types'
 import { getDictionary } from '@/app/utils/dictionaries'
-import { fetchServerAuthUser } from '@/app/utils/serverUtils/fetchServerAuthUser'
 import ErrorBoundaryWrapper from '@/app/wrappers/errorBoundary'
 import PagesLayout from '@/app/wrappers/pagesLayout'
 import StoreProviderWrapper from '@/app/wrappers/storeProvider'
@@ -74,9 +73,6 @@ export default async function RootLayout({
   params: Promise<{ lang: TLangOptions }>
 }): Promise<React.ReactNode> {
   const p = await params
-
-  const userData = await fetchServerAuthUser()
-  console.log('userData***: ', userData)
 
   const dir: TDir = p.lang === 'he' ? 'rtl' : 'ltr'
   const dict = await getDictionary(p.lang)

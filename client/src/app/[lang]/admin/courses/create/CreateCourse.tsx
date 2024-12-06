@@ -1,5 +1,4 @@
 'use client'
-import Input from '@/app/components/Input/Input'
 import SubmitButton from '@/app/components/SubmitButton/SubmitButton'
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks'
 import { localSelector } from '@/app/store/selectors'
@@ -108,28 +107,28 @@ const CreateCourse: React.FC = () => {
     <div className={styles.createCourse}>
       <Form className={styles.form} action={formAction}>
         <div className={styles.formContainer}>
-          <div className={styles.inputsGroup}>
-            <Input
-              label={dict['Name']}
-              name="name"
-              defaultValue={formState.name}
-              error={errors.name}
-              withError
-            />
-            <Input
-              label={dict['Description']}
-              name="description"
-              defaultValue={formState.description}
-              error={errors.description}
-              withError
-            />
-            <Input
-              label={dict['Image']}
-              name="image"
-              defaultValue={formState.image}
-              withError
-            />
-          </div>
+          {/* <div className={styles.inputsGroup}> */}
+          {/*   <Input */}
+          {/*     label={dict['Name']} */}
+          {/*     name="name" */}
+          {/*     defaultValue={formState.name} */}
+          {/*     error={errors.name} */}
+          {/*     withError */}
+          {/*   /> */}
+          {/*   <Input */}
+          {/*     label={dict['Description']} */}
+          {/*     name="description" */}
+          {/*     defaultValue={formState.description} */}
+          {/*     error={errors.description} */}
+          {/*     withError */}
+          {/*   /> */}
+          {/*   <Input */}
+          {/*     label={dict['Image']} */}
+          {/*     name="image" */}
+          {/*     defaultValue={formState.image} */}
+          {/*     withError */}
+          {/*   /> */}
+          {/* </div> */}
           <div className={styles.buttonContainer}>
             <SubmitButton dir={dir}>{dict['Add Course']}</SubmitButton>
           </div>

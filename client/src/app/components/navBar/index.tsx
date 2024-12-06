@@ -7,7 +7,6 @@ import { useAppSelector } from '@/app/store/hooks'
 import { userDataWithLocalSelector } from '@/app/store/selectors'
 import { useLogOutMutation } from '@/app/store/thunks'
 import { changeUrlSegmentPath } from '@/app/utils/changeUrlSegmentPath'
-import isClient from '@/app/utils/isClient'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
@@ -20,6 +19,7 @@ export default function NavBar(): React.ReactElement {
   const signInUpBtnsDesktopRef = useRef<HTMLDivElement>(null)
   const buttonFirstRef = useRef<HTMLLIElement>(null)
   const buttonSecondRef = useRef<HTMLLIElement>(null)
+  const [isClient, setIsClient] = useState(false)
 
   const { authUser, lang, dir, dict } = useAppSelector(
     userDataWithLocalSelector
@@ -53,13 +53,16 @@ export default function NavBar(): React.ReactElement {
   useEffect(() => {
     setIsMenuOpen(false)
   }, [pathname])
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
-  const buttonFirstTarget = isClient()
+  const buttonFirstTarget = isClient
     ? isDesktop
       ? signInUpBtnsDesktopRef.current
       : buttonFirstRef.current
     : null
-  const buttonSecondTarget = isClient()
+  const buttonSecondTarget = isClient
     ? isDesktop
       ? signInUpBtnsDesktopRef.current
       : buttonSecondRef.current
@@ -210,14 +213,14 @@ export default function NavBar(): React.ReactElement {
             dropDownElements={[
               <Link
                 key="en"
-                href={changeUrlSegmentPath('en')}
+                href={isClient ? changeUrlSegmentPath('en') : '#'}
                 onClick={() => setLangDropDownOpen(false)}
               >
                 <p>English</p>
               </Link>,
               <Link
                 key="he"
-                href={changeUrlSegmentPath('he')}
+                href={isClient ? changeUrlSegmentPath('he') : '#'}
                 onClick={() => setLangDropDownOpen(false)}
               >
                 <p>עברית</p>

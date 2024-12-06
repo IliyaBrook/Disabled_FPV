@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 interface WindowSize {
   screenWidth: number
@@ -7,8 +7,8 @@ interface WindowSize {
 
 const useWindowSize = (): WindowSize => {
   const [windowSize, setWindowSize] = useState<WindowSize>({
-    screenWidth: typeof window !== 'undefined' ? window.innerWidth : 0,
-    screenHeight: typeof window !== 'undefined' ? window.innerHeight : 0,
+    screenWidth: 0,
+    screenHeight: 0,
   })
 
   useEffect(() => {
