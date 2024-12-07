@@ -2,7 +2,6 @@ import AlertModal from '@/app/components/alertModal'
 import Footer from '@/app/components/footer/footer'
 import Initializer from '@/app/components/Initializer'
 import NavBar from '@/app/components/navBar'
-
 import type { TDir, TLangOptions } from '@/app/types'
 import { getDictionary } from '@/app/utils/dictionaries'
 import StoreProviderWrapper from '@/app/wrappers/storeProvider'
@@ -71,7 +70,6 @@ export default async function RootLayout({
   params: Promise<{ lang: TLangOptions }>
 }): Promise<React.ReactNode> {
   const p = await params
-
   const dir: TDir = p.lang === 'he' ? 'rtl' : 'ltr'
   const dict = await getDictionary(p.lang)
   return (
@@ -84,10 +82,8 @@ export default async function RootLayout({
         <StoreProviderWrapper>
           <Initializer lang={p.lang} dict={dict} />
           <NavBar />
-        </StoreProviderWrapper>
-        <div className="pagesWrapper">{children}</div>
-        <Footer />
-        <StoreProviderWrapper>
+          <div className="pagesWrapper">{children}</div>
+          <Footer />
           <AlertModal />
         </StoreProviderWrapper>
       </body>

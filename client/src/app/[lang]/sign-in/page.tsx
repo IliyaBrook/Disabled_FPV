@@ -3,7 +3,6 @@ import SignInForm from '@/app/[lang]/sign-in/signInForm'
 import type { TLangOptions } from '@/app/types'
 import { getDictionary } from '@/app/utils/dictionaries'
 import SignInUpLayout from '@/app/wrappers/signInUpLayout'
-import StoreProviderWrapper from '@/app/wrappers/storeProvider'
 import React from 'react'
 
 export default async function SignIn({
@@ -16,9 +15,7 @@ export default async function SignIn({
 
   return (
     <SignInUpLayout lang={p.lang} dict={dict} pageName="sign-in">
-      <StoreProviderWrapper>
-        <SignInForm dict={dict} />
-      </StoreProviderWrapper>
+      <SignInForm dict={dict} />
     </SignInUpLayout>
   )
 }
