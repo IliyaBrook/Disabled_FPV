@@ -7,6 +7,7 @@ import (
 	"disabled-fpv-server/internal/models"
 	"disabled-fpv-server/internal/utils"
 	"errors"
+	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -58,13 +59,13 @@ func (s *CourseService) GetAllCourses(ctx context.Context, params dto.GetAllCour
 	if params.Name != "" {
 		filter["name"] = bson.M{"$regex": params.Name, "$options": "i"}
 	}
-
-	skip := (params.Page - 1) * params.Limit
+	var limit = int64(params.Limit)
+	skip := int64(params.Page-1) * limit
 
 	pipeline := mongo.Pipeline{
 		{{"$match", filter}},
 	}
-
+	fmt.Println("limit log:", limit)
 	if params.Populate {
 		pipeline = append(pipeline, bson.D{{"$lookup", bson.M{
 			"from":         "course_pages",
@@ -76,7 +77,7 @@ func (s *CourseService) GetAllCourses(ctx context.Context, params dto.GetAllCour
 
 	pipeline = append(pipeline, bson.D{{"$sort", bson.M{"created_at": -1}}})
 	pipeline = append(pipeline, bson.D{{"$skip", skip}})
-	pipeline = append(pipeline, bson.D{{"$limit", int64(params.Limit)}})
+	pipeline = append(pipeline, bson.D{{"$limit", limit}})
 
 	cursor, err := s.repo.Aggregate(ctx, pipeline)
 	if err != nil {

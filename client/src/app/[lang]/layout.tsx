@@ -2,13 +2,13 @@ import AlertModal from '@/app/components/alertModal'
 import Footer from '@/app/components/footer/footer'
 import Initializer from '@/app/components/Initializer'
 import NavBar from '@/app/components/navBar'
+import { Spinner } from '@/app/components/Spinner/Spinner'
 import type { TDir, TLangOptions } from '@/app/types'
-import { getDictionary } from '@/app/utils/dictionaries'
 import StoreProviderWrapper from '@/app/wrappers/storeProvider'
 import type { Metadata } from 'next'
 import { Josefin_Sans, Sora } from 'next/font/google'
 import '../globalStyles/globals.scss'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 const sora = Sora({
   subsets: ['latin'],
@@ -56,6 +56,13 @@ export const metadata: Metadata = {
   },
 }
 
+async function AsyncDictionaryLoader({ lang }: { lang: TLangOptions }) {
+  const { getDictionary } = await import('@/app/utils/dictionaries')
+  const dict = await getDictionary(lang)
+
+  return <Initializer lang={lang} dict={dict} />
+}
+
 export async function generateStaticParams(): Promise<
   { lang: TLangOptions }[]
 > {
@@ -71,7 +78,6 @@ export default async function RootLayout({
 }): Promise<React.ReactNode> {
   const p = await params
   const dir: TDir = p.lang === 'he' ? 'rtl' : 'ltr'
-  const dict = await getDictionary(p.lang)
   return (
     <html
       lang={p.lang}
@@ -80,9 +86,11 @@ export default async function RootLayout({
     >
       <body>
         <StoreProviderWrapper>
-          <Initializer lang={p.lang} dict={dict} />
           <NavBar />
-          <div className="pagesWrapper">{children}</div>
+          <Suspense fallback={<Spinner />}>
+            <AsyncDictionaryLoader lang={p.lang} />
+            <div className="pagesWrapper">{children}</div>
+          </Suspense>
           <Footer />
           <AlertModal />
         </StoreProviderWrapper>

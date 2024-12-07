@@ -24,6 +24,7 @@ export const coursesThunk = createApi({
         method: 'GET',
       }),
       serializeQueryArgs: () => 'courses',
+      keepUnusedDataFor: 3600,
     }),
     getCourseById: builder.query<
       ICourse,

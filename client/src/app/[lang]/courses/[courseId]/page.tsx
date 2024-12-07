@@ -1,7 +1,7 @@
 'use server'
 import type { TLangOptions } from '@/app/types'
 import type { ICoursePage } from '@/app/types/store/courses'
-import React from 'react'
+import { fetchServerAuthUser } from '@/app/utils/serverUtils/fetchServerAuthUser'
 
 interface Params {
   params: Promise<{
@@ -11,36 +11,37 @@ interface Params {
   }>
 }
 
-export async function generateStaticParams({ params }: Params) {
-  const p = await params
+async function getCourseData() {
+  const getCoursesServer = await import('@/app/store/serverApi/courses').then(
+    (i) => i.getCoursesServer
+  )
+  return await getCoursesServer({ populate: 'true', limit: 999 })
+}
 
-  const getCoursesServer = await import(
-    '@/app/store/serverFunctions/courses'
-  ).then((i) => i.getCoursesServer)
-  const courses = await getCoursesServer()
-  console.log('courses: ', courses)
-
+export async function generateStaticParams() {
+  const courses = await getCourseData()
   return courses.map((course) => ({
     params: {
-      course,
-      lang: p.lang,
+      courseId: course.id,
+      lang: 'he',
     },
   }))
 }
 
-export default async function CoursesPageByCourseId({
-  params,
-}: Params): Promise<React.ReactElement> {
+export default async function CoursePageById({ params }: Params) {
+  const userData = await fetchServerAuthUser()
+  if (userData) {
+  }
+  const isAdmin = userData && userData.role === 'admin'
   const p = await params
-  console.log('params:', p)
-  // const course = await getCourseByIdServer(courseId)
+  const courseId = p.courseId
 
-  // console.log('courses:', courses)
-
-  // return <Course courseId={courseId} />
-  return (
-    <div>
-      <h1>test</h1>
-    </div>
-  )
+  // return <UsersCourse courseId={courseId} lang={p.lang} />
+  if (isAdmin) {
+    const { default: AdminCoursePage } = await import('./pages/adminCourse')
+    return <AdminCoursePage courseId={courseId} lang={p.lang} />
+  } else {
+    const { default: UsersCourse } = await import('./pages/usersCourse')
+    return <UsersCourse courseId={courseId} lang={p.lang} />
+  }
 }

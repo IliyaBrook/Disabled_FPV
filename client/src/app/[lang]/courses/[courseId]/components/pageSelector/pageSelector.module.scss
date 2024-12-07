@@ -1,0 +1,27 @@
+.pageSelector {
+	display: flex;
+	justify-content: center;
+	gap: 0.5rem;
+	.pageButton {
+		padding: 0.4rem 1rem;
+		font-size: 1rem;
+		border-radius: 4px;
+		background-color: white;
+		border: 2px solid transparent;
+		color: #007bff;
+		transition: background-color 0.3s, transform 0.2s;
+		
+		&.activePage {
+			background-color: #007bff;
+			color: white;
+			border-color: #0056b3;
+		}
+		
+		&:hover {
+			background-color: #e2e6ea;
+			transform: scale(1.05);
+			color: #0056b3;
+			cursor: pointer;
+		}
+	}
+}

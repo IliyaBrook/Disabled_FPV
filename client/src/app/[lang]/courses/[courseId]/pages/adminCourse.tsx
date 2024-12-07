@@ -1,5 +1,7 @@
 'use client'
-import CoursePage from '@/app/[lang]/courses/[courseId]/CoursePage'
+import AdminCoursePage from '@/app/[lang]/courses/[courseId]/components/adminCoursePage'
+import CourseLayout from '@/app/[lang]/courses/[courseId]/components/courseLayout/courseLayout'
+import CourseTitle from '@/app/[lang]/courses/[courseId]/components/courseTitle/courseTitle'
 import Input from '@/app/components/Input/Input'
 import { Spinner } from '@/app/components/Spinner/Spinner'
 import { useAppSelector } from '@/app/store/hooks'
@@ -8,14 +10,16 @@ import {
   useGetCourseByIdQuery,
   useUpdateCourseMutation,
 } from '@/app/store/thunks'
+import type { TLangOptions } from '@/app/types'
 import React, { useState } from 'react'
-import styles from './coursePage.module.scss'
+import styles from '../components/courseLayout/courseLayout.module.scss'
 
 interface CoursePageProps {
   courseId: string
+  lang: TLangOptions
 }
 
-const Course: React.FC<CoursePageProps> = ({ courseId }) => {
+const AdminCourse: React.FC<CoursePageProps> = ({ courseId }) => {
   const { data: courseData } = useGetCourseByIdQuery({
     course_id: courseId,
   })
@@ -42,7 +46,7 @@ const Course: React.FC<CoursePageProps> = ({ courseId }) => {
 
   if (!courseData) return <Spinner />
   return (
-    <div className={styles.course}>
+    <CourseLayout>
       {isAdmin && isEditing ? (
         <Input
           type="text"
@@ -51,7 +55,7 @@ const Course: React.FC<CoursePageProps> = ({ courseId }) => {
           className={styles.courseNameInput}
         />
       ) : (
-        <h1 className={styles.courseTitle}>{courseData.name}</h1>
+        <CourseTitle>{courseData.name}</CourseTitle>
       )}
       {isAdmin && (
         <div className={styles.adminControls}>
@@ -76,13 +80,13 @@ const Course: React.FC<CoursePageProps> = ({ courseId }) => {
         </div>
       )}
 
-      <CoursePage
+      <AdminCoursePage
         pages={courseData?.pages}
         isAdmin={isAdmin}
         courseId={courseId}
       />
-    </div>
+    </CourseLayout>
   )
 }
 
-export default Course
+export default AdminCourse

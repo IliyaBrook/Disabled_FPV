@@ -12,7 +12,7 @@ export default async function HomePage({
   params: Promise<{ lang: TLangOptions }>
 }): Promise<React.ReactElement> {
   const p = await params
-  const dict = await getDictionary(p.lang, 'homePage')
+  const dict = await getDictionary(p.lang)
   return (
     <div className={styles.homePage}>
       <Image

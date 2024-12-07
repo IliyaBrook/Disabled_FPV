@@ -1,5 +1,7 @@
 'use client'
 
+import CoursePageLayout from '@/app/[lang]/courses/[courseId]/components/coursePageLayout/coursePageLayout'
+import PageSelector from '@/app/[lang]/courses/[courseId]/components/pageSelector/pageSelector'
 import Input from '@/app/components/Input/Input'
 import RichTextEditor from '@/app/components/RichTextEditor/RichTextEditor'
 import YouTubeFrame from '@/app/components/YouTubeFrame/YouTubeFrame'
@@ -7,7 +9,7 @@ import { useUpdateCoursePageMutation } from '@/app/store/thunks'
 
 import type { ICoursePage } from '@/app/types/store/courses'
 import React, { useState } from 'react'
-import styles from './coursePage.module.scss'
+import styles from './coursePageLayout/coursePageLayout.module.scss'
 
 interface CoursePageProps {
   pages: ICoursePage[]
@@ -15,7 +17,7 @@ interface CoursePageProps {
   courseId: string
 }
 
-const CoursePage: React.FC<CoursePageProps> = ({
+const AdminCoursePage: React.FC<CoursePageProps> = ({
   pages,
   isAdmin,
   courseId,
@@ -124,7 +126,7 @@ const CoursePage: React.FC<CoursePageProps> = ({
   }
 
   return (
-    <div className={styles.coursePage}>
+    <CoursePageLayout>
       {isAdmin && isEditing && (
         <div className={styles.logicSelector}>
           <label>
@@ -176,28 +178,15 @@ const CoursePage: React.FC<CoursePageProps> = ({
             )}
           </div>
         )}
-
-        <div
-          className={styles.pageSelector}
-          style={{ width: isAdmin ? '80%' : '100%' }}
-        >
-          {pages.map((page) => (
-            <button
-              key={page.page_number}
-              onClick={() => handlePageChange(page.page_number)}
-              className={`${styles.pageButton} ${
-                currentPage.page_number === page.page_number
-                  ? styles.activePage
-                  : ''
-              }`}
-            >
-              Page {page.page_number}
-            </button>
-          ))}
-        </div>
+        <PageSelector
+          currentPage={currentPage}
+          pages={pages}
+          handlePageChange={handlePageChange}
+          isAdmin={isAdmin}
+        />
       </div>
-    </div>
+    </CoursePageLayout>
   )
 }
 
-export default CoursePage
+export default AdminCoursePage
