@@ -1,4 +1,4 @@
-import 'server-only'
+'use server'
 import type { TFetchServerAuthUser } from '@/app/types/api.type'
 import { fetchServer } from '@/app/utils/serverUtils/fetchServer'
 

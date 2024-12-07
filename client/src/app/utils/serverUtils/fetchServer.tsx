@@ -1,4 +1,4 @@
-import 'server-only'
+'use server'
 
 import { apiUrl } from '@/app/utils/constants'
 import getServerSideToken from '@/app/utils/serverUtils/getServerSideToken'

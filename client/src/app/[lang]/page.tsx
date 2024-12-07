@@ -1,4 +1,4 @@
-import 'server-only'
+'use server'
 import ButtonWithArrow from '@/app/components/ButtonWithArrow/ButtonWithArrow'
 import type { TLangOptions } from '@/app/types'
 import { getDictionary } from '@/app/utils/dictionaries'

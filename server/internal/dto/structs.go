@@ -21,3 +21,10 @@ type ErrorResponse struct {
 type PopulateRequest struct {
 	Populate []string `json:"populate,omitempty"`
 }
+
+type GetAllCoursesParams struct {
+	Name     string `form:"name"`
+	Page     int    `form:"page"`
+	Limit    int    `form:"limit"`
+	Populate bool   `form:"populate"`
+}

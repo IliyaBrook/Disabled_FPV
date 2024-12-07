@@ -3,6 +3,7 @@ package services
 import (
 	"context"
 	"disabled-fpv-server/internal/config"
+	"disabled-fpv-server/internal/dto"
 	"disabled-fpv-server/internal/models"
 	"disabled-fpv-server/internal/utils"
 	"errors"
@@ -52,14 +53,14 @@ func (s *CourseService) DeleteCourse(ctx context.Context, courseID primitive.Obj
 	return err
 }
 
-func (s *CourseService) GetAllCourses(ctx context.Context, name string, page, limit int) ([]models.Course, error) {
+func (s *CourseService) GetAllCourses(ctx context.Context, params dto.GetAllCoursesParams) ([]models.Course, error) {
 	filter := bson.M{}
-	if name != "" {
-		filter["name"] = bson.M{"$regex": name, "$options": "i"}
+	if params.Name != "" {
+		filter["name"] = bson.M{"$regex": params.Name, "$options": "i"}
 	}
 
-	skip := (page - 1) * limit
-	findOptions := options.Find().SetSkip(int64(skip)).SetLimit(int64(limit))
+	skip := (params.Page - 1) * params.Limit
+	findOptions := options.Find().SetSkip(int64(skip)).SetLimit(int64(params.Limit))
 
 	cursor, err := s.repo.Find(ctx, filter, findOptions)
 	if err != nil {
@@ -68,6 +69,9 @@ func (s *CourseService) GetAllCourses(ctx context.Context, name string, page, li
 	var courses []models.Course
 	if err := cursor.All(ctx, &courses); err != nil {
 		return nil, err
+	}
+	if params.Populate == true {
+
 	}
 	return courses, nil
 }
