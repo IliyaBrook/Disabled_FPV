@@ -60,19 +60,34 @@ func (s *CourseService) GetAllCourses(ctx context.Context, params dto.GetAllCour
 	}
 
 	skip := (params.Page - 1) * params.Limit
-	findOptions := options.Find().SetSkip(int64(skip)).SetLimit(int64(params.Limit))
 
-	cursor, err := s.repo.Find(ctx, filter, findOptions)
+	pipeline := mongo.Pipeline{
+		{{"$match", filter}},
+	}
+
+	if params.Populate {
+		pipeline = append(pipeline, bson.D{{"$lookup", bson.M{
+			"from":         "course_pages",
+			"localField":   "_id",
+			"foreignField": "course_id",
+			"as":           "pages",
+		}}})
+	}
+
+	pipeline = append(pipeline, bson.D{{"$sort", bson.M{"created_at": -1}}})
+	pipeline = append(pipeline, bson.D{{"$skip", skip}})
+	pipeline = append(pipeline, bson.D{{"$limit", int64(params.Limit)}})
+
+	cursor, err := s.repo.Aggregate(ctx, pipeline)
 	if err != nil {
 		return nil, err
 	}
+
 	var courses []models.Course
 	if err := cursor.All(ctx, &courses); err != nil {
 		return nil, err
 	}
-	if params.Populate == true {
 
-	}
 	return courses, nil
 }
 

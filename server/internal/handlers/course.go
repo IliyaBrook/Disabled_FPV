@@ -4,7 +4,6 @@ import (
 	"disabled-fpv-server/internal/dto"
 	"disabled-fpv-server/internal/models"
 	"disabled-fpv-server/internal/services"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -73,7 +72,6 @@ func (h *CourseHandler) GetAllCourses(c *gin.Context) {
 	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
 	limit, _ := strconv.Atoi(c.DefaultQuery("limit", "10"))
 	populate := c.DefaultQuery("populate", "false") == "true"
-	fmt.Println("populate:", populate)
 	service := services.NewCourseService(h.mongoClient)
 	courses, err := service.GetAllCourses(c.Request.Context(), dto.GetAllCoursesParams{
 		Name:     name,
