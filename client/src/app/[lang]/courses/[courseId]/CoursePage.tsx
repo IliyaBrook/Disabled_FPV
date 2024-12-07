@@ -4,7 +4,8 @@ import Input from '@/app/components/Input/Input'
 import RichTextEditor from '@/app/components/RichTextEditor/RichTextEditor'
 import YouTubeFrame from '@/app/components/YouTubeFrame/YouTubeFrame'
 import { useUpdateCoursePageMutation } from '@/app/store/thunks'
-import type { ICoursePage } from '@/app/types/pages/course.types'
+
+import type { ICoursePage } from '@/app/types/store/courses'
 import React, { useState } from 'react'
 import styles from './coursePage.module.scss'
 

@@ -1,3 +1,10 @@
+export interface getCoursesParams {
+  name?: string
+  page?: number
+  limit?: number
+  populate?: string
+}
+
 export interface ICourse {
   id: string
   name: string

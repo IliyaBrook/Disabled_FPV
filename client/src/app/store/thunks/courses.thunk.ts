@@ -1,4 +1,9 @@
-import type { ICourse, TCourseForm } from '@/app/types/pages/course.types'
+import type {
+  getCoursesParams,
+  ICourse,
+  TCourseForm,
+} from '@/app/types/store/courses'
+import addParamsToUrl from '@/app/utils/addParamsToUrl'
 import { apiUrl } from '@/app/utils/constants'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
@@ -13,16 +18,9 @@ export const coursesThunk = createApi({
   }),
   tagTypes: ['Course'],
   endpoints: (builder) => ({
-    getCourses: builder.query<
-      ICourse[],
-      {
-        name?: string
-        page?: number
-        limit?: number
-      }
-    >({
+    getCourses: builder.query<ICourse[], getCoursesParams>({
       query: (data) => ({
-        url: `/api/courses?name=${data.name}&page=${data.page}&limit=${data.limit}`,
+        url: `/api/courses` + addParamsToUrl<getCoursesParams>(data),
         method: 'GET',
       }),
       serializeQueryArgs: () => 'courses',

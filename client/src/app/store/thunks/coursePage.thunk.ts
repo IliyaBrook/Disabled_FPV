@@ -1,4 +1,4 @@
-import type { ICoursePage, TCourseForm } from '@/app/types/pages/course.types'
+import type { ICoursePage, TCourseForm } from '@/app/types/store/courses'
 import { apiUrl } from '@/app/utils/constants'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
