@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev-turbo": "next dev  --turbopack",
+		"debug": "cross-env NODE_OPTIONS='--inspect' next dev",
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
@@ -17,7 +17,7 @@
 		"jodit": "^4.2.43",
 		"jodit-react": "^4.1.2",
 		"negotiator": "^1.0.0",
-		"next": "15.0.3",
+		"next": "15.0.4",
 		"quill": "^2.0.2",
 		"react": "19.0.0-rc-91061073-20241121",
 		"react-dom": "19.0.0-rc-91061073-20241121",

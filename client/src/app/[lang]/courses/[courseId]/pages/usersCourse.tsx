@@ -34,6 +34,7 @@ export default async function UsersCourse({ courseId, lang }: UsersCourse) {
   const course: ICourse | undefined = courses.find(
     (course: ICourse) => course.id === courseId
   )
+
   if (!course) return <Spinner />
   return (
     <CourseLayout>

@@ -36,7 +36,6 @@ export default async function CoursePageById({ params }: Params) {
   const p = await params
   const courseId = p.courseId
 
-  // return <UsersCourse courseId={courseId} lang={p.lang} />
   if (isAdmin) {
     const { default: AdminCoursePage } = await import('./pages/adminCourse')
     return <AdminCoursePage courseId={courseId} lang={p.lang} />
