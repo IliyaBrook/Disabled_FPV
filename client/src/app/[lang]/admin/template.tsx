@@ -1,5 +1,5 @@
 import NotFound from '@/app/[lang]/not-found'
-import { fetchServerAuthUser } from '@/app/utils/serverUtils/fetchServerAuthUser'
+import { fetchServerAuthUser } from '@/app/utils/fetchData/fetchServerAuthUser'
 import React from 'react'
 
 export default async function Template({

@@ -1,15 +1,13 @@
 'use server'
 
 import { apiUrl } from '@/app/utils/constants'
-import getServerSideToken from '@/app/utils/serverUtils/getServerSideToken'
+import getServerSideToken from '@/app/utils/fetchData/getServerSideToken'
 
-interface FetchServerOptions {
+interface FetchServerOptions extends NextFetchRequestConfig, RequestInit {
   endpoint: string
-  method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
-  headers?: Record<string, string>
-  body?: any
   includeAuth?: boolean
   throwError?: boolean
+  next?: NextFetchRequestConfig | undefined
 }
 
 /**
@@ -17,27 +15,24 @@ interface FetchServerOptions {
  *
  * @template T - The expected type of the response data.
  * @param {FetchServerOptions} options - The options for the fetch request.
- * @param {string} options.endpoint - The API endpoint to request.
- * @param {string} [options.method='GET'] - The HTTP method to use for the request.
- * @param {Object} [options.headers={}] - Additional headers to include in the request.
- * @param {Object} [options.body] - The request body, which will be stringified if provided.
- * @param {boolean} [options.includeAuth=true] - Whether to include authentication cookie in the request.
- * @param {boolean} [options.throwError=true] - Whether to throw an error on HTTP failure or JSON parsing error.
  * @returns {Promise<T | null>} A promise that resolves to the response data parsed as JSON, or `null` if parsing fails and `throwError` is `false`.
  * @throws {Error} Throws an error if the response status is not OK and `throwError` is `true`, or if JSON parsing fails.
  */
-export async function fetchServer<T>({
+export const fetchServer = async <T extends any>({
   endpoint,
   method = 'GET',
   headers = {},
   body,
   includeAuth = true,
   throwError = true,
-}: FetchServerOptions): Promise<T | null> {
+  cache = 'default',
+  credentials = 'same-origin',
+  ...otherOptions
+}: FetchServerOptions): Promise<T | null> => {
   const authToken = await getServerSideToken()
   const authCookie = includeAuth ? authToken : null
 
-  const fetchHeaders: Record<string, string> = {
+  const fetchHeaders: HeadersInit = {
     'Content-Type': 'application/json',
     ...headers,
     ...(authCookie && { Cookie: `${authCookie.name}=${authCookie.value}` }),
@@ -47,7 +42,11 @@ export async function fetchServer<T>({
     method,
     headers: fetchHeaders,
     body: body ? JSON.stringify(body) : undefined,
+    cache,
+    credentials,
+    ...otherOptions,
   })
+
   let responseBody: any
   try {
     responseBody = await response.json()
@@ -57,6 +56,7 @@ export async function fetchServer<T>({
     }
     return null
   }
+
   if (!response.ok) {
     if (throwError) {
       throw new Error(

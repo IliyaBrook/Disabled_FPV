@@ -1,7 +1,7 @@
 'use server'
 import type { TLangOptions } from '@/app/types'
 import type { ICoursePage } from '@/app/types/store/courses'
-import { fetchServerAuthUser } from '@/app/utils/serverUtils/fetchServerAuthUser'
+import { fetchServerAuthUser } from '@/app/utils/fetchData/fetchServerAuthUser'
 
 interface Params {
   params: Promise<{
@@ -12,26 +12,24 @@ interface Params {
 }
 
 async function getCourseData() {
-  const getCoursesServer = await import('@/app/store/serverApi/courses').then(
-    (i) => i.getCoursesServer
-  )
-  return await getCoursesServer({ populate: 'true', limit: 999 })
+  const { getCourses } = await import('@/app/utils/fetchData/getCourses')
+  return await getCourses({ populate: 'true', limit: 999 })
 }
 
 export async function generateStaticParams() {
   const courses = await getCourseData()
-  return courses.map((course) => ({
-    params: {
-      courseId: course.id,
-      lang: 'he',
-    },
-  }))
+  if (courses && courses.length > 0) {
+    return courses.map((course) => ({
+      params: {
+        courseId: course.id,
+        lang: 'he',
+      },
+    }))
+  }
 }
 
 export default async function CoursePageById({ params }: Params) {
   const userData = await fetchServerAuthUser()
-  if (userData) {
-  }
   const isAdmin = userData && userData.role === 'admin'
   const p = await params
   const courseId = p.courseId

@@ -19,8 +19,8 @@ export const coursesThunk = createApi({
   tagTypes: ['Course'],
   endpoints: (builder) => ({
     getCourses: builder.query<ICourse[], getCoursesParams>({
-      query: (data) => ({
-        url: `/api/courses` + addParamsToUrl<getCoursesParams>(data),
+      query: (data: getCoursesParams | {}) => ({
+        url: `/api/courses` + addParamsToUrl<getCoursesParams>(data ?? {}),
         method: 'GET',
       }),
       serializeQueryArgs: () => 'courses',

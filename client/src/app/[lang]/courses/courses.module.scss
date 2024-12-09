@@ -1,0 +1,41 @@
+@use '@/app/globalStyles/index' as global;
+$search-bar-container-height: var(--navbar-height);
+.courses{
+	height: 100%;
+	.searchInputContainer{
+		position: fixed;
+		top: var(--navbar-height);
+		height: $search-bar-container-height;
+		width: 100%;
+		background-color: #b5b2b2;
+		@media (max-width: 1047px) {
+			position: initial;
+		}
+	}
+	.coursesCardsContainer{
+		padding: calc(10px + $search-bar-container-height) 10px 10px 10px;
+		height: 100%;
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		grid-template-rows: repeat(3, 1fr);
+		grid-gap: 10px;
+		grid-auto-rows: minmax(100px, auto);
+		background-color: seagreen;
+		div{
+			word-wrap: break-word;
+			overflow-wrap: break-word;
+			padding: 10px;
+			border: 1px solid #ccc;
+			box-sizing: border-box;
+		}
+		@media (max-width: 1047px) {
+			grid-template-columns: 1fr;
+			grid-template-rows: auto;
+			grid-auto-rows: 1fr;
+			padding: 10px 10px calc(10px + var(--footer-height)) 10px;
+		}
+	}
+	@media (max-width: 1047px) {
+		height: initial;
+	}
+}
