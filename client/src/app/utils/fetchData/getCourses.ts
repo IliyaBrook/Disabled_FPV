@@ -12,5 +12,6 @@ export async function getCourses(
     },
     cache: 'force-cache',
     throwError: false,
+    includeAuth: false,
   })
 }

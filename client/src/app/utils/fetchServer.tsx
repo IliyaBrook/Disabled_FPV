@@ -29,7 +29,12 @@ export const fetchServer = async <T extends any>({
   credentials = 'same-origin',
   ...otherOptions
 }: FetchServerOptions): Promise<T | null> => {
-  const authToken = await getServerSideToken()
+  console.log('`includeAuth`:', includeAuth)
+
+  let authToken: null
+  if (includeAuth) {
+    authToken = await getServerSideToken()
+  }
   const authCookie = includeAuth ? authToken : null
 
   const fetchHeaders: HeadersInit = {
