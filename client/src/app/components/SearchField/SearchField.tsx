@@ -48,9 +48,11 @@ const SearchField: React.FC<SearchFieldProps> = (props: SearchFieldProps) => {
       <div className={styles.content}>
         <Image
           src="/img/cross_icon.svg"
-          alt="Magnifier icon"
-          width={18}
-          height={18}
+          alt="Clean button"
+          width={12}
+          height={12}
+          onClick={() => setValue('')}
+          className={styles.iconButton}
         />
         <div className={styles.inputContainer}>
           <input

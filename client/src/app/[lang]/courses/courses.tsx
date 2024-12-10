@@ -14,7 +14,11 @@ const Courses: React.FC<CoursesProps> = ({ courses }) => {
   return (
     <div className={styles.courses}>
       <div className={styles.searchInputContainer}>
-        <SearchField onDebouncedChange={debouncedOnSearch} width="70%" />
+        <SearchField
+          onDebouncedChange={debouncedOnSearch}
+          width="70%"
+          fontSize="1.2rem"
+        />
       </div>
       <div className={styles.coursesCardsContainer}>
         {/* test */}
