@@ -1,23 +1,19 @@
 @use '@/app/globalStyles/index' as global;
-$search-bar-container-height: var(--navbar-height);
+$top-padding: calc(10px + var(--navbar-height));
+$bottom-padding: calc(10px + var(--footer-height));
 .courses{
-	height: 100%;
 	.searchInputContainer{
 		position: fixed;
-		top: var(--navbar-height);
-		height: $search-bar-container-height;
+		top: calc(var(--navbar-height) - 1px);
+		height: var(--navbar-height);
 		width: 100%;
 		background-color: #b5b2b2;
-		@media (max-width: 1047px) {
-			position: initial;
-		}
 	}
 	.coursesCardsContainer{
-		padding: calc(10px + $search-bar-container-height) 10px 10px 10px;
+		padding: $top-padding 10px $bottom-padding 10px;
 		height: 100%;
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
-		grid-template-rows: repeat(3, 1fr);
 		grid-gap: 10px;
 		grid-auto-rows: minmax(100px, auto);
 		background-color: seagreen;
@@ -28,14 +24,18 @@ $search-bar-container-height: var(--navbar-height);
 			border: 1px solid #ccc;
 			box-sizing: border-box;
 		}
+		@media (max-width: 451px) {
+			grid-template-columns: repeat(1, 1fr);
+		}
+		@media (min-width: 451px) and (max-width: 768px) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		@media (min-width: 768px) and (max-width: 1047px) {
+			grid-template-columns: repeat(3, 1fr);
+		}
 		@media (max-width: 1047px) {
-			grid-template-columns: 1fr;
 			grid-template-rows: auto;
 			grid-auto-rows: 1fr;
-			padding: 10px 10px calc(10px + var(--footer-height)) 10px;
 		}
-	}
-	@media (max-width: 1047px) {
-		height: initial;
 	}
 }

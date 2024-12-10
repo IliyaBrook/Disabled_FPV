@@ -50,6 +50,84 @@ const Courses: React.FC<CoursesProps> = ({ courses }) => {
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
           consequatur dicta distinctio doloribus eveniet ex, fugit ipsum, neque
         </div>
+        <div style={{ backgroundColor: 'red' }}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+          consequatur dicta distinctio doloribus eveniet ex, fugit ipsum, neque
+        </div>
+        <div style={{ backgroundColor: 'red' }}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+          consequatur dicta distinctio doloribus eveniet ex, fugit ipsum, neque
+        </div>
+        <div style={{ backgroundColor: 'red' }}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+          consequatur dicta distinctio doloribus eveniet ex, fugit ipsum, neque
+        </div>
+        <div style={{ backgroundColor: 'red' }}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+          consequatur dicta distinctio doloribus eveniet ex, fugit ipsum, neque
+        </div>
+        <div style={{ backgroundColor: 'red' }}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+          consequatur dicta distinctio doloribus eveniet ex, fugit ipsum, neque
+        </div>
+        <div style={{ backgroundColor: 'red' }} />
+        <div style={{ backgroundColor: 'red' }} />
+        <div style={{ backgroundColor: 'red' }} />
+        <div style={{ backgroundColor: 'red' }}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+          consequatur dicta distinctio doloribus eveniet ex, fugit ipsum, neque
+        </div>
+        <div style={{ backgroundColor: 'red' }}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+          consequatur dicta distinctio doloribus eveniet ex, fugit ipsum, neque
+        </div>
+        <div style={{ backgroundColor: 'red' }}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+          consequatur dicta distinctio doloribus eveniet ex, fugit ipsum, neque
+        </div>
+        <div style={{ backgroundColor: 'red' }}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+          consequatur dicta distinctio doloribus eveniet ex, fugit ipsum, neque
+        </div>
+        <div style={{ backgroundColor: 'red' }}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+          consequatur dicta distinctio doloribus eveniet ex, fugit ipsum, neque
+        </div>
+        <div style={{ backgroundColor: 'red' }}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+          consequatur dicta distinctio doloribus eveniet ex, fugit ipsum, neque
+        </div>
+        <div style={{ backgroundColor: 'red' }}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+          consequatur dicta distinctio doloribus eveniet ex, fugit ipsum, neque
+        </div>
+        <div style={{ backgroundColor: 'red' }}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+          consequatur dicta distinctio doloribus eveniet ex, fugit ipsum, neque
+        </div>
+        <div style={{ backgroundColor: 'red' }}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+          consequatur dicta distinctio doloribus eveniet ex, fugit ipsum, neque
+        </div>
+        <div style={{ backgroundColor: 'red' }} />
+        <div style={{ backgroundColor: 'red' }} />
+        <div style={{ backgroundColor: 'red' }} />
+        <div style={{ backgroundColor: 'red' }}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+          consequatur dicta distinctio doloribus eveniet ex, fugit ipsum, neque
+        </div>
+        <div style={{ backgroundColor: 'red' }}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+          consequatur dicta distinctio doloribus eveniet ex, fugit ipsum, neque
+        </div>
+        <div style={{ backgroundColor: 'red' }}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+          consequatur dicta distinctio doloribus eveniet ex, fugit ipsum, neque
+        </div>
+        <div style={{ backgroundColor: 'red' }}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+          consequatur dicta distinctio doloribus eveniet ex, fugit ipsum, neque
+        </div>
         {/* test */}
       </div>
     </div>

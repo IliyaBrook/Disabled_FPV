@@ -30,8 +30,6 @@ export const fetchServer = async <T extends any>({
   credentials = 'same-origin',
   ...otherOptions
 }: FetchServerOptions): Promise<T | null> => {
-  console.log('`includeAuth`:', includeAuth)
-
   let authToken: RequestCookie | undefined | null = null
   if (includeAuth) {
     authToken = (await getServerSideToken()) ?? null
