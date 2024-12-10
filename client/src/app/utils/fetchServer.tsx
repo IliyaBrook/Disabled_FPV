@@ -2,6 +2,7 @@
 
 import { apiUrl } from '@/app/utils/constants'
 import getServerSideToken from '@/app/utils/fetchData/getServerSideToken'
+import type { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 
 interface FetchServerOptions extends NextFetchRequestConfig, RequestInit {
   endpoint: string
@@ -31,9 +32,9 @@ export const fetchServer = async <T extends any>({
 }: FetchServerOptions): Promise<T | null> => {
   console.log('`includeAuth`:', includeAuth)
 
-  let authToken: null
+  let authToken: RequestCookie | undefined | null = null
   if (includeAuth) {
-    authToken = await getServerSideToken()
+    authToken = (await getServerSideToken()) ?? null
   }
   const authCookie = includeAuth ? authToken : null
 
