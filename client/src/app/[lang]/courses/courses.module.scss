@@ -19,7 +19,6 @@ $bottom-padding: calc(10px + var(--footer-height));
 		display: grid;
 		padding: $top-padding 10px $bottom-padding 10px;
 		height: 100%;
-		background-color: seagreen;
 		grid-template-columns: repeat(4, 1fr);
 		grid-auto-rows: minmax(100px, auto);
 		grid-gap: 10px;
