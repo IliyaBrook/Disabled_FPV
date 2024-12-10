@@ -1,22 +1,29 @@
 @use '@/app/globalStyles/index' as global;
-$top-padding: calc(10px + var(--navbar-height));
+$top-padding: calc(15px + var(--navbar-height));
 $bottom-padding: calc(10px + var(--footer-height));
 .courses{
 	.searchInputContainer{
 		position: fixed;
-		top: calc(var(--navbar-height) - 1px);
 		height: var(--navbar-height);
 		width: 100%;
-		background-color: #b5b2b2;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: 10px 10px;
+		margin: 10px 0;
+		@media (max-width: 1047px) {
+			padding:5px 10px;
+		}
 	}
 	.coursesCardsContainer{
+		display: grid;
 		padding: $top-padding 10px $bottom-padding 10px;
 		height: 100%;
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		grid-gap: 10px;
-		grid-auto-rows: minmax(100px, auto);
 		background-color: seagreen;
+		grid-template-columns: repeat(4, 1fr);
+		grid-auto-rows: minmax(100px, auto);
+		grid-gap: 10px;
 		div{
 			word-wrap: break-word;
 			overflow-wrap: break-word;

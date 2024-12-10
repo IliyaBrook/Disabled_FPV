@@ -10,7 +10,6 @@ async function getCourseData() {
 
 export default async function CoursesPage(): Promise<React.ReactElement> {
   const coursesData = await getCourseData()
-  console.log('coursesData: ', coursesData)
 
   return <Courses courses={coursesData} />
 }
