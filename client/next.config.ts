@@ -24,9 +24,9 @@ const nextConfig: NextConfig = {
     silenceDeprecations: ['legacy-js-api'],
   },
   webpack(config, { dev, isServer }) {
-    // if (dev) {
-    //   config.devtool = 'source-map'
-    // }
+    if (dev) {
+      config.devtool = 'source-map'
+    }
     if (dev && !isServer) {
       config.plugins = config.plugins.filter(
         (plugin: { constructor: { name: string } }) =>

@@ -23,7 +23,6 @@ const AdminCourse: React.FC<CoursePageProps> = ({ courseId }) => {
   const { data: courseData } = useGetCourseByIdQuery({
     course_id: courseId,
   })
-
   const userData = useAppSelector(authUserSelector)
   const [updateCourse] = useUpdateCourseMutation()
   const isAdmin = (userData?.data as any)?.role === 'admin'

@@ -7,7 +7,6 @@ import (
 	"disabled-fpv-server/internal/models"
 	"disabled-fpv-server/internal/utils"
 	"errors"
-	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -65,7 +64,6 @@ func (s *CourseService) GetAllCourses(ctx context.Context, params dto.GetAllCour
 	pipeline := mongo.Pipeline{
 		{{"$match", filter}},
 	}
-	fmt.Println("limit log:", limit)
 	if params.Populate {
 		pipeline = append(pipeline, bson.D{{"$lookup", bson.M{
 			"from":         "course_pages",

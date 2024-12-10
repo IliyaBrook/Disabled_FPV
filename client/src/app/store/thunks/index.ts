@@ -18,6 +18,7 @@ export const {
   useAddCourseMutation,
   useDeleteCourseMutation,
   useGetCourseByIdQuery,
+  // useGetCoursesQuery,
   useGetCoursesQuery,
   useUpdateCourseMutation,
 } = coursesThunk

@@ -1,6 +1,6 @@
 import AlertModal from '@/app/components/alertModal'
 import Footer from '@/app/components/footer/footer'
-import Initializer from '@/app/components/Initializer'
+
 import NavBar from '@/app/components/navBar'
 import { Spinner } from '@/app/components/Spinner/Spinner'
 import type { TDir, TLangOptions } from '@/app/types'
@@ -58,6 +58,8 @@ export const metadata: Metadata = {
 
 async function AsyncDictionaryLoader({ lang }: { lang: TLangOptions }) {
   const { getDictionary } = await import('@/app/utils/dictionaries')
+  const { default: Initializer } = await import('@/app/components/Initializer')
+
   const dict = await getDictionary(lang)
 
   return <Initializer lang={lang} dict={dict} />

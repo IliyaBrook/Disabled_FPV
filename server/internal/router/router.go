@@ -21,5 +21,6 @@ func NewRouter(mongoClient *mongo.Client) *gin.Engine {
 	publicRoutes(router, mongoClient)
 	authUsersRoutes(router, mongoClient)
 	adminRoutes(router, mongoClient)
+	router.RemoveExtraSlash = true
 	return router
 }

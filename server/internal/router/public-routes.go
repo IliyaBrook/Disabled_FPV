@@ -21,9 +21,9 @@ func publicRoutes(router *gin.Engine, mongoClient *mongo.Client) {
 	api.POST("/authUser", userHandler.AuthUser)
 	api.POST("/logout", userHandler.Logout)
 	// courses routes
-	courses.GET("/", coursesHandler.GetAllCourses)
+	courses.GET("", coursesHandler.GetAllCourses)
 	courses.GET("/:course_id", coursesHandler.GetCourseById)
 	// course pages
 	coursePages.GET("/:course_id/:page_number", coursePagesHandler.GetCoursePageByIdAndPageNum)
-	coursePages.GET("/", coursePagesHandler.GetCoursePages)
+	coursePages.GET("", coursePagesHandler.GetCoursePages)
 }

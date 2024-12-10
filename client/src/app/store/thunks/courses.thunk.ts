@@ -12,9 +12,6 @@ export const coursesThunk = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: apiUrl,
     credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-    },
   }),
   tagTypes: ['Course'],
   endpoints: (builder) => ({

@@ -2,9 +2,9 @@ import type { ICourse } from '@/app/types/store/courses'
 import React from 'react'
 
 interface courseCardProps {
-  courses: ICourse[] | null
+  course: ICourse
 }
-const CourseCard: React.FC<courseCardProps> = ({ courses }) => {
+const CourseCard: React.FC<courseCardProps> = ({ course }) => {
   return <div></div>
 }
 
