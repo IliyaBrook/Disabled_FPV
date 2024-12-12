@@ -25,6 +25,7 @@ type Config struct {
 	MongoPassword string
 	JWTSecret     string
 	DbName        string
+	AllowOrigins  string
 }
 
 func New() *Config {
@@ -48,5 +49,6 @@ func (c *Config) Init() {
 	c.MongoPassword = os.Getenv("MONGO_PASSWORD")
 	c.JWTSecret = os.Getenv("JWT_SECRET")
 	c.DbName = os.Getenv("DB_NAME")
+	c.AllowOrigins = os.Getenv("ALLOW_ORIGINS")
 	Env = *c
 }

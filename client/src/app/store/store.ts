@@ -1,8 +1,9 @@
 import { authUser, coursePageThunk, coursesThunk } from '@/app/store/thunks'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { localizationSlice, modalSlice } from './slices'
+import { localizationSlice, modalSlice, userDataSlice } from './slices'
 
 const rootReducer = combineReducers({
+  [userDataSlice.name]: userDataSlice.reducer,
   [localizationSlice.name]: localizationSlice.reducer,
   [modalSlice.name]: modalSlice.reducer,
   [authUser.reducerPath]: authUser.reducer,
@@ -10,10 +11,7 @@ const rootReducer = combineReducers({
   [coursePageThunk.reducerPath]: coursePageThunk.reducer,
 })
 
-/* eslint-disable */
-export type RootState = ReturnType<typeof rootReducer>
-
-export const makeStore = (preloadedState?: Partial<RootState>) =>
+export const makeStore = () =>
   configureStore({
     reducer: rootReducer,
     devTools: process.env.NODE_ENV !== 'production',
@@ -25,8 +23,7 @@ export const makeStore = (preloadedState?: Partial<RootState>) =>
       ]
       return getDefaultMiddleware().concat(...middlewareArray)
     },
-    preloadedState,
   })
-
 export type AppStore = ReturnType<typeof makeStore>
+export type RootState = ReturnType<AppStore['getState']>
 export type AppDispatch = AppStore['dispatch']

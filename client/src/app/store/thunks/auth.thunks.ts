@@ -22,7 +22,6 @@ export const authUser = createApi({
         url: `/api/authUser`,
         credentials: 'include',
       }),
-      serializeQueryArgs: () => 'details',
     }),
     signIn: builder.mutation<TAuthResponse, ISignInForm>({
       query: (data) => ({

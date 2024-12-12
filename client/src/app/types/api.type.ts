@@ -1,3 +1,5 @@
+import type { IUserData } from '@/app/types/store/userData'
+
 export type TServerErrorRe = {
   error: {
     status: number
@@ -8,13 +10,7 @@ export type TServerErrorRe = {
 }
 
 export type TAuthSuccessResponse = {
-  data: {
-    id: string
-    email: string
-    role: string
-    first_name: string
-    last_name: string
-  }
+  data: IUserData
 }
 
 export type TAuthResponse = TServerErrorRe | TAuthSuccessResponse
