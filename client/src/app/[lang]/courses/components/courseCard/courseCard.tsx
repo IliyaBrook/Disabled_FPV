@@ -17,7 +17,11 @@ const CourseCard: React.FC<courseCardProps> = ({ course, userData }) => {
   return (
     <div className={styles.courseCard}>
       {isAdmin && (
-        <div className={styles.editButton}>
+        <div
+          className={`${styles.editButton} ${editCourse ? styles.active : ''} ${
+            !isAdmin ? styles.inactive : ''
+          }`}
+        >
           <EditIcon
             className={`${styles.editIcon} ${editCourse ? styles.editIconEditted : ''}"`}
             onClick={() => setEditCourse(!editCourse)}
