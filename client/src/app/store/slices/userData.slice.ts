@@ -6,7 +6,7 @@ import type { WritableDraft } from 'immer'
 
 const userDataInitState: IUserData = {
   id: '',
-  role: 'user',
+  role: '',
   first_name: '',
   last_name: '',
   email: '',
@@ -21,17 +21,18 @@ const updateUserData = (
   state.first_name = data.first_name
   state.last_name = data.last_name
   state.role = data.role as TRole
+  return state
 }
 
 export const userDataSlice = createSlice({
-  name: 'userData',
+  name: 'userState',
   initialState: userDataInitState,
   reducers: {},
   extraReducers: (builder) => {
     const mustUpdateEndpoints = [
-      authUser.endpoints.authUser.matchFulfilled,
       authUser.endpoints.signIn.matchFulfilled,
       authUser.endpoints.signUp.matchFulfilled,
+      authUser.endpoints.authUser.matchFulfilled,
     ]
     mustUpdateEndpoints.forEach((endpoint) => {
       builder.addMatcher(
@@ -41,10 +42,24 @@ export const userDataSlice = createSlice({
           { payload }: { payload: TAuthResponse }
         ) => {
           const payloadData = payload as unknown as IUserData
-          updateUserData(state, payloadData)
+          state = updateUserData(state, payloadData)
+          return state
         }
       )
     })
+
+    // builder.addMatcher(
+    //   authUser.endpoints.authUser.matchFulfilled,
+    //   (
+    //     // state: WritableDraft<IUserData>,
+    //     // { payload }: { payload: TAuthResponse }
+    //     state: WritableDraft<IUserData>,
+    //     actions
+    //   ) => {
+    //     console.log('authUser state:', state)
+    //     console.log('authUser actions:', actions)
+    //   }
+    // )
     builder.addMatcher(
       authUser.endpoints.logOut.matchFulfilled,
       (state: WritableDraft<IUserData>) => {

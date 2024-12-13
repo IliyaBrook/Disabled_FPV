@@ -6,9 +6,17 @@ import type { WritableDraft } from 'immer'
 const coursesInitState: ICourse[] = []
 
 export const coursesSlice = createSlice({
-  name: 'coursesSlice',
+  name: 'coursesState',
   initialState: coursesInitState,
-  reducers: {},
+  reducers: {
+    setCourses(
+      state: WritableDraft<ICourse[]>,
+      { payload }: PayloadAction<ICourse[]>
+    ) {
+      state = payload
+      return state
+    },
+  },
   extraReducers: (builder) => {
     builder.addMatcher(
       coursesThunk.endpoints.getCourses.matchFulfilled,

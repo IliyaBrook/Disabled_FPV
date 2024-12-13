@@ -15,7 +15,7 @@ export const modalSelector = (state: RootState): RootState['modal'] =>
   state.modal
 
 export const authUserSelector = (state: RootState): IUserData => {
-  return state.userData
+  return state.userState
 }
 
 // userDataWithLocalization
@@ -24,5 +24,16 @@ export const userDataWithLocalSelector = createSelector(
   (user, local): UserData => ({
     authUser: user,
     ...local,
+  })
+)
+
+export const coursesSelector = (state: RootState): RootState['coursesState'] =>
+  state.coursesState
+
+export const userDataWithCourses = createSelector(
+  [authUserSelector, coursesSelector],
+  (userData, courses) => ({
+    userData,
+    courses,
   })
 )

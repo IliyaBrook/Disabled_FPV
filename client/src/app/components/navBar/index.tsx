@@ -35,7 +35,7 @@ export default function NavBar(): React.ReactElement {
   const { screenWidth } = useWindowSize()
   const isDesktop = screenWidth > 768
 
-  const isAuth = !!authUser
+  const isAuth = !!authUser.role
   const isAdmin = isAuth && authUser?.role === 'admin'
   const userId = isAuth && authUser?.id
 

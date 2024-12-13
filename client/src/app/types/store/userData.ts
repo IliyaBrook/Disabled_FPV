@@ -1,4 +1,4 @@
-export type TRole = 'admin' | 'user'
+export type TRole = 'admin' | 'user' | ''
 
 export interface IUserData {
   id: string

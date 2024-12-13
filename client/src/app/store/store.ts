@@ -1,9 +1,15 @@
 import { authUser, coursePageThunk, coursesThunk } from '@/app/store/thunks'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { localizationSlice, modalSlice, userDataSlice } from './slices'
+import {
+  coursesSlice,
+  localizationSlice,
+  modalSlice,
+  userDataSlice,
+} from './slices'
 
 const rootReducer = combineReducers({
   [userDataSlice.name]: userDataSlice.reducer,
+  [coursesSlice.name]: coursesSlice.reducer,
   [localizationSlice.name]: localizationSlice.reducer,
   [modalSlice.name]: modalSlice.reducer,
   [authUser.reducerPath]: authUser.reducer,
