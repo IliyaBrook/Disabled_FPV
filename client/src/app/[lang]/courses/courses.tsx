@@ -1,6 +1,8 @@
 'use client'
 import CourseCard from '@/app/[lang]/courses/components/courseCard/courseCard'
 import SearchField from '@/app/components/SearchField/SearchField'
+import { useAppSelector } from '@/app/store/hooks'
+import { authUserSelector } from '@/app/store/selectors'
 import type { ICourse } from '@/app/types/store/courses'
 import React, { useState } from 'react'
 import styles from './courses.module.scss'
@@ -10,6 +12,7 @@ interface CoursesProps {
 }
 const Courses: React.FC<CoursesProps> = ({ courses }) => {
   const [coursesData, setCoursesData] = useState<ICourse[] | null>(courses)
+  const userData = useAppSelector(authUserSelector)
 
   const debouncedOnSearch = (value: string) => {
     const searchValue = value.toLowerCase().trim()
@@ -38,7 +41,7 @@ const Courses: React.FC<CoursesProps> = ({ courses }) => {
         {coursesData &&
           coursesData.length > 0 &&
           coursesData.map((course) => (
-            <CourseCard key={course.id} course={course} />
+            <CourseCard key={course.id} course={course} userData={userData} />
           ))}
       </div>
     </div>

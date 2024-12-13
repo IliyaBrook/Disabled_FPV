@@ -9,6 +9,7 @@ export async function getCourses(
     endpoint: '/api/courses' + addParamsToUrl<getCoursesParams>(params ?? {}),
     next: {
       revalidate: 3600,
+      tags: ['courses'],
     },
     cache: 'force-cache',
     throwError: false,
